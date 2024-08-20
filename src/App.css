@@ -1,38 +1,145 @@
-.App {
-  text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: 'Product Sans Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Product Sans Regular'), url('./assets/font/ProductSans-Regular.woff') format('woff');
+  }
+
+  @font-face {
+  font-family: 'Product Sans Light Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Product Sans Light Regular'), url('./assets/font/ProductSans-Light.woff') format('woff');
+  }
+  
+
+  @font-face {
+  font-family: 'Product Sans Medium Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Product Sans Medium Regular'), url('./assets/font/ProductSans-Medium.woff') format('woff');
+  }
+ 
+
+  @font-face {
+  font-family: 'Product Sans Bold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Product Sans Bold'), url('./assets/font/ProductSans-Bold.woff') format('woff');
+  }
+ 
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Product Sans Regular', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body{
+  overflow: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+body::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+
+@layer components {
+  .nav-link{
+    @apply text-[#808080] text-center items-center self-end gap-1;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .nav-link img{
+     @apply m-auto h-[18px]
+  }
+
+  .nav-link span{
+    @apply mt-0.5;
+    font-size: 0.6rem;
+    width: max-content;
+    
+  }
+  
+  .feature-link{
+    @apply flex flex-col items-center flex-1;
+  }
+
+  .feature-link img{
+    @apply h-10 w-10
+  }
+
+  .feature-link p{
+    @apply mt-1 text-xs
+  }
+
+  .transaction-list-item{
+    @apply flex justify-between items-center gap-2 py-2 my-1;
+    border-bottom: 1px solid #EBEBEB;
+    /* background-color: #F8F8F8; */
+  }
+
+  .transaction-list-item img{
+    @apply h-8 w-8
+  }
+
+  .transaction-list-item-left {
+    @apply flex gap-2 items-center
+  }
+
+  .transaction-list-item p{
+    @apply text-sm
+  }
+
+  .transaction-list-item-left p{
+    @apply text-xs opacity-75
+  }
+
+  .transaction-list-item h3{
+    @apply text-sm
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.gradient-bg{
+  background: rgb(25,141,249);
+background: linear-gradient(0deg, rgba(25,141,249,1) 0%, rgba(135,136,239,1) 100%);
 }
 
-.App-link {
-  color: #61dafb;
+.nav-container{
+  box-shadow: 0 -4px 6px -4px rgba(0, 0, 0, 0.2);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-link-loan div{
+  border: 4px solid #CCDCFF;
+}
+
+.nav-link-loan img{
+  width: 32px;
+  height: 32px;
+  margin: auto;
+  padding: 2px;
+  opacity: 1;
+  filter: none;
+}
+
+.nav-link.active{
+  color: #0051FF;
+}
+
+.nav-link.active img{
+  opacity: 1;
+  filter: none;
 }
