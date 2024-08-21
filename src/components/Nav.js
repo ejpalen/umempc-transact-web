@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 import homeIcon from "../assets/images/home-icon.png";
 import homeIconActive from "../assets/images/home-icon-active.png";
@@ -10,9 +11,8 @@ import historyIcon from "../assets/images/history-icon.png";
 import historyIconActive from "../assets/images/history-icon-active.png";
 import profileIcon from "../assets/images/profile-icon.png";
 import profileIconActive from "../assets/images/profile-icon-active.png";
-import { useState } from "react";
 
-const Nav = () => {
+const Nav = ({ activeLink, setActiveLink }) => {
   const links = [
     {
       path: "/home",
@@ -35,7 +35,7 @@ const Nav = () => {
 
     {
       path: "/support",
-      text: "Support",
+      text: "Messages",
       icon: supportIcon,
       activeIcon: supportIconActive,
     },
@@ -47,15 +47,21 @@ const Nav = () => {
     },
   ];
 
-  const [activeLink, setActiveLink] = useState(0);
-
   const handleLinkClick = (index) => {
     setActiveLink(index);
   };
 
+  useEffect(() => {
+    if (activeLink === 0 || activeLink === 4) {
+      document.querySelector("meta[name='theme-color']").content = "#8788EF";
+    } else {
+      document.querySelector("meta[name='theme-color']").content = "#ffffff";
+    }
+  }, [activeLink]);
+
   return (
-    <div className="nav-container fixed bottom-0 left-0 right-0 py-3 px-0 pt-0 bg-white z-10">
-      <nav className="flex justify-around pt-3 pb-5">
+    <div className="nav-container fixed bottom-0 left-0 right-0 py-3 px-0 pt-0 bg-white z-10 h-20">
+      <nav className="flex justify-around pt-3 ">
         {links.map((link, index) => (
           <Link
             to={link.path}

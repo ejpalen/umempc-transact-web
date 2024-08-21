@@ -42,6 +42,7 @@
 
 body{
   overflow: hidden;
+  background: #fff;
 }
 
 body::-webkit-scrollbar {
@@ -78,8 +79,12 @@ html {
     @apply flex flex-col items-center flex-1;
   }
 
+  .feature-link:hover{
+    opacity: 0.75
+  }
+
   .feature-link img{
-    @apply h-10 w-10
+    @apply h-12 w-12
   }
 
   .feature-link p{
@@ -87,9 +92,13 @@ html {
   }
 
   .transaction-list-item{
-    @apply flex justify-between items-center gap-2 py-2 my-1;
+    @apply flex justify-between items-center gap-2 py-2 ;
     border-bottom: 1px solid #EBEBEB;
     /* background-color: #F8F8F8; */
+  }
+
+  .transaction-list-item:hover{
+    @apply bg-hoverBg
   }
 
   .transaction-list-item img{
@@ -111,6 +120,109 @@ html {
   .transaction-list-item h3{
     @apply text-sm
   }
+
+  .transaction-list-item-right img{
+    @apply h-5 w-5
+  }
+
+  .button-1{
+    @apply text-xs bg-primary px-3 py-1 rounded-2xl text-white cursor-pointer
+  }
+
+  .button-2{
+    @apply text-xs bg-secondary px-3 py-1 rounded-2xl text-primary cursor-pointer
+  }
+
+  .button-2:hover{
+    @apply opacity-75
+  }
+
+  /* Support */
+  .chat-user{
+    @apply bg-primary text-white p-2 rounded-lg
+  }
+
+  .chat-admin{
+    @apply p-2 rounded-lg;
+    border: 1px solid #E6E6E6;
+  }
+
+  input, textarea, select{
+    @apply h-8 p-2;
+    border: 1px solid #BFBFBF;
+    border-radius: 1rem;
+  }
+
+  textarea {
+    @apply pt-1;
+    resize: none;
+    min-height: 2rem;
+    max-height: 3.25rem;
+    line-height: normal;
+  }
+
+  .support-bottom-nav{
+    min-height: 4.5rem;
+    background-color: white;
+  }
+
+  /* Profile */
+  .profile-icon{
+    border: 3px solid #fff;
+  }
+
+  .profile-icon img{
+    width: 100%;
+    height: 1005;
+    position: absolute;
+
+  }
+
+  .profile-option{
+    @apply flex justify-between items-center gap-2 py-4 ;
+    border-bottom: 1px solid #EBEBEB;
+  }
+
+  .profile-option:hover{
+    @apply bg-hoverBg
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input, select, textarea {
+      font-size: 16px;
+  }
+
+}
+
+* input:focus, button:focus, select:focus, textarea:focus {
+  outline: none;
+  border: 1px solid #2469FF;
+}
+
+.text-bold{
+  font-family: 'Product Sans Medium Regular';
+}
+
+.wrapper{
+  height: calc(100vh - 4.5rem);
+  overflow-y: scroll;
+  background: #fff;
+}
+
+.full-screen{
+  z-index: 12;
+  position: relative;
+  height: calc(100vh - 4.5rem);
+  overflow: hidden;;
+}
+
+.main-content{
+  height: calc(100vh - 9rem);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 }
 
 .gradient-bg{
@@ -120,6 +232,7 @@ background: linear-gradient(0deg, rgba(25,141,249,1) 0%, rgba(135,136,239,1) 100
 
 .nav-container{
   box-shadow: 0 -4px 6px -4px rgba(0, 0, 0, 0.2);
+  height: 4.5rem;
 }
 
 .nav-link-loan div{
@@ -143,3 +256,9 @@ background: linear-gradient(0deg, rgba(25,141,249,1) 0%, rgba(135,136,239,1) 100
   opacity: 1;
   filter: none;
 }
+
+
+/* Support */
+
+
+
