@@ -27,7 +27,7 @@ const Home = ({ setActiveLink }) => {
       image: agingIcon,
     },
     {
-      name: "Transactions",
+      name: "Withdraw",
       image: transactionFeatureIcon,
     },
     {
