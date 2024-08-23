@@ -20,7 +20,7 @@ const Support = () => {
           {messagesFilters.map((filter, index) => (
             <span
               key={index}
-              className={`text-sm p-1.5 flex-1 text-center ${
+              className={`text-base p-1.5 flex-1 text-center ${
                 activeFilter === index ? "button-1" : "button-2"
               }`}
               onClick={() => setActiveFilter(index)}

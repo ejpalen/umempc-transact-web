@@ -139,18 +139,18 @@ html {
 
   /* Support */
   .chat-user{
-    @apply bg-primary text-white p-2 rounded-lg
+    @apply bg-primary text-white p-3 rounded-xl
   }
 
   .chat-admin{
-    @apply p-2 rounded-lg;
+    @apply p-3 rounded-xl;
     border: 1px solid #E6E6E6;
   }
 
   input, textarea, select{
-    @apply h-8 p-2;
+    @apply h-8 p-2 rounded-lg h-10;
     border: 1px solid #BFBFBF;
-    border-radius: 1rem;
+    
   }
 
   .login input{
@@ -193,6 +193,24 @@ html {
   .profile-option:hover{
     @apply bg-hoverBg
   }
+
+  /* Loan */
+
+  .loan-screen{
+  }
+
+  select{
+    @apply rounded-lg px-2 py-2 h-10;
+    background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+) no-repeat 98% 50%;
+    -moz-appearance: none; 
+    -webkit-appearance: none; 
+    appearance: none;
+    line-height: 1rem;
+  }
+
+  .header{
+    @apply fixed w-full h-14 bg-white z-20
+  }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
@@ -201,6 +219,8 @@ html {
   }
 
 }
+
+
 
 * input:focus, button:focus, select:focus, textarea:focus {
   outline: none;
@@ -274,7 +294,6 @@ background: linear-gradient(0deg, #BD33FF 0%, #0051FF 70%);
 }
 
 
-/* Support */
 
 
 
