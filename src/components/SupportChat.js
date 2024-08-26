@@ -51,7 +51,6 @@ const SupportChat = () => {
   ];
 
   const [message, setMessage] = useState("");
-  const [hasMessage, setHasMessage] = useState(false);
   const element = useRef();
 
   function auto_grow(element) {
@@ -95,7 +94,7 @@ const SupportChat = () => {
       <main className="px-4 main-content pb-2">
         <section className="">
           <div className="chat-wrapper flex flex-col gap-1 justify-center">
-            <span className="text-center text-xs">August 21</span>
+            <span className="text-center text-sm">August 21</span>
             {chats.map((chat, index) => (
               <div
                 className={`chat-message flex  flex-1 ${
@@ -107,8 +106,8 @@ const SupportChat = () => {
                     chat.user === "user" ? "chat-user" : "chat-admin"
                   }`}
                 >
-                  <p className="text-sm">{chat.message}</p>
-                  <p className="text-[0.60rem] opacity-50">{chat.time}</p>
+                  <p className="text-base">{chat.message}</p>
+                  <p className="text-xs opacity-50">{chat.time}</p>
                 </span>
               </div>
             ))}

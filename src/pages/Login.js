@@ -11,7 +11,7 @@ const Login = () => {
     <div className="wrapper full-screen-100 gradient-bg-2 flex items-center justify-center">
       <section className="login text-white w-full p-4">
         <img src={UmempcLogo} alt="" className="h-20 mb-4" />
-        <h2 className="text-2xl">Log in and let's start</h2>
+        <h2 className="text-3xl">Log in and let's start</h2>
         <section className="flex flex-col mt-4">
           <label htmlFor="email" className="text-sm">
             Email
@@ -39,9 +39,9 @@ const Login = () => {
         </section>
         <button
           onClick={() => navigate("/home")}
-          className="h-12 mt-4 px-6 py-2 bg-white text-primary rounded-lg w-full text-base text-bold"
+          className="h-12 mt-4 px-6 py-2 bg-white text-primary rounded-lg w-full text-xl text-bold"
         >
-          LOG IN
+          Log in
         </button>
       </section>
     </div>
