@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import closeIcon from "../assets/images/close-icon.png";
+import backIcon from "../assets/images/back-icon.png";
 import sendIcon from "../assets/images/send-icon.png";
 import sendActiveIcon from "../assets/images/send-active-icon.png";
 
@@ -80,16 +80,16 @@ const SupportChat = () => {
           />
         </nav>
       </div>
-      <section className="p-4 flex justify-between items-center gap-2 h-16">
-        <h2 className="text-2xl text-bold">Support</h2>
+      <section className="header p-4 flex justify-between items-center gap-2">
         <img
-          src={closeIcon}
+          src={backIcon}
           alt=""
-          className="h-6 p-1 cursor-pointer"
+          className="h-6 p-1 cursor-pointer absolute"
           onClick={() => {
             navigate("/support");
           }}
         />
+        <h2 className="flex-1 text-center text-xl">Support</h2>
       </section>
       <main className="px-4 main-content pb-2">
         <section className="">

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import calculatorIcon from "../assets/images/calculator-icon.png";
@@ -10,52 +11,33 @@ import rightArrowIcon from "../assets/images/right-arrow-icon.png";
 import rightArrow2Icon from "../assets/images/right-arrow-2-icon.png";
 import eyeActiveIcon from "../assets/images/eye-active-icon.png";
 
-const Home = ({ setActiveLink }) => {
+const Home = ({ setActiveLink, transactionItemData }) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.querySelector("meta[name='theme-color']").content = "#8788EF";
+  }, []);
 
   const features = [
     {
       name: "Calculator",
       image: calculatorIcon,
+      link: "/loan-calculator",
     },
     {
       name: "Ledger",
       image: ledgerIcon,
+      link: "/ledger",
     },
     {
       name: "Aging",
       image: agingIcon,
+      link: "/aging",
     },
     {
       name: "Withdraw",
       image: transactionFeatureIcon,
-    },
-    {
-      name: "All",
-      image: allIcon,
-    },
-  ];
-
-  const transactionItemData = [
-    {
-      date: "23 April 2024",
-      amount: "₱10,000.00",
-    },
-    {
-      date: "01 April 2024",
-      amount: "₱45,000.00",
-    },
-    {
-      date: "18 March 2024",
-      amount: "₱2,000.00",
-    },
-    {
-      date: "06 March 2024",
-      amount: "₱5,000.00",
-    },
-    {
-      date: "25 Feb 2024",
-      amount: "₱20,000.00",
+      link: "/withdraw",
     },
   ];
 
@@ -75,11 +57,18 @@ const Home = ({ setActiveLink }) => {
         </section>
         <section className="mt-6 flex gap-2 container">
           {features.map((feature) => (
-            <div className="feature-link">
+            <div
+              className="feature-link"
+              onClick={() => navigate(`${feature.link}`)}
+            >
               <img src={feature.image} alt="" />
               <p>{feature.name}</p>
             </div>
           ))}
+          <div className="feature-link">
+            <img src={allIcon} alt="" />
+            <p>All</p>
+          </div>
         </section>
         <section className="mt-6">
           <div className="flex justify-between gap-2 items-center">
@@ -98,18 +87,24 @@ const Home = ({ setActiveLink }) => {
           </div>
           <div className="transaction-list">
             {transactionItemData.map((item) => (
-              <TransactionItem item={item} />
+              <TransactionItem item={item} navigate={navigate} />
             ))}
           </div>
+        </section>
+        <section className="mt-6">
+          <h2 className="text-lg ">Quick Links</h2>
         </section>
       </main>
     </div>
   );
 };
 
-const TransactionItem = ({ item }) => {
+const TransactionItem = ({ item, navigate }) => {
   return (
-    <div className="transaction-list-item">
+    <div
+      className="transaction-list-item"
+      onClick={() => navigate(`../apply-for-loan/${item.id}`)}
+    >
       <div className="transaction-list-item-left">
         <img src={loanTransactIcon} alt="" />
         <span>

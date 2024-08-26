@@ -1,31 +1,10 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import loanTransactIcon from "../assets/images/loan-transact-icon.png";
 import rightArrow2Icon from "../assets/images/right-arrow-2-icon.png";
 
-const Transactions = () => {
-  const transactionItemData = [
-    {
-      date: "23 April 2024",
-      amount: "₱10,000.00",
-    },
-    {
-      date: "01 April 2024",
-      amount: "₱45,000.00",
-    },
-    {
-      date: "18 March 2024",
-      amount: "₱2,000.00",
-    },
-    {
-      date: "06 March 2024",
-      amount: "₱5,000.00",
-    },
-    {
-      date: "25 Feb 2024",
-      amount: "₱20,000.00",
-    },
-  ];
+const Transactions = ({ transactionItemData }) => {
+  const navigate = useNavigate();
 
   const dateFilters = ["This Week", "This Month", "This Year"];
 
@@ -55,7 +34,7 @@ const Transactions = () => {
             <h2 className="text-lg ">August</h2>
             <div className="transaction-list">
               {transactionItemData.map((item) => (
-                <TransactionItem item={item} />
+                <TransactionItem item={item} navigate={navigate} />
               ))}
             </div>
           </div>
@@ -63,7 +42,7 @@ const Transactions = () => {
             <h2 className="text-lg ">July</h2>
             <div className="transaction-list">
               {transactionItemData.map((item) => (
-                <TransactionItem item={item} />
+                <TransactionItem item={item} navigate={navigate} />
               ))}
             </div>
           </div>
@@ -73,9 +52,12 @@ const Transactions = () => {
   );
 };
 
-const TransactionItem = ({ item }) => {
+const TransactionItem = ({ item, navigate }) => {
   return (
-    <div className="transaction-list-item">
+    <div
+      className="transaction-list-item"
+      onClick={() => navigate(`${item.id}`)}
+    >
       <div className="transaction-list-item-left">
         <img src={loanTransactIcon} alt="" />
         <span>
