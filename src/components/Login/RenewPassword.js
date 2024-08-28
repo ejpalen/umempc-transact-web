@@ -8,7 +8,6 @@ const RenewPassword = () => {
 
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [isContinueClicked, setIsContinueClicked] = useState(false);
 
   document.querySelector("meta[name='theme-color']").content = "#0051FF";
 
@@ -19,7 +18,7 @@ const RenewPassword = () => {
         <h2 className="text-2xl">
           Let's set up a secure password for your account
         </h2>
-        <section className="flex flex-col mt-4">
+        <section className="flex flex-col mt-4 container-with-label">
           <label htmlFor="password" className="text-sm">
             Password
           </label>
@@ -45,23 +44,14 @@ const RenewPassword = () => {
             onChange={(e) => setForgotPasswordEmail(e.target.value)}
           />
         </section>
-        {!isContinueClicked ? (
-          <button
+        <button
             onClick={() => {
-              setIsContinueClicked(true);
+             navigate("/")
             }}
             className="h-12 mt-6 px-6 py-2 bg-white text-primary rounded-lg w-full text-bold"
           >
             Continue
           </button>
-        ) : (
-          <button
-            onClick={() => navigate("/")}
-            className="h-12 mt-6 px-6 py-2 bg-white text-primary rounded-lg w-full text-bold"
-          >
-            Verify
-          </button>
-        )}
         <button
           onClick={() => navigate("/")}
           className="button-secondary h-12 mt-2 px-6 py-2 text-white rounded-lg w-full text-bold"

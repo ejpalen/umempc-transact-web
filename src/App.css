@@ -185,7 +185,7 @@ html {
 
   .profile-icon img{
     width: 100%;
-    height: 1005;
+    height: 100%;
     position: absolute;
 
   }
@@ -320,3 +320,6 @@ background: linear-gradient(0deg, #BD33FF 0%, #0051FF 70%);
 }
 
 
+.container-with-label label{
+  opacity: 0.75;
+}

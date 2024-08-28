@@ -16,6 +16,9 @@ import Ledger from "./components/Features/Ledger";
 import Aging from "./components/Features/Aging";
 import Withdraw from "./components/Features/Withdraw";
 import Transaction from "./components/Transactions/Transaction";
+import EditProfile from "./components/Profile/EditProfile";
+import Settings from "./components/Profile/Settings";
+import About from "./components/Profile/About";
 
 const Homepage = () => {
   const [activeLink, setActiveLink] = useState(0);
@@ -50,6 +53,7 @@ const Homepage = () => {
     "JP Rizal Extension, West Rembo, 1644 City of Taguig, Metro Manila, Philippines"
   );
   const [contactNumber, setContactNumber] = useState("09178335355");
+  const [email, setEmail] = useState("umempc_transact@gmaill.com");
   const [selectedCollege, setSelectedCollege] = useState(
     "College of Computing and Information Sciences"
   );
@@ -202,6 +206,27 @@ const Homepage = () => {
           element={<Transaction transactionItemData={transactionItemData} />}
         />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/edit-profile" element={<EditProfile
+            name={name}
+            setName={setName}
+            address={address}
+            setAddress={setAddress}
+            contactNumber={contactNumber}
+            setContactNumber={setContactNumber}
+            email={email}
+            setEmail={setEmail}
+            selectedCollege={selectedCollege}
+            setSelectedCollege={setSelectedCollege}
+            selectedMembershipStatus={selectedMembershipStatus}
+            setSelectedMembershipStatus={setSelectedMembershipStatus}
+            selectedEmploymentStatus={selectedEmploymentStatus}
+            setSelectedEmploymentStatus={setSelectedEmploymentStatus}
+            membershipStatus={membershipStatus}
+            employmentStatus={employmentStatus}
+            colleges={colleges}
+        />} />
+          <Route path="/profile/settings" element={<Settings />} />
+          <Route path="/profile/about-umempc-transact" element={<About />} />
         <Route path="/support-chat" element={<SupportChat />} />
         <Route
           path="/loan-calculator"

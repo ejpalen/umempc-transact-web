@@ -65,7 +65,7 @@ const LoanDetails = ({
         />
         <h2 className="flex-1 text-center text-xl">Loan Details</h2>
       </section>
-      <main className=" flex-1 flex flex-col mt-14">
+      <main className=" flex-1 flex flex-col mt-14 container-with-label">
         <section className="flex flex-col gap-1">
           <section className="px-4 flex flex-col">
             <label className="mb-1" htmlFor="loanAmount">

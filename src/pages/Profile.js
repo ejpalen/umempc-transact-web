@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import editProfileIcon from "../assets/images/edit-profile-icon.png";
+import editIcon from "../assets/images/edit-icon.png";
 import rightArrow2Icon from "../assets/images/right-arrow-2-icon.png";
 import settingsIcon from "../assets/images/settings-icon.png";
 import aboutIcon from "../assets/images/about-icon.png";
@@ -13,12 +15,12 @@ const Profile = () => {
     {
       title: "Settings",
       icon: settingsIcon,
-      to: "/",
+      to: "/profile/settings",
     },
     {
       title: "About UMEMPC Transact",
       icon: aboutIcon,
-      to: "/",
+      to: "/profile/about-umempc-transact",
     },
     {
       title: "Logout",
@@ -27,15 +29,22 @@ const Profile = () => {
     },
   ];
 
+  useEffect(() => {
+    document.querySelector("meta[name='theme-color']").content = "#8788EF";
+  }, []);
+
   return (
     <div className="wrapper text-default">
       <div className=" flex gap-2 items-center justify-between p-4 py-8 gradient-bg">
         <span className="text-white">
+          <span className="flex gap-2 items-center">
           <h2 className="text-2xl text-bold">Edgar Palen</h2>
+          <img src={editIcon} alt="" className="cursor-pointer h-8 p-2" onClick={() => navigate("../profile/edit-profile")}/>
+          </span>
           <p className="text-xs">K11940758</p>
         </span>
         <span className="profile-icon  bg-secondary rounded-full h-16 w-16 items-center flex relative">
-          <img src={editProfileIcon} alt="" />
+          {/* <img src={editProfileIcon} alt="" /> */}
           <h1 className="text-xl text-bold m-auto flex justify-center">E</h1>
         </span>
       </div>

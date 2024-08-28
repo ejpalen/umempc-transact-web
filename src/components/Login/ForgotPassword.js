@@ -33,7 +33,7 @@ const ForgotPassword = () => {
             </p>
           </>
         )}
-        <section className="flex flex-col mt-4">
+        <section className="flex flex-col mt-4 container-with-label">
           {!isContinueClicked ? (
             <>
               <label htmlFor="email" className="text-sm">

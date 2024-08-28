@@ -12,7 +12,7 @@ const Login = () => {
       <section className="login text-white w-full p-4">
         <img src={UmempcLogo} alt="" className="h-20 mb-4" />
         <h2 className="text-2xl">Log in and let's start</h2>
-        <section className="flex flex-col mt-4">
+        <section className="flex flex-col mt-4 container-with-label">
           <label htmlFor="email" className="text-sm">
             Email
           </label>
