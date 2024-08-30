@@ -22,9 +22,9 @@ const PersonalDetails = ({
   const navigate = useNavigate();
 
   return (
-    <div className="wrapper text-default full-screen">
+    <div className="wrapper text-default">
       <div className="support-bottom-nav fixed bottom-0 left-0 right-0 py-3 px-0 pt-0 z-10">
-        <nav className="flex pt-3 pb-3 items-center px-4 gap-2 flex-col">
+        <nav className="flex pt-3 items-center px-4 gap-2 flex-col">
           <section className="flex gap-2 bg-pink-50 flex-1 w-full">
             <span className="h-1 flex-1 w-full bg-inactive opacity-15 rounded-full">
               -
@@ -44,7 +44,7 @@ const PersonalDetails = ({
           </span>
         </nav>
       </div>
-      <section className="header p-4 flex justify-between items-center gap-2">
+      <section className="header p-4 flex justify-between items-center gap-2 ">
         <img
           src={backIcon}
           alt=""
@@ -55,7 +55,7 @@ const PersonalDetails = ({
         />
         <h2 className="flex-1 text-center text-xl">Personal Details</h2>
       </section>
-      <main className=" flex-1 flex flex-col mt-14 container-with-label">
+      <main className=" flex-1 flex flex-col mt-14 container-with-label pb-40">
         <section className="flex flex-col gap-1">
           <section className="px-4 flex flex-col">
             <label className="mb-1" htmlFor="name">
@@ -69,6 +69,7 @@ const PersonalDetails = ({
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
+
             <label className="mb-1 mt-6" htmlFor="contactNumber">
               Contact Number
             </label>

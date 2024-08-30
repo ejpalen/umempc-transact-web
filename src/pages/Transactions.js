@@ -15,7 +15,7 @@ const Transactions = ({ transactionItemData }) => {
       <section className="p-4">
         <h2 className="text-2xl text-bold">Transactions</h2>
       </section>
-      <main className="px-4 mb-10">
+      <main className="px-4 pb-40">
         <section className="flex flex-row gap-1">
           {dateFilters.map((filter, index) => (
             <span

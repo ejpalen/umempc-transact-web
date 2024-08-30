@@ -25,7 +25,7 @@ const ReviewDetails = ({
   return (
     <div className="wrapper text-default">
       <div className="support-bottom-nav fixed bottom-0 left-0 right-0 py-3 px-0 pt-0 z-10">
-        <nav className="flex pt-3 pb-3 items-center px-4 gap-2 flex-col">
+        <nav className="flex pt-3 items-center px-4 gap-2 flex-col">
           <section className="flex gap-2 bg-pink-50 flex-1 w-full">
             <span className="h-1 flex-1 w-full bg-inactive opacity-15 rounded-full">
               -
@@ -58,7 +58,7 @@ const ReviewDetails = ({
         />
         <h2 className="flex-1 text-center text-xl">Review Details</h2>
       </section>
-      <main className=" flex-1 flex flex-col mt-14 p-4 pt-0 mb-20">
+      <main className=" flex-1 flex flex-col mt-14 p-4 pt-0 pb-40">
         <h2 className="flex-1 text-bold">Loan Details</h2>
         <section className="mt-1 bg-hoverBg rounded-lg p-2">
           <label className="text-sm opacity-75">Loan Amount</label>

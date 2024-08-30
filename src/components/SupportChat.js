@@ -48,29 +48,26 @@ const SupportChat = () => {
       user: "admin",
       time: "06:17 pm",
     },
+    {
+      message: "mweheheheheh goods",
+      user: "user",
+      time: "06:15 pm",
+    },
   ];
 
   const [message, setMessage] = useState("");
   const element = useRef();
 
-  function auto_grow(element) {
-    if (element) {
-      element.style.height = "10px";
-      element.style.height = element.scrollHeight + "px";
-    }
-  }
-
   return (
     <div className="wrapper text-default full-screen">
-      <div className="support-bottom-nav fixed bottom-0 left-0 right-0 py-3 px-0 pt-0  z-10 h-[4.5rem]">
-        <nav className="flex justify-around pt-3 items-center px-4 gap-2">
+      <div className="support-bottom-nav fixed bottom-0 left-0 right-0 py-3 px-0 z-10 h-16 flex ">
+        <nav className="flex flex-1 justify-around items-center px-4 gap-2">
           <textarea
             type="text"
             className="flex-1"
             ref={element}
             placeholder="Type a message"
             value={message}
-            onInput={() => auto_grow(element.current)}
             onChange={(e) => setMessage(e.target.value)}
           />
           <img
@@ -91,8 +88,8 @@ const SupportChat = () => {
         />
         <h2 className="flex-1 text-center text-xl">Support</h2>
       </section>
-      <main className="px-4 main-content pb-2">
-        <section className="">
+      <main className="px-4 main-content pb-2 ">
+        <section className="pt-40">
           <div className="chat-wrapper flex flex-col gap-1 justify-center">
             <span className="text-center text-sm">August 21</span>
             {chats.map((chat, index) => (

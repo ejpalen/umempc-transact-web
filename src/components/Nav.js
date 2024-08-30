@@ -60,8 +60,8 @@ const Nav = ({ activeLink, setActiveLink }) => {
   }, [activeLink]);
 
   return (
-    <div className="nav-container fixed bottom-0 left-0 right-0 py-3 px-0 pt-0 bg-white z-10 h-20">
-      <nav className="flex justify-around pt-3 ">
+    <div className="nav-container fixed bottom-0 left-0 right-0 py-1 px-0 bg-white z-10 h-16 flex items-center">
+      <nav className="flex justify-around flex-1">
         {links.map((link, index) => (
           <Link
             to={link.path}

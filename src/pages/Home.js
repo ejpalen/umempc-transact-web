@@ -47,7 +47,7 @@ const Home = ({ setActiveLink, transactionItemData }) => {
         <h2 className="text-xl text-bold">Hi Edgar,</h2>
         <p className="text-sm opacity-75">Good evening</p>
       </section>
-      <main className=" relative top-[-3.5rem] p-4  text-default">
+      <main className=" relative top-[-3.5rem] p-4 pb-20 text-default">
         <section className="shadow-lg p-4 rounded-lg bg-white flex justify-between items-center">
           <span>
             <p className="text-sm opacity-50">Balance</p>

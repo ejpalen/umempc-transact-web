@@ -114,6 +114,27 @@ const Homepage = () => {
       id: "5e5e5e",
       status: "Approved",
     },
+    {
+      date: "18 March 2024",
+      time: "12:11 pm",
+      amount: "₱2,000.00",
+      id: "3c3c3c",
+      status: "Approved",
+    },
+    {
+      date: "06 March 2024",
+      time: "10:08 am",
+      amount: "₱5,000.00",
+      id: "4d4d4d",
+      status: "Approved",
+    },
+    {
+      date: "25 Feb 2024",
+      time: "05:48 pm",
+      amount: "₱20,000.00",
+      id: "5e5e5e",
+      status: "Approved",
+    },
   ];
 
   return (
@@ -206,27 +227,32 @@ const Homepage = () => {
           element={<Transaction transactionItemData={transactionItemData} />}
         />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/profile/edit-profile" element={<EditProfile
-            name={name}
-            setName={setName}
-            address={address}
-            setAddress={setAddress}
-            contactNumber={contactNumber}
-            setContactNumber={setContactNumber}
-            email={email}
-            setEmail={setEmail}
-            selectedCollege={selectedCollege}
-            setSelectedCollege={setSelectedCollege}
-            selectedMembershipStatus={selectedMembershipStatus}
-            setSelectedMembershipStatus={setSelectedMembershipStatus}
-            selectedEmploymentStatus={selectedEmploymentStatus}
-            setSelectedEmploymentStatus={setSelectedEmploymentStatus}
-            membershipStatus={membershipStatus}
-            employmentStatus={employmentStatus}
-            colleges={colleges}
-        />} />
-          <Route path="/profile/settings" element={<Settings />} />
-          <Route path="/profile/about-umempc-transact" element={<About />} />
+        <Route
+          path="/profile/edit-profile"
+          element={
+            <EditProfile
+              name={name}
+              setName={setName}
+              address={address}
+              setAddress={setAddress}
+              contactNumber={contactNumber}
+              setContactNumber={setContactNumber}
+              email={email}
+              setEmail={setEmail}
+              selectedCollege={selectedCollege}
+              setSelectedCollege={setSelectedCollege}
+              selectedMembershipStatus={selectedMembershipStatus}
+              setSelectedMembershipStatus={setSelectedMembershipStatus}
+              selectedEmploymentStatus={selectedEmploymentStatus}
+              setSelectedEmploymentStatus={setSelectedEmploymentStatus}
+              membershipStatus={membershipStatus}
+              employmentStatus={employmentStatus}
+              colleges={colleges}
+            />
+          }
+        />
+        <Route path="/profile/settings" element={<Settings />} />
+        <Route path="/profile/about-umempc-transact" element={<About />} />
         <Route path="/support-chat" element={<SupportChat />} />
         <Route
           path="/loan-calculator"
