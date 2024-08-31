@@ -38,8 +38,13 @@ const Profile = () => {
       <div className=" flex gap-2 items-center justify-between p-4 py-8 gradient-bg">
         <span className="text-white">
           <span className="flex gap-2 items-center">
-          <h2 className="text-2xl text-bold">Edgar Palen</h2>
-          <img src={editIcon} alt="" className="cursor-pointer h-8 p-2" onClick={() => navigate("../profile/edit-profile")}/>
+            <h2 className="text-2xl text-bold">Edgar Palen</h2>
+            <img
+              src={editIcon}
+              alt=""
+              className="cursor-pointer h-8 p-2"
+              onClick={() => navigate("../profile/edit-profile")}
+            />
           </span>
           <p className="text-xs">K11940758</p>
         </span>
@@ -50,7 +55,7 @@ const Profile = () => {
       </div>
       <main className="px-4 mt-4">
         {settings.map((setting, index) => (
-          <SettingOption setting={setting} navigate={navigate} />
+          <SettingOption setting={setting} navigate={navigate} key={index} />
         ))}
       </main>
     </div>

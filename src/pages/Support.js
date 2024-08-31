@@ -95,11 +95,12 @@ const NotificationContainer = ({ setSelectedItem, setOpenNotification }) => {
 
   return (
     <div>
-      {notifications.map((notification) => (
+      {notifications.map((notification, index) => (
         <Notification
           notification={notification}
           setOpenNotification={setOpenNotification}
           setSelectedItem={setSelectedItem}
+          key={index}
         />
       ))}
     </div>

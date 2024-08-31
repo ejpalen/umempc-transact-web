@@ -94,6 +94,7 @@ const SupportChat = () => {
             <span className="text-center text-sm">August 21</span>
             {chats.map((chat, index) => (
               <div
+                key={index}
                 className={`chat-message flex  flex-1 ${
                   chat.user === "user" && "items-end justify-end"
                 }`}

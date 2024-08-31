@@ -103,7 +103,7 @@ const TransactionItem = ({ item, navigate }) => {
   return (
     <div
       className="transaction-list-item"
-      onClick={() => navigate(`../apply-for-loan/${item.id}`)}
+      onClick={() => navigate(`../transactions/${item.id}`)}
     >
       <div className="transaction-list-item-left">
         <img src={loanTransactIcon} alt="" />

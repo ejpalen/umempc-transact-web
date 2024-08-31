@@ -352,7 +352,10 @@ const Ledger = ({}) => {
         <section className="mb-4">
           <div className="gap-2 w-full px-4 grid-cols-2 grid">
             {summary.map((item, index) => (
-              <span className={`summary-${index + 1} p-4 rounded-lg flex-1 `}>
+              <span
+                className={`summary-${index + 1} p-4 rounded-lg flex-1 `}
+                key={index}
+              >
                 <img src={item.image} alt="" className="h-8 mb-2" />
                 <h2 className=" text-2xl text-bold">
                   ₱{item.total.toLocaleString()}
@@ -368,7 +371,23 @@ const Ledger = ({}) => {
             {filters.map((filter, index) => (
               <span
                 key={index}
-                className={`button-3 text-nowrap text-sm py-1 px-6 text-left`}
+                className={`
+                ${
+                  index === 0 && selectedDateFilter === "None"
+                    ? "opacity-75 grayscale"
+                    : ""
+                }
+                ${
+                  index === 1 && selectedReferenceFilter === "None"
+                    ? "opacity-75 grayscale"
+                    : ""
+                }
+                ${
+                  index === 2 && selectedCVNOFilter === "None"
+                    ? "opacity-75 grayscale"
+                    : ""
+                }
+                button-3 text-nowrap text-sm py-1 px-6 text-left`}
                 onClick={() => {
                   setIsFilterClicked(true);
                   setFilterIndex(index);
@@ -411,13 +430,14 @@ const DateFilterContent = ({
       ></span>
       <h2 className="text-xl text-bold mb-4 mt-4 text-center">Date</h2>
       <section className="flex flex-col gap-1">
-        {dateFilters.map((filter) => (
+        {dateFilters.map((filter, index) => (
           <span
             className="flex items-center justify-between hover:bg-hoverBg"
             onClick={() => {
               setIsFilterClicked(false);
               setSelectedDateFilter(filter);
             }}
+            key={index}
           >
             <span className=" py-2 ">{filter}</span>
             <img
@@ -452,13 +472,14 @@ const ReferenceFilterContent = ({
           new Set(ledgerData.map((transaction) => transaction.reference))
         )
           .filter((reference) => reference)
-          .map((reference) => (
+          .map((reference, index) => (
             <span
               className="flex items-center justify-between hover:bg-hoverBg"
               onClick={() => {
                 setIsFilterClicked(false);
                 setSelectedReferenceFilter(reference);
               }}
+              key={index}
             >
               <span className=" py-2" key={reference}>
                 {reference}
@@ -513,13 +534,14 @@ const CVNoFilterContent = ({
       <section className="flex flex-col gap-1">
         {Array.from(new Set(ledgerData.map((transaction) => transaction.cvNo)))
           .filter((cv) => cv)
-          .map((cv) => (
+          .map((cv, index) => (
             <span
               className="flex items-center justify-between hover:bg-hoverBg"
               onClick={() => {
                 setIsFilterClicked(false);
                 setSelectedCVNoFilter(cv);
               }}
+              key={index}
             >
               <span className=" py-2" key={cv}>
                 {cv}

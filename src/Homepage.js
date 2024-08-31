@@ -14,6 +14,7 @@ import ReviewDetails from ".//components/ApplyForLoan/ReviewDetails";
 import Calculator from "./components/Features/Calculator";
 import Ledger from "./components/Features/Ledger";
 import Aging from "./components/Features/Aging";
+import AgingDetails from "./components/Features/AgingDetails";
 import Withdraw from "./components/Features/Withdraw";
 import Transaction from "./components/Transactions/Transaction";
 import EditProfile from "./components/Profile/EditProfile";
@@ -137,6 +138,112 @@ const Homepage = () => {
     },
   ];
 
+  const agingData = [
+    {
+      id: "111",
+      cv: null,
+      loanType: "Lamayan",
+      loanDate: null,
+      loanTerms: null,
+      modeOfPayment: "Dividend",
+      amortization: null,
+      loanAmount: 600,
+      deductions: [
+        {
+          period: "Jan. 1-15",
+          salary: 600,
+          otc: 0,
+          otherPayroll: 0,
+          reconstructionOthers: 0,
+          balance: 600,
+        },
+        {
+          period: "Jan. 16-31",
+          salary: 1002,
+          otc: 0,
+          otherPayroll: 0,
+          reconstructionOthers: 0,
+          balance: 28071,
+        },
+        // ... more periods ...
+      ],
+    },
+    {
+      id: "222",
+      cv: null,
+      loanType: "Capital Build Up",
+      loanDate: null,
+      loanTerms: 24,
+      modeOfPayment: "Payroll",
+      amortization: 100,
+      loanAmount: 100000,
+      deductions: [
+        {
+          period: "Jan. 1-15",
+          salary: 100,
+          otc: 0,
+          otherPayroll: 0,
+          reconstructionOthers: 0,
+          balance: 99900,
+        },
+        // ... more periods ...
+      ],
+    },
+    {
+      id: "333",
+      cv: 36536,
+      loanType: "Prepaid Cash Loan",
+      loanDate: "2022-12-13",
+      loanTerms: 24,
+      modeOfPayment: "Payroll",
+      amortization: 1002,
+      loanAmount: 29073,
+      deductions: [
+        {
+          period: "Jan. 1-15",
+          salary: 1002,
+          otc: 0,
+          otherPayroll: 0,
+          reconstructionOthers: 0,
+          balance: 28071,
+        },
+        // ... more periods ...
+      ],
+    },
+    {
+      id: "444",
+      cv: 43,
+      loanType: "Cash Advance",
+      loanDate: "2023-09-30",
+      loanTerms: 4,
+      modeOfPayment: "OTC",
+      amortization: 500,
+      loanAmount: 2500,
+      deductions: [
+        {
+          period: "Jan. 1-15",
+          salary: 0,
+          otc: 500,
+          otherPayroll: 0,
+          reconstructionOthers: 0,
+          balance: 2000,
+        },
+        // ... more periods ...
+      ],
+    },
+    {
+      id: "555",
+      cv: 37862,
+      loanType: "Prepaid Cash Loan",
+      loanDate: "2024-03-05",
+      loanTerms: null,
+      modeOfPayment: "Payroll",
+      amortization: null,
+      loanAmount: 5000,
+      deductions: [], // No deductions yet as it's a future loan
+    },
+  ];
+
   return (
     <div className="home">
       <Nav activeLink={activeLink} setActiveLink={setActiveLink} />
@@ -222,10 +329,7 @@ const Homepage = () => {
           path="/transactions/:id"
           element={<Transaction transactionItemData={transactionItemData} />}
         />
-        <Route
-          path="/apply-for-loan/:id"
-          element={<Transaction transactionItemData={transactionItemData} />}
-        />
+
         <Route path="/profile" element={<Profile />} />
         <Route
           path="/profile/edit-profile"
@@ -273,7 +377,11 @@ const Homepage = () => {
           }
         />
         <Route path="/ledger" element={<Ledger />} />
-        <Route path="/aging" element={<Aging />} />
+        <Route path="/aging" element={<Aging agingData={agingData} />} />
+        <Route
+          path="/aging/:id"
+          element={<AgingDetails agingData={agingData} />}
+        />
         <Route path="/withdraw" element={<Withdraw />} />
       </Routes>
     </div>

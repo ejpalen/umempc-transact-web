@@ -28,20 +28,20 @@ const Settings = () => {
 
   return (
     <div className="wrapper text-default full-screen-100">
-        <section className="header p-4 flex justify-between items-center gap-2">
-          <img
-            src={backIcon}
-            alt=""
-            className="h-6 p-1 cursor-pointer absolute"
-            onClick={() => {
-              navigate("/profile");
-            }}
-          />
-          <h2 className="flex-1 text-center text-xl">Settings</h2>
-        </section>
+      <section className="header p-4 flex justify-between items-center gap-2">
+        <img
+          src={backIcon}
+          alt=""
+          className="h-6 p-1 cursor-pointer absolute"
+          onClick={() => {
+            navigate("/profile");
+          }}
+        />
+        <h2 className="flex-1 text-center text-xl">Settings</h2>
+      </section>
       <main className="px-4 mt-14">
         {settings.map((setting, index) => (
-          <SettingOption setting={setting} navigate={navigate} />
+          <SettingOption setting={setting} navigate={navigate} key={index} />
         ))}
       </main>
     </div>
