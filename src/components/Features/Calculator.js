@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import backIcon from "../../assets/images/back-icon.png";
+import backIcon from "../../assets/images/feature-back-icon.png";
 
 const Calculator = ({ loanTerms }) => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Calculator = ({ loanTerms }) => {
   const [interestRateError, setInterestRateError] = useState(false);
 
   useEffect(() => {
-    document.querySelector("meta[name='theme-color']").content = "#ffffff";
+    document.querySelector("meta[name='theme-color']").content = "#198df9";
   }, []);
 
   const [numberLoanTerm, setNumberLoanTerm] = useState(5);
@@ -72,25 +72,28 @@ const Calculator = ({ loanTerms }) => {
             }}
             className={`${
               isReadyToCalculate ? "opacity-100" : "opacity-50"
-            } text-white text-xl text-bold p-2 flex-1 text-center bg-primary w-full mb-2 rounded-lg`}
+            } text-white text-bold p-4 flex-1 text-center bg-primary w-full mb-2 rounded-full`}
           >
             Calculate
           </span>
         </nav>
       </div>
-      <section className="header p-4 flex justify-between items-center gap-2">
-        <img
-          src={backIcon}
-          alt=""
-          className="h-6 p-1 cursor-pointer absolute"
-          onClick={() => {
-            navigate("/home");
-          }}
-        />
-        <h2 className="flex-1 text-center text-xl">Calculator</h2>
+      <section className="header p-4 flex flex-col gradient-bg-3 h-32 gap-4 justify-center text-white">
+        <section className="flex justify-start items-center gap-3">
+          <img
+            src={backIcon}
+            alt=""
+            className="h-8 p-1 cursor-pointer"
+            onClick={() => {
+              navigate("/home");
+            }}
+          />
+          <h2 className="flex-1 text-3xl text-bold">Calculator</h2>
+        </section>
+        <span className="">Simplify your loan calculations</span>
       </section>
-      <main className=" flex-1 flex flex-col mt-14 px-4">
-        <section className="flex flex-col gap-1">
+      <main className=" flex-1 flex flex-col mt-32 px-4">
+        <section className="flex flex-col gap-1 mt-6">
           <section className="flex flex-col">
             <label className="mb-1" htmlFor="loanAmount">
               Loan Amount

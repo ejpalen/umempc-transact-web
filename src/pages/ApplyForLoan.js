@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import loanScreenImage from "../assets/images/loan-screen.png";
 // import loanScreenImage from "../assets/images/loan-screen.jpg"
 
 const ApplyForLoan = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.querySelector("meta[name='theme-color']").content = "#ffffff";
+  }, []);
 
   return (
     <div className="wrapper text-default flex flex-col justify-between gap-4 apply-for-loan-screen">
@@ -21,7 +26,7 @@ const ApplyForLoan = () => {
         <section className="flex flex-col justify-center items-center">
           <span
             onClick={() => navigate("/apply-for-loan/loan-details")}
-            className={`h-12 text-white text-bold p-2 px-16 flex-1 text-center bg-primary rounded-lg`}
+            className={` text-white text-bold p-4 px-16 flex-1 text-center bg-primary rounded-full`}
           >
             Get Started
           </span>

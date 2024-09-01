@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import backIcon from "../../assets/images/back-icon.png";
+import backIcon from "../../assets/images/feature-back-icon.png";
 import selectedIcon from "../../assets/images/selected-icon.png";
 import notSelectedIcon from "../../assets/images/not-selected-icon.png";
 import dropdownIcon from "../../assets/images/drowdown-icon.png";
@@ -28,9 +28,9 @@ const AgingDetails = ({ agingData }) => {
 
   useEffect(() => {
     if (openModal || isFilterClicked) {
-      document.querySelector("meta[name='theme-color']").content = "#ADADAD";
+      document.querySelector("meta[name='theme-color']").content = "#2267A9";
     } else {
-      document.querySelector("meta[name='theme-color']").content = "#ffffff";
+      document.querySelector("meta[name='theme-color']").content = "#198df9";
     }
   }, [openModal, isFilterClicked]);
 
@@ -79,19 +79,22 @@ const AgingDetails = ({ agingData }) => {
           </div>
         </div>
       )}
-      <section className="header p-4 flex justify-between items-center gap-2">
-        <img
-          src={backIcon}
-          alt=""
-          className="h-6 p-1 cursor-pointer absolute"
-          onClick={() => {
-            navigate("/aging");
-          }}
-        />
-        <h2 className="flex-1 text-center text-xl">Loan Details</h2>
+      <section className="header p-4 flex flex-col gradient-bg-3 h-32 gap-4 justify-center text-white">
+        <section className="flex justify-start items-center gap-3">
+          <img
+            src={backIcon}
+            alt=""
+            className="h-8 p-1 cursor-pointer"
+            onClick={() => {
+              navigate("/aging");
+            }}
+          />
+          <h2 className="flex-1 text-3xl text-bold">Loan Details</h2>
+        </section>
+        <span className=""> Schedule of Account's Amortizations</span>
       </section>
-      <main className=" flex-1 flex flex-col mt-14">
-        <section className="bg-hoverBg p-4 rounded-lg  mb-6 mx-4">
+      <main className=" flex-1 flex flex-col mt-32">
+        <section className="bg-hoverBg p-4 rounded-lg  mb-6 mx-4 mt-6">
           <span className="transaction-details-data">
             <p>CV No.</p>
             <p>{selectedItem && selectedItem.cv}</p>
@@ -128,10 +131,10 @@ const AgingDetails = ({ agingData }) => {
               className={`
                 ${
                   index === 0 && selectedDateFilter === "None"
-                    ? "opacity-75 grayscale"
-                    : ""
+                    ? "filter-inactive"
+                    : "bg-secondary"
                 }
-                button-3 text-nowrap text-sm py-1 px-6 text-left`}
+                button-2 text-nowrap text-sm py-1 px-6 text-left`}
               onClick={() => {
                 setIsFilterClicked(true);
                 setFilterIndex(index);

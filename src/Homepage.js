@@ -16,6 +16,7 @@ import Ledger from "./components/Features/Ledger";
 import Aging from "./components/Features/Aging";
 import AgingDetails from "./components/Features/AgingDetails";
 import Withdraw from "./components/Features/Withdraw";
+import WithdrawDetails from "./components/Features/WithdrawDetails";
 import Transaction from "./components/Transactions/Transaction";
 import EditProfile from "./components/Profile/EditProfile";
 import Settings from "./components/Profile/Settings";
@@ -383,6 +384,7 @@ const Homepage = () => {
           element={<AgingDetails agingData={agingData} />}
         />
         <Route path="/withdraw" element={<Withdraw />} />
+        <Route path="/withdraw/:id" element={<WithdrawDetails />} />
       </Routes>
     </div>
   );

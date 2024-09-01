@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import calculatorIcon from "../assets/images/calculator-icon.png";
@@ -7,6 +7,9 @@ import agingIcon from "../assets/images/aging-icon.png";
 import loanTransactIcon from "../assets/images/loan-transact-icon.png";
 import transactionFeatureIcon from "../assets/images/transaction-feature-icon.png";
 import allIcon from "../assets/images/all-feature-icon.png";
+import allSettingsIcon from "../assets/images/all-settings-icon.png";
+import allSupportIcon from "../assets/images/all-customer-service-icon.png";
+import allApplyForLoanIcon from "../assets/images/all-apply-for-loan-icon.png";
 import rightArrowIcon from "../assets/images/right-arrow-icon.png";
 import rightArrow2Icon from "../assets/images/right-arrow-2-icon.png";
 import eyeActiveIcon from "../assets/images/eye-active-icon.png";
@@ -14,9 +17,15 @@ import eyeActiveIcon from "../assets/images/eye-active-icon.png";
 const Home = ({ setActiveLink, transactionItemData }) => {
   const navigate = useNavigate();
 
+  const [openAllFeature, setOpenAllFeature] = useState(false);
+
   useEffect(() => {
-    document.querySelector("meta[name='theme-color']").content = "#8788EF";
-  }, []);
+    if (openAllFeature) {
+      document.querySelector("meta[name='theme-color']").content = "#6366A3";
+    } else {
+      document.querySelector("meta[name='theme-color']").content = "#8788EF";
+    }
+  }, [openAllFeature]);
 
   const features = [
     {
@@ -39,24 +48,59 @@ const Home = ({ setActiveLink, transactionItemData }) => {
       image: transactionFeatureIcon,
       link: "/withdraw",
     },
+    {
+      name: "Apply For Loan",
+      image: allApplyForLoanIcon,
+      link: "/apply-for-loan",
+    },
+    {
+      name: "Chat Support",
+      image: allSupportIcon,
+      link: "/support-chat",
+    },
+    {
+      name: "Edit Profile",
+      image: transactionFeatureIcon,
+      link: "/profile/edit-profile",
+    },
+    {
+      name: "Settings",
+      image: allSettingsIcon,
+      link: "/profile/settings",
+    },
   ];
 
   return (
     <div className="wrapper">
+      <section>
+        {openAllFeature && (
+          <div className="modal">
+            <div
+              className="modal-overlay"
+              onClick={() => {
+                setOpenAllFeature(false);
+              }}
+            ></div>
+            <div className="modal-content">
+              <AllContent allFeatures={features} navigate={navigate} />
+            </div>
+          </div>
+        )}
+      </section>
       <section className="text-white p-4 pb-14 gradient-bg">
-        <h2 className="text-xl text-bold">Hi Edgar,</h2>
-        <p className="text-sm opacity-75">Good evening</p>
+        <h2 className="text-2xl text-bold">Hi Edgar,</h2>
+        <p className=" opacity-75">Good evening</p>
       </section>
       <main className=" relative top-[-3.5rem] p-4 pb-20 text-default">
         <section className="shadow-lg p-4 rounded-lg bg-white flex justify-between items-center">
           <span>
-            <p className="text-sm opacity-50">Balance</p>
-            <h1 className="text-2xl text-bold">₱97,463.25</h1>
+            <p className=" opacity-50">Balance</p>
+            <h1 className="text-3xl text-bold">₱97,463.25</h1>
           </span>
-          <img src={eyeActiveIcon} alt="" className="h-6" />
+          <img src={eyeActiveIcon} alt="" className="h-7" />
         </section>
-        <section className="mt-6 flex gap-2 container">
-          {features.map((feature) => (
+        <section className="mt-8 flex gap-2 container">
+          {features.slice(0, 4).map((feature) => (
             <div
               className="feature-link"
               onClick={() => navigate(`${feature.link}`)}
@@ -65,17 +109,17 @@ const Home = ({ setActiveLink, transactionItemData }) => {
               <p>{feature.name}</p>
             </div>
           ))}
-          <div className="feature-link">
+          <div className="feature-link" onClick={() => setOpenAllFeature(true)}>
             <img src={allIcon} alt="" />
             <p>All</p>
           </div>
         </section>
-        <section className="mt-6">
-          <div className="flex justify-between gap-2 items-center">
-            <h2 className="text-lg ">Recent Transactions</h2>
+        <section className="mt-8">
+          <div className="flex justify-between gap-2 items-center mb-2">
+            <h2 className="text-xl ">Recent Transactions</h2>
             <span className="">
               <p
-                className="button-2"
+                className="button-2 text-sm"
                 onClick={() => {
                   setActiveLink(1);
                   navigate("/transactions");
@@ -86,13 +130,13 @@ const Home = ({ setActiveLink, transactionItemData }) => {
             </span>
           </div>
           <div className="transaction-list">
-            {transactionItemData.map((item) => (
+            {transactionItemData.slice(0, 5).map((item) => (
               <TransactionItem item={item} navigate={navigate} />
             ))}
           </div>
         </section>
-        <section className="mt-6">
-          <h2 className="text-lg ">Quick Links</h2>
+        <section className="mt-8">
+          <h2 className="text-xl ">Quick Links</h2>
         </section>
       </main>
     </div>
@@ -116,6 +160,37 @@ const TransactionItem = ({ item, navigate }) => {
         <p>{item.amount}</p>
         <img src={rightArrow2Icon} alt="" />
       </div>
+    </div>
+  );
+};
+
+const AllContent = ({ allFeatures, navigate }) => {
+  return (
+    <div className="pb-8 pt-4">
+      <h1 className="text-xl text-bold">Features</h1>
+      <section className="grid grid-cols-4 gap-4 mt-6">
+        {allFeatures.slice(0, 4).map((feature) => (
+          <div
+            className="feature-link"
+            onClick={() => navigate(`${feature.link}`)}
+          >
+            <img src={feature.image} alt="" />
+            <p>{feature.name}</p>
+          </div>
+        ))}
+      </section>
+      <h1 className="text-xl text-bold mt-8">Actions</h1>
+      <section className="grid grid-cols-4 gap-4 mt-6">
+        {allFeatures.slice(4, 8).map((feature) => (
+          <div
+            className="feature-link"
+            onClick={() => navigate(`${feature.link}`)}
+          >
+            <img src={feature.image} alt="" />
+            <p>{feature.name}</p>
+          </div>
+        ))}
+      </section>
     </div>
   );
 };

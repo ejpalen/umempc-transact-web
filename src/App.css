@@ -135,11 +135,11 @@ html {
   }
 
   .transaction-list-item-left p{
-    @apply text-xs opacity-75
+    @apply text-sm opacity-75
   }
 
   .transaction-list-item h3{
-    @apply text-sm
+    @apply text-base
   }
 
   .transaction-list-item-right img{
@@ -147,11 +147,11 @@ html {
   }
 
   .button-1{
-    @apply text-xs bg-primary px-3 py-1 rounded-2xl text-white cursor-pointer
+    @apply text-xs bg-primary px-3 py-1 rounded-full text-white cursor-pointer
   }
 
   .button-2{
-    @apply text-xs bg-secondary px-3 py-1 rounded-2xl text-primary cursor-pointer
+    @apply bg-secondary px-3 py-1 rounded-full text-primary cursor-pointer
   }
 
   .button-3{
@@ -159,8 +159,31 @@ html {
     border: 1px solid #2469FF;
   }
 
+  .button-4{
+    @apply  text-primary px-0 py-1 rounded-2xl flex gap-2 items-center;
+  }
+
+  .button-4 img{
+    @apply h-4 w-4
+  }
+
   .button-2:hover{
     @apply opacity-75
+  }
+
+  .filter-inactive{
+    @apply bg-hoverBg ;
+    background-color: #f8f8f8 !important;
+  }
+
+  .filter-inactive *{
+    @apply text-default 
+    
+  }
+
+  .filter-inactive img{
+    filter: brightness(0)
+
   }
 
   /* Support */
@@ -223,6 +246,7 @@ html {
   .profile-option:hover{
     @apply bg-hoverBg
   }
+  
 
  
   select{
@@ -318,6 +342,14 @@ html {
     border: 1px solid #ECECEC;
   }
 
+  .withdraw-item{
+    border: 1px solid #CCDCFF;
+  }
+
+  .border-white{
+    border: 1px solid #fff;
+  }
+
   
 }
 
@@ -396,6 +428,11 @@ background: linear-gradient(0deg, rgba(25,141,249,1) 0%, rgba(135,136,239,1) 100
 .gradient-bg-2{
   background: rgb(25,141,249);
 background: linear-gradient(0deg, #BD33FF 0%, #0051FF 70%);
+}
+
+.gradient-bg-3{
+  background: rgb(0,81,255);
+  background: linear-gradient(0deg, rgba(0,81,255,1) 0%, rgba(25,141,249,1) 100%);
 }
 
 .nav-container{

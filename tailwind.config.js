@@ -8,7 +8,7 @@ module.exports = {
         secondary: "#E1F0FE",
         default: "#333",
         hoverBg: "#f8f8f8",
-        inactive: "#6A6A6A"
+        inactive: "#6A6A6A",
       },
     },
   },

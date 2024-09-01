@@ -46,7 +46,7 @@ const Profile = () => {
               onClick={() => navigate("../profile/edit-profile")}
             />
           </span>
-          <p className="text-xs">K11940758</p>
+          <p className="">K11940758</p>
         </span>
         <span className="profile-icon  bg-secondary rounded-full h-16 w-16 items-center flex relative">
           {/* <img src={editProfileIcon} alt="" /> */}
@@ -66,10 +66,10 @@ const SettingOption = ({ setting, navigate }) => {
   return (
     <span className="profile-option" onClick={() => navigate(setting.to)}>
       <span className=" flex gap-2 items-center ">
-        <img src={setting.icon} alt="" className="h-4" />
-        <p className="text-sm">{setting.title}</p>
+        <img src={setting.icon} alt="" className="h-5" />
+        <p className="">{setting.title}</p>
       </span>
-      <img src={rightArrow2Icon} alt="" className="h-4" />
+      <img src={rightArrow2Icon} alt="" className="h-5" />
     </span>
   );
 };

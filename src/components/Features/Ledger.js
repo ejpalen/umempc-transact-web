@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import backIcon from "../../assets/images/back-icon.png";
+import backIcon from "../../assets/images/feature-back-icon.png";
 import dropdownIcon from "../../assets/images/drowdown-icon.png";
 import sharesCapitalIcon from "../../assets/images/total-shares-capital-icon.png";
 import totalLoansIcon from "../../assets/images/total-loans-icon.png";
@@ -11,10 +11,6 @@ import notSelectedIcon from "../../assets/images/not-selected-icon.png";
 
 const Ledger = ({}) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    document.querySelector("meta[name='theme-color']").content = "#ffffff";
-  }, []);
 
   const [isFilterClicked, setIsFilterClicked] = useState(false);
   const [filterIndex, setFilterIndex] = useState(0);
@@ -28,9 +24,9 @@ const Ledger = ({}) => {
 
   useEffect(() => {
     if (openModal || isFilterClicked) {
-      document.querySelector("meta[name='theme-color']").content = "#ADADAD";
+      document.querySelector("meta[name='theme-color']").content = "#2267A9";
     } else {
-      document.querySelector("meta[name='theme-color']").content = "#ffffff";
+      document.querySelector("meta[name='theme-color']").content = "#198df9";
     }
   }, [openModal, isFilterClicked]);
 
@@ -245,8 +241,8 @@ const Ledger = ({}) => {
 
   const filters = [
     {
-      name: `Date${
-        selectedDateFilter !== "None" ? `: ${selectedDateFilter}` : ""
+      name: `${
+        selectedDateFilter !== "None" ? `${selectedDateFilter}` : "Date"
       }`,
       content: (
         <DateFilterContent
@@ -258,8 +254,10 @@ const Ledger = ({}) => {
       ),
     },
     {
-      name: `Reference${
-        selectedReferenceFilter !== "None" ? `: ${selectedReferenceFilter}` : ""
+      name: `${
+        selectedReferenceFilter !== "None"
+          ? `${selectedReferenceFilter}`
+          : "Reference"
       }`,
       content: (
         <ReferenceFilterContent
@@ -271,8 +269,8 @@ const Ledger = ({}) => {
       ),
     },
     {
-      name: `CV No${
-        selectedCVNOFilter !== "None" ? `: ${selectedCVNOFilter}` : ""
+      name: `${
+        selectedCVNOFilter !== "None" ? `${selectedCVNOFilter}` : "CV No"
       }`,
       content: (
         <CVNoFilterContent
@@ -337,19 +335,22 @@ const Ledger = ({}) => {
           </div>
         </div>
       )}
-      <section className="header p-4 flex justify-between items-center gap-2">
-        <img
-          src={backIcon}
-          alt=""
-          className="h-6 p-1 cursor-pointer absolute"
-          onClick={() => {
-            navigate("/home");
-          }}
-        />
-        <h2 className="flex-1 text-center text-xl">Ledger</h2>
+      <section className="header p-4 flex flex-col gradient-bg-3 h-32 gap-4 justify-center text-white">
+        <section className="flex justify-start items-center gap-3">
+          <img
+            src={backIcon}
+            alt=""
+            className="h-8 p-1 cursor-pointer"
+            onClick={() => {
+              navigate("/home");
+            }}
+          />
+          <h2 className="flex-1 text-3xl text-bold">Ledger</h2>
+        </section>
+        <span className=""> Account Activity and Loan Payments</span>
       </section>
-      <main className=" flex-1 flex flex-col mt-16">
-        <section className="mb-4">
+      <main className=" flex-1 flex flex-col mt-32">
+        <section className="mb-4 mt-6">
           <div className="gap-2 w-full px-4 grid-cols-2 grid">
             {summary.map((item, index) => (
               <span
@@ -374,20 +375,20 @@ const Ledger = ({}) => {
                 className={`
                 ${
                   index === 0 && selectedDateFilter === "None"
-                    ? "opacity-75 grayscale"
-                    : ""
+                    ? "filter-inactive"
+                    : "bg-secondary"
                 }
                 ${
                   index === 1 && selectedReferenceFilter === "None"
-                    ? "opacity-75 grayscale"
-                    : ""
+                    ? "filter-inactive"
+                    : "bg-secondary"
                 }
                 ${
                   index === 2 && selectedCVNOFilter === "None"
-                    ? "opacity-75 grayscale"
-                    : ""
+                    ? "filter-inactive"
+                    : "bg-secondary"
                 }
-                button-3 text-nowrap text-sm py-1 px-6 text-left`}
+                button-2  text-nowrap text-sm py-2 px-6 text-left`}
                 onClick={() => {
                   setIsFilterClicked(true);
                   setFilterIndex(index);

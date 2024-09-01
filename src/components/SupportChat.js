@@ -7,6 +7,10 @@ import sendActiveIcon from "../assets/images/send-active-icon.png";
 const SupportChat = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.querySelector("meta[name='theme-color']").content = "#ffffff";
+  }, []);
+
   const chats = [
     {
       message: "This is the user",
