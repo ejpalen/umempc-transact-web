@@ -63,16 +63,16 @@ const Calculator = ({ loanTerms }) => {
   }, [calculatorLoanAmount, calculatorMonthlyIncome, calculatorInterestRate]);
 
   return (
-    <div className="wrapper text-default full-screen">
-      <div className="support-bottom-nav fixed bottom-0 left-0 right-0 py-3 px-0 pt-0 z-10">
-        <nav className="flex pt-3 pb-3 items-center px-4 gap-2 flex-col">
+    <div className="wrapper text-default  overflow-y-scroll h-full">
+      <div className="support-bottom-nav bg-opacity-50 fixed bottom-0 left-0 right-0 px-0 pt-0 z-10">
+        <nav className="calculate-btn-container bg-opacity-50 flex items-center px-4 py-4 gap-2 flex-col">
           <span
             onClick={() => {
               isReadyToCalculate && setRevealResult(true);
             }}
             className={`${
               isReadyToCalculate ? "opacity-100" : "opacity-50"
-            } text-white text-bold p-4 flex-1 text-center bg-primary w-full mb-2 rounded-full`}
+            } text-white text-bold p-4 flex-1 text-center bg-primary w-full rounded-full`}
           >
             Calculate
           </span>
@@ -83,16 +83,16 @@ const Calculator = ({ loanTerms }) => {
           <img
             src={backIcon}
             alt=""
-            className="h-8 p-1 cursor-pointer"
+            className="h-7 p-1 cursor-pointer"
             onClick={() => {
               navigate("/home");
             }}
           />
-          <h2 className="flex-1 text-3xl text-bold">Calculator</h2>
+          <h2 className="flex-1 text-2xl text-bold">Calculator</h2>
         </section>
         <span className="">Simplify your loan calculations</span>
       </section>
-      <main className=" flex-1 flex flex-col mt-32 px-4">
+      <main className=" flex-1 flex flex-col mt-32 px-4 pb-40">
         <section className="flex flex-col gap-1 mt-6">
           <section className="flex flex-col">
             <label className="mb-1" htmlFor="loanAmount">

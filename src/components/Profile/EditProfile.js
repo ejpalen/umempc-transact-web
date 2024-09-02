@@ -4,13 +4,15 @@ import backIcon from "../../assets/images/back-icon.png";
 import loanIcon from "../../assets/images/loan-transact-icon.png";
 import cameraIcon from "../../assets/images/camera-icon.png";
 
-const EditProfile = ({ name,
+const EditProfile = ({
+  name,
   setName,
   address,
   setAddress,
   contactNumber,
   setContactNumber,
-  email, setEmail,
+  email,
+  setEmail,
   selectedCollege,
   setSelectedCollege,
   selectedMembershipStatus,
@@ -19,38 +21,37 @@ const EditProfile = ({ name,
   setSelectedEmploymentStatus,
   membershipStatus,
   employmentStatus,
-  colleges, }) => {
+  colleges,
+}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     document.querySelector("meta[name='theme-color']").content = "#ffffff";
   }, []);
 
-
-
   return (
-      <div className="wrapper text-default full-screen-100">
-        <section className="header p-4 flex justify-between items-center gap-2">
-          <img
-            src={backIcon}
-            alt=""
-            className="h-6 p-1 cursor-pointer absolute"
-            onClick={() => {
-              navigate("/profile");
-            }}
-          />
-          <h2 className="flex-1 text-center text-xl"></h2>
-          <span className="opacity-50">Save</span>
+    <div className="wrapper text-default full-screen-100">
+      <section className="header p-4 flex justify-between items-center gap-2">
+        <img
+          src={backIcon}
+          alt=""
+          className="h-6 p-1 cursor-pointer absolute"
+          onClick={() => {
+            navigate("/profile");
+          }}
+        />
+        <h2 className="flex-1 text-center text-xl"></h2>
+        <span className="opacity-50">Save</span>
+      </section>
+      <main className=" flex-1 flex flex-col mt-14 container-with-label">
+        <section className="flex flex-col gap-1  items-center">
+          <span className="profile-icon  bg-secondary rounded-full h-20 w-20 items-center flex relative">
+            <img src={cameraIcon} alt="" />
+            <h1 className="text-xl text-bold m-auto flex justify-center">E</h1>
+          </span>
+          <p className="opacity-75 mt-1">K11940758</p>
         </section>
-        <main className=" flex-1 flex flex-col mt-14 container-with-label">
-          <section className="flex flex-col gap-1  items-center">
-            <span className="profile-icon  bg-secondary rounded-full h-20 w-20 items-center flex relative">
-          <img src={cameraIcon} alt="" />
-          <h1 className="text-xl text-bold m-auto flex justify-center">E</h1>
-        </span>
-            <p className="opacity-75 mt-1">K11940758</p>
-          </section>
-          <section className="flex flex-col gap-1 mt-6">
+        <section className="flex flex-col gap-1 mt-6">
           <section className="px-4 flex flex-col">
             <label className="mb-1" htmlFor="name">
               Name
@@ -108,7 +109,7 @@ const EditProfile = ({ name,
               {membershipStatus.map((status, index) => (
                 <span
                   key={index}
-                  className={`text-nowrap text-base rounded-lg py-1.5 px-6  text-center ${
+                  className={`text-nowrap text-base rounded-full py-2 px-6  text-center ${
                     selectedMembershipStatus === status
                       ? "button-1"
                       : "button-2"
@@ -126,7 +127,7 @@ const EditProfile = ({ name,
               {employmentStatus.map((status, index) => (
                 <span
                   key={index}
-                  className={`text-nowrap text-base rounded-lg py-1.5 px-6 flex-1 text-center ${
+                  className={`text-nowrap text-base rounded-full py-2 px-6 flex-1 text-center ${
                     selectedEmploymentStatus === status
                       ? "button-1"
                       : "button-2"
@@ -139,8 +140,8 @@ const EditProfile = ({ name,
             </section>
           </section>
         </section>
-        </main>
-      </div>
+      </main>
+    </div>
   );
 };
 

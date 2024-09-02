@@ -61,7 +61,7 @@ const TransactionItem = ({ item, navigate }) => {
       <div className="transaction-list-item-left">
         <img src={loanTransactIcon} alt="" />
         <span>
-          <h3>Applied for Loan</h3>
+          <h3>{item.type}</h3>
           <p>{item.date}</p>
         </span>
       </div>

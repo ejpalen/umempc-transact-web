@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import backIcon from "../../assets/images/back-icon.png";
+import homeIcon from "../../assets/images/home-icon.png";
 
 const ReviewDetails = ({
   loanAmount,
@@ -17,31 +18,41 @@ const ReviewDetails = ({
   const navigate = useNavigate();
 
   const [isChecked, setIsChecked] = useState(false);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked); // Toggle the checkbox state
   };
 
+  useEffect(() => {
+    if (isSubmitClicked) {
+      document.querySelector("meta[name='theme-color']").content = "#0051FF";
+    } else {
+      document.querySelector("meta[name='theme-color']").content = "#ffffff";
+    }
+  }, [isSubmitClicked]);
+
   return (
     <div className="wrapper text-default">
-      <div className="support-bottom-nav fixed bottom-0 left-0 right-0 py-3 px-0 pt-0 z-10">
+      {isSubmitClicked && (
+        <WithdrawConfirmation
+          loanAmount={loanAmount}
+          name={name}
+          navigate={navigate}
+        />
+      )}
+      <div className="support-bottom-nav fixed bottom-0 left-0 right-0 py-4 px-0 pt-0 z-10">
         <nav className="flex pt-3 items-center px-4 gap-2 flex-col">
           <section className="flex gap-2 bg-pink-50 flex-1 w-full">
-            <span className="h-1 flex-1 w-full bg-inactive opacity-15 rounded-full">
-              -
-            </span>
-            <span className="h-1 flex-1 w-full bg-inactive opacity-15 rounded-full">
-              -
-            </span>
-            <span className="h-1 flex-1 w-full bg-primary rounded-full">-</span>
+            <span className="h-1 flex-1 w-full bg-inactive opacity-15 rounded-full"></span>
+            <span className="h-1 flex-1 w-full bg-inactive opacity-15 rounded-full"></span>
+            <span className="h-1 flex-1 w-full bg-primary rounded-full"></span>
           </section>
           <span
-            onClick={() =>
-              navigate(`${isChecked ? "/apply-for-loan/loan-details" : ""}`)
-            }
+            onClick={() => setIsSubmitClicked(isChecked)}
             className={`${
               !isChecked && "opacity-50"
-            } text-white h-12 text-bold p-2 flex-1 text-center bg-primary w-full mb-2 rounded-lg`}
+            } text-white text-bold p-4 flex-1 text-center bg-primary w-full rounded-full`}
           >
             Submit Application
           </span>
@@ -51,14 +62,14 @@ const ReviewDetails = ({
         <img
           src={backIcon}
           alt=""
-          className="h-7 p-1 cursor-pointer absolute"
+          className="h-6 p-1 cursor-pointer absolute"
           onClick={() => {
             navigate("/apply-for-loan/personal-details");
           }}
         />
         <h2 className="flex-1 text-center text-xl">Review Details</h2>
       </section>
-      <main className=" flex-1 flex flex-col mt-14 p-4 pt-0 pb-40">
+      <main className=" flex-1 flex flex-col mt-20 p-4 pt-0 pb-40">
         <h2 className="flex-1 text-bold">Loan Details</h2>
         <section className="mt-1 bg-hoverBg rounded-lg p-2">
           <label className="text-sm opacity-75">Loan Amount</label>
@@ -101,6 +112,50 @@ const ReviewDetails = ({
           </label>
         </span>
       </main>
+    </div>
+  );
+};
+
+const WithdrawConfirmation = ({ loanAmount, name, navigate }) => {
+  return (
+    <div className="gradient-bg-2 h-full w-[100vw] absolute top-0 right-0 left-0 z-30 text-white flex">
+      <section className="flex-1 flex justify-center items-center flex-col px-4">
+        <section className="">
+          <h1 className="text-2xl text-center">
+            Your loan application is submitted.
+          </h1>
+        </section>
+        <p className="opacity-75 mt-12">Reference</p>
+        <h1 className="text-5xl text-bold">123456</h1>
+        <section className="bg-hoverBg bg-opacity-10 p-4 rounded-lg mt-6 w-full">
+          <span className="transaction-details-data">
+            <p>Amount</p>
+            <p>₱{loanAmount}</p>
+          </span>
+          <span className="transaction-details-data">
+            <p>Name</p>
+            <p>{name}</p>
+          </span>
+        </section>
+        <section className="bg-white text-primary p-4 rounded-lg mt-6 w-full text-center">
+          <span>Expect approval notification within 24 hours.</span>
+        </section>
+        <section className="fixed bottom-4 right-4 left-4">
+          <span
+            onClick={() => navigate("/home")}
+            className={`
+            
+                flex gap-4 items-center justify-center rounded-full mt-12 text-center w-full  text-white text-bold`}
+          >
+            <img
+              src={homeIcon}
+              alt=""
+              className="h-4 w-4 invert brightness-0"
+            />
+            <p>Back to Home</p>
+          </span>
+        </section>
+      </section>
     </div>
   );
 };

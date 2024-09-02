@@ -340,12 +340,12 @@ const Ledger = ({}) => {
           <img
             src={backIcon}
             alt=""
-            className="h-8 p-1 cursor-pointer"
+            className="h-7 p-1 cursor-pointer"
             onClick={() => {
               navigate("/home");
             }}
           />
-          <h2 className="flex-1 text-3xl text-bold">Ledger</h2>
+          <h2 className="flex-1 text-2xl text-bold">Ledger</h2>
         </section>
         <span className=""> Account Activity and Loan Payments</span>
       </section>

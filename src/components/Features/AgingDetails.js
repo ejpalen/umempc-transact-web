@@ -84,12 +84,12 @@ const AgingDetails = ({ agingData }) => {
           <img
             src={backIcon}
             alt=""
-            className="h-8 p-1 cursor-pointer"
+            className="h-7 p-1 cursor-pointer"
             onClick={() => {
               navigate("/aging");
             }}
           />
-          <h2 className="flex-1 text-3xl text-bold">Loan Details</h2>
+          <h2 className="flex-1 text-2xl text-bold">Loan Details</h2>
         </section>
         <span className=""> Schedule of Account's Amortizations</span>
       </section>

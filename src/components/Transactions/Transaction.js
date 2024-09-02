@@ -38,7 +38,7 @@ const Transaction = ({ transactionItemData }) => {
         <main className=" flex-1 flex flex-col mt-14 px-4">
           <section className="flex flex-col gap-1  items-center mt-6">
             <img src={loanIcon} alt="" className="h-14 w-14" />
-            <h1 className="text-2xl text-bold mt-1">Applied for Loan</h1>
+            <h1 className="text-2xl text-bold mt-1">{transactionItem.type}</h1>
 
             <p className="opacity-75 ">Reference No. {transactionItem.id}</p>
           </section>

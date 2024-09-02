@@ -13,6 +13,7 @@ import allApplyForLoanIcon from "../assets/images/all-apply-for-loan-icon.png";
 import rightArrowIcon from "../assets/images/right-arrow-icon.png";
 import rightArrow2Icon from "../assets/images/right-arrow-2-icon.png";
 import eyeActiveIcon from "../assets/images/eye-active-icon.png";
+import loanAgainIcon from "../assets/images/loan-again-icon.png";
 
 const Home = ({ setActiveLink, transactionItemData }) => {
   const navigate = useNavigate();
@@ -136,7 +137,12 @@ const Home = ({ setActiveLink, transactionItemData }) => {
           </div>
         </section>
         <section className="mt-8">
-          <h2 className="text-xl ">Quick Links</h2>
+          <h2 className="text-xl mb-2">Loan Again</h2>
+          <section className="flex gap-2 overflow-x-scroll w-full pb-2">
+            {transactionItemData.slice(0, 5).map((item) => (
+              <LoanAgainItem item={item} navigate={navigate} />
+            ))}
+          </section>
         </section>
       </main>
     </div>
@@ -152,7 +158,7 @@ const TransactionItem = ({ item, navigate }) => {
       <div className="transaction-list-item-left">
         <img src={loanTransactIcon} alt="" />
         <span>
-          <h3>Applied for Loan</h3>
+          <h3>{item.type}</h3>
           <p>{item.date}</p>
         </span>
       </div>
@@ -160,6 +166,22 @@ const TransactionItem = ({ item, navigate }) => {
         <p>{item.amount}</p>
         <img src={rightArrow2Icon} alt="" />
       </div>
+    </div>
+  );
+};
+
+const LoanAgainItem = ({ item, navigate }) => {
+  return (
+    <div className="loan-again-item rounded-2xl flex justify-between items-end w-max flex-none">
+      <div className=" p-4 pr-8 pb-8  flex flex-col w-max">
+        <h1 className=" text-bold">{item.amount}</h1>
+        <span className="flex gap-2 flex-1 w-max opacity-75">
+          <p className="text-sm">{item.type}</p>
+          <p className="text-sm">•</p>
+          <p className="text-sm">6 months</p>
+        </span>
+      </div>
+      <img src={loanAgainIcon} alt="" className="w-12 h-12" />
     </div>
   );
 };

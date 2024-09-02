@@ -20,6 +20,7 @@ import WithdrawDetails from "./components/Features/WithdrawDetails";
 import Transaction from "./components/Transactions/Transaction";
 import EditProfile from "./components/Profile/EditProfile";
 import Settings from "./components/Profile/Settings";
+import ChangePassword from "./components/Profile/ChangePassword";
 import About from "./components/Profile/About";
 
 const Homepage = () => {
@@ -87,6 +88,7 @@ const Homepage = () => {
       amount: "₱10,000.00",
       id: "1a1a1a",
       status: "Approved",
+      type: "Prepaid Cash",
     },
     {
       date: "01 April 2024",
@@ -94,6 +96,7 @@ const Homepage = () => {
       amount: "₱45,000.00",
       id: "2b2b2b",
       status: "Approved",
+      type: "Add-on Cash",
     },
     {
       date: "18 March 2024",
@@ -101,6 +104,7 @@ const Homepage = () => {
       amount: "₱2,000.00",
       id: "3c3c3c",
       status: "Approved",
+      type: "Prepaid Cash",
     },
     {
       date: "06 March 2024",
@@ -108,6 +112,7 @@ const Homepage = () => {
       amount: "₱5,000.00",
       id: "4d4d4d",
       status: "Approved",
+      type: "Add-on Cash",
     },
     {
       date: "25 Feb 2024",
@@ -115,6 +120,7 @@ const Homepage = () => {
       amount: "₱20,000.00",
       id: "5e5e5e",
       status: "Approved",
+      type: "Add-on Cash",
     },
     {
       date: "18 March 2024",
@@ -122,6 +128,7 @@ const Homepage = () => {
       amount: "₱2,000.00",
       id: "3c3c3c",
       status: "Approved",
+      type: "Prepaid Cash",
     },
     {
       date: "06 March 2024",
@@ -129,6 +136,7 @@ const Homepage = () => {
       amount: "₱5,000.00",
       id: "4d4d4d",
       status: "Approved",
+      type: "Add-on Cash",
     },
     {
       date: "25 Feb 2024",
@@ -136,6 +144,7 @@ const Homepage = () => {
       amount: "₱20,000.00",
       id: "5e5e5e",
       status: "Approved",
+      type: "Prepaid Cash",
     },
   ];
 
@@ -357,6 +366,10 @@ const Homepage = () => {
           }
         />
         <Route path="/profile/settings" element={<Settings />} />
+        <Route
+          path="/profile/settings/change-password"
+          element={<ChangePassword />}
+        />
         <Route path="/profile/about-umempc-transact" element={<About />} />
         <Route path="/support-chat" element={<SupportChat />} />
         <Route

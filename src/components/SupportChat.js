@@ -63,7 +63,7 @@ const SupportChat = () => {
   const element = useRef();
 
   return (
-    <div className="wrapper text-default full-screen">
+    <div className="wrapper text-default">
       <div className="support-bottom-nav fixed bottom-0 left-0 right-0 py-3 px-0 z-10 h-16 flex ">
         <nav className="flex flex-1 justify-around items-center px-4 gap-2">
           <textarea
@@ -92,9 +92,9 @@ const SupportChat = () => {
         />
         <h2 className="flex-1 text-center text-xl">Support</h2>
       </section>
-      <main className="px-4 main-content pb-2 ">
-        <section className="pt-40">
-          <div className="chat-wrapper flex flex-col gap-1 justify-center">
+      <main className="mt-16 h-full">
+        <section className="pb-2">
+          <div className="chat-wrapper flex flex-col gap-1 justify-center px-4 flex-1">
             <span className="text-center text-sm">August 21</span>
             {chats.map((chat, index) => (
               <div

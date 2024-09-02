@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import backIcon from "../../assets/images/back-icon.png";
 import bankTransferIcon from "../../assets/images/bank-transfer-icon.png";
 import cashIcon from "../../assets/images/cash-icon.png";
+import homeIcon from "../../assets/images/home-icon.png";
 
 const WithdrawDetails = ({}) => {
   const navigate = useNavigate();
@@ -180,13 +181,21 @@ const WithdrawConfirmation = ({
             </span>
           )}
         </section>
-        <span
-          onClick={() => navigate("/home")}
-          className={`
-                flex gap-2 items-center justify-center p-4 rounded-full mt-12 text-center w-full border-white text-white text-bold`}
-        >
-          <p>Back to Home</p>
-        </span>
+        <section className="fixed bottom-4 right-4 left-4">
+          <span
+            onClick={() => navigate("/home")}
+            className={`
+            
+                flex gap-4 items-center justify-center rounded-full mt-12 text-center w-full  text-white text-bold`}
+          >
+            <img
+              src={homeIcon}
+              alt=""
+              className="h-4 w-4 invert brightness-0"
+            />
+            <p>Back to Home</p>
+          </span>
+        </section>
       </section>
     </div>
   );

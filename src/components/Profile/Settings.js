@@ -13,13 +13,13 @@ const Settings = () => {
     {
       title: "Change Password",
       icon: changePasswordIcon,
-      to: "/profile/settings",
+      to: "/profile/settings/change-password",
     },
-    {
-      title: "Two Factor Authentication",
-      icon: tfaIcon,
-      to: "/about-umempc-transact",
-    },
+    // {
+    //   title: "Two Factor Authentication",
+    //   icon: tfaIcon,
+    //   to: "/about-umempc-transact",
+    // },
   ];
 
   useEffect(() => {

@@ -89,12 +89,12 @@ const Aging = ({ agingData }) => {
           <img
             src={backIcon}
             alt=""
-            className="h-8 p-1 cursor-pointer"
+            className="h-7 p-1 cursor-pointer"
             onClick={() => {
               navigate("/home");
             }}
           />
-          <h2 className="flex-1 text-3xl text-bold">Aging</h2>
+          <h2 className="flex-1 text-2xl text-bold">Aging</h2>
         </section>
         <span className=""> Loans made by your account</span>
       </section>

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-import editProfileIcon from "../assets/images/edit-profile-icon.png";
+import defaultProfile from "../assets/images/profile-icon-active.png";
 import editIcon from "../assets/images/edit-icon.png";
 import rightArrow2Icon from "../assets/images/right-arrow-2-icon.png";
 import settingsIcon from "../assets/images/settings-icon.png";
@@ -30,30 +30,38 @@ const Profile = () => {
   ];
 
   useEffect(() => {
-    document.querySelector("meta[name='theme-color']").content = "#8788EF";
+    document.querySelector("meta[name='theme-color']").content = "#6ED097";
   }, []);
 
   return (
     <div className="wrapper text-default">
-      <div className=" flex gap-2 items-center justify-between p-4 py-8 gradient-bg">
+      <div className=" flex gap-2 items-center justify-between p-4 pb-12 gradient-bg-4">
         <span className="text-white">
           <span className="flex gap-2 items-center">
             <h2 className="text-2xl text-bold">Edgar Palen</h2>
             <img
               src={editIcon}
               alt=""
-              className="cursor-pointer h-8 p-2"
+              className="cursor-pointer h-9 p-2"
               onClick={() => navigate("../profile/edit-profile")}
             />
           </span>
           <p className="">K11940758</p>
         </span>
-        <span className="profile-icon  bg-secondary rounded-full h-16 w-16 items-center flex relative">
-          {/* <img src={editProfileIcon} alt="" /> */}
+        {/* <span className="profile-icon  bg-secondary rounded-full h-16 w-16 items-center flex relative">
           <h1 className="text-xl text-bold m-auto flex justify-center">E</h1>
+        </span> */}
+        <span>
+          <img src={defaultProfile} alt="" className="h-12" />
         </span>
       </div>
-      <main className="px-4 mt-4">
+      <main className="px-4 mt-4  relative top-[-3rem]">
+        <section className="shadow-lg p-6 rounded-lg bg-white flex justify-between items-center mb-6">
+          <span className="flex gap-2 justify-between flex-1">
+            <p className=" opacity-50">Total Loans</p>
+            <p className="text-bold">23</p>
+          </span>
+        </section>
         {settings.map((setting, index) => (
           <SettingOption setting={setting} navigate={navigate} key={index} />
         ))}
