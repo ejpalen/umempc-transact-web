@@ -15,6 +15,9 @@ const LoanDetails = ({
   loanTypes,
   paymentMethod,
   setLoanTerm,
+  selectedKindOfLoan,
+  setSelectedKindOfLoan,
+  kindOfLoan
 }) => {
   const navigate = useNavigate();
 
@@ -30,7 +33,7 @@ const LoanDetails = ({
   }, [selectedLoanTerm]);
 
   useEffect(() => {
-    setLoanTerm(`${numberLoanTerm} ${numberLoanTerm > 1 ? "months" : "month"}`);
+    setLoanTerm(numberLoanTerm);
   }, [numberLoanTerm]);
 
   return (
@@ -88,9 +91,12 @@ const LoanDetails = ({
             >
               {loanTerms.map((term, index) => (
                 <option key={index} value={term}>
-                  {term}
+                  {term} months
                 </option>
               ))}
+              <option value="Others">
+                  Others
+                </option>
             </select>
             {isLoanTermOthers && (
               <>
@@ -120,6 +126,22 @@ const LoanDetails = ({
                   onClick={() => setSelectedLoanType(type)}
                 >
                   {type}
+                </span>
+              ))}
+            </section>
+          </section>
+          <section className=" flex flex-col">
+            <label className="pl-4 mb-1 mt-6">Kind of Loan</label>
+            <section className="flex flex-row gap-1 overflow-y-scroll pb-1.5 px-4">
+              {kindOfLoan.map((kind, index) => (
+                <span
+                  key={index}
+                  className={`text-nowrap text-base py-2 px-6 flex-1 text-center ${
+                    selectedKindOfLoan === kind ? "button-1" : "button-2"
+                  }`}
+                  onClick={() => setSelectedKindOfLoan(kind)}
+                >
+                  {kind}
                 </span>
               ))}
             </section>

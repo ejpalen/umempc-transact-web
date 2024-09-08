@@ -30,35 +30,26 @@ const Home = ({ setActiveLink, transactionItemData }) => {
 
   const features = [
     {
-      name: "Calculator",
+      name: "Loan Calculator",
       image: calculatorIcon,
       link: "/loan-calculator",
     },
     {
-      name: "Ledger",
+      name: "My Account",
       image: ledgerIcon,
       link: "/ledger",
-    },
-    {
-      name: "Aging",
-      image: agingIcon,
-      link: "/aging",
-    },
-    {
-      name: "Withdraw",
-      image: transactionFeatureIcon,
-      link: "/withdraw",
-    },
-    {
-      name: "Apply For Loan",
-      image: allApplyForLoanIcon,
-      link: "/apply-for-loan",
     },
     {
       name: "Chat Support",
       image: allSupportIcon,
       link: "/support-chat",
     },
+    {
+      name: "Apply For Loan",
+      image: allApplyForLoanIcon,
+      link: "/apply-for-loan",
+    },
+   
     {
       name: "Edit Profile",
       image: transactionFeatureIcon,
@@ -94,23 +85,36 @@ const Home = ({ setActiveLink, transactionItemData }) => {
       </section>
       <main className=" relative top-[-3.5rem] p-4 pb-20 text-default">
         <section className="shadow-lg p-4 rounded-lg bg-white flex justify-between items-center">
+          <div className="flex-1 flex flex-col gap-2">
+          <div  className="flex justify-between items-center pb-2">
+
           <span>
             <p className=" opacity-50">Balance</p>
             <h1 className="text-3xl text-bold">₱97,463.25</h1>
           </span>
           <img src={eyeActiveIcon} alt="" className="h-7" />
+          </div>
+          <div  className="flex justify-between items-center pt-4 share-capital-text">
+          <span>
+            <p className=" opacity-50">Share Capital</p>
+            <h1 className="text-3xl text-bold">₱132,680.25</h1>
+          </span>
+          <img src={eyeActiveIcon} alt="" className="h-7" />
+          </div>
+          </div>
+          
         </section>
         <section className="mt-8 flex gap-2 container">
-          {features.slice(0, 4).map((feature) => (
+          {features.slice(0, 3).map((feature) => (
             <div
-              className="feature-link"
+              className="feature-link cursor-pointer"
               onClick={() => navigate(`${feature.link}`)}
             >
               <img src={feature.image} alt="" />
-              <p>{feature.name}</p>
+              <p className="text-center">{feature.name}</p>
             </div>
           ))}
-          <div className="feature-link" onClick={() => setOpenAllFeature(true)}>
+          <div className="feature-link cursor-pointer" onClick={() => setOpenAllFeature(true)}>
             <img src={allIcon} alt="" />
             <p>All</p>
           </div>
@@ -152,7 +156,7 @@ const Home = ({ setActiveLink, transactionItemData }) => {
 const TransactionItem = ({ item, navigate }) => {
   return (
     <div
-      className="transaction-list-item"
+      className="transaction-list-item cursor-pointer"
       onClick={() => navigate(`../transactions/${item.id}`)}
     >
       <div className="transaction-list-item-left">
@@ -172,7 +176,7 @@ const TransactionItem = ({ item, navigate }) => {
 
 const LoanAgainItem = ({ item, navigate }) => {
   return (
-    <div className="loan-again-item rounded-2xl flex justify-between items-end w-max flex-none">
+    <div className="loan-again-item rounded-2xl flex justify-between items-end w-max flex-none cursor-pointer">
       <div className=" p-4 pr-8 pb-8  flex flex-col w-max">
         <h1 className=" text-bold">{item.amount}</h1>
         <span className="flex gap-2 flex-1 w-max opacity-75">

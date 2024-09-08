@@ -95,6 +95,10 @@ html {
     width: max-content;
     
   }
+
+  .share-capital-text{
+    border-top: 1px solid #EBEBEB;
+  }
   
   .feature-link{
     @apply flex flex-col items-center flex-1;

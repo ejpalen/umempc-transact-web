@@ -30,19 +30,24 @@ const Homepage = () => {
   const [loanAmount, setLoanAmount] = useState("");
   const [selectedLoanTerm, setSelectedLoanTerm] = useState("5 months");
   const [loanTerm, setLoanTerm] = useState("5 months");
+  const [selectedKindOfLoan, setSelectedKindOfLoan] = useState("Salary Loan")
   const [selectedLoanType, setSelectedLoanType] = useState("Prepaid Cash");
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState("Salary Deduction");
 
   const loanTerms = [
-    "5 months",
-    "6 months",
-    "12 months",
-    "18 months",
-    "24 months",
-    "36 months",
-    "Others",
+    5,
+    6,
+    12,
+    18,
+    24,
+    36,
   ];
+
+  const kindOfLoan = [
+    "Salary Loan", "Benefits Loan", "Merchandise Loan", "Others"
+  ]
+
   const loanTypes = ["Prepaid Cash", "Add-on Cash"];
   const paymentMethod = [
     "Salary Deduction",
@@ -287,6 +292,9 @@ const Homepage = () => {
               paymentMethod={paymentMethod}
               loanTerm={loanTerm}
               setLoanTerm={setLoanTerm}
+              selectedKindOfLoan={selectedKindOfLoan}
+              setSelectedKindOfLoan={setSelectedKindOfLoan}
+              kindOfLoan={kindOfLoan}
             />
           }
         />
@@ -320,6 +328,7 @@ const Homepage = () => {
               setLoanAmount={setLoanAmount}
               selectedLoanTerm={selectedLoanTerm}
               loanTerm={loanTerm}
+              selectedKindOfLoan={selectedKindOfLoan}
               selectedLoanType={selectedLoanType}
               selectedPaymentMethod={selectedPaymentMethod}
               name={name}

@@ -14,6 +14,7 @@ const ReviewDetails = ({
   selectedCollege,
   selectedMembershipStatus,
   selectedEmploymentStatus,
+  selectedKindOfLoan
 }) => {
   const navigate = useNavigate();
 
@@ -75,9 +76,11 @@ const ReviewDetails = ({
           <label className="text-sm opacity-75">Loan Amount</label>
           <p className="">₱{loanAmount}</p>
           <label className="text-sm opacity-75">Loan Term</label>
-          <p className="text">{loanTerm}</p>
+          <p className="text">{loanTerm} months</p>
           <label className="text-sm opacity-75">Loan Type</label>
           <p className="">{selectedLoanType}</p>
+          <label className="text-sm opacity-75">Kind of Loan</label>
+          <p className="">{selectedKindOfLoan}</p>
           <label className="text-sm opacity-75">Payment Method</label>
           <p className="">{selectedPaymentMethod}</p>
         </section>
@@ -125,9 +128,7 @@ const WithdrawConfirmation = ({ loanAmount, name, navigate }) => {
             Your loan application is submitted.
           </h1>
         </section>
-        <p className="opacity-75 mt-12">Reference</p>
-        <h1 className="text-5xl text-bold">123456</h1>
-        <section className="bg-hoverBg bg-opacity-10 p-4 rounded-lg mt-6 w-full">
+        <section className="bg-hoverBg bg-opacity-10 p-4 rounded-lg mt-12 w-full">
           <span className="transaction-details-data">
             <p>Amount</p>
             <p>₱{loanAmount}</p>
@@ -144,7 +145,7 @@ const WithdrawConfirmation = ({ loanAmount, name, navigate }) => {
           <span
             onClick={() => navigate("/home")}
             className={`
-            
+            cursor-pointer
                 flex gap-4 items-center justify-center rounded-full mt-12 text-center w-full  text-white text-bold`}
           >
             <img

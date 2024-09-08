@@ -345,7 +345,7 @@ const Ledger = ({}) => {
               navigate("/home");
             }}
           />
-          <h2 className="flex-1 text-2xl text-bold">Ledger</h2>
+          <h2 className="flex-1 text-2xl text-bold">My Account</h2>
         </section>
         <span className=""> Account Activity and Loan Payments</span>
       </section>
