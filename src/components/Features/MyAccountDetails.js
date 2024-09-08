@@ -5,7 +5,7 @@ import selectedIcon from "../../assets/images/selected-icon.png";
 import notSelectedIcon from "../../assets/images/not-selected-icon.png";
 import dropdownIcon from "../../assets/images/drowdown-icon.png";
 
-const AgingDetails = ({ agingData }) => {
+const MyAccountDetails = ({ accountData }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -17,14 +17,16 @@ const AgingDetails = ({ agingData }) => {
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
-    const findAgingItem = agingData.find((item) => item.id === id);
+    const findAgingItem = accountData.find((item) => item.id === id);
 
     setSelectedItem(findAgingItem);
-  }, [agingData, selectedItem]);
+  }, [accountData, selectedItem]);
 
   const [isFilterClicked, setIsFilterClicked] = useState(false);
   const [filterIndex, setFilterIndex] = useState(0);
   const [selectedDateFilter, setSelectedDateFilter] = useState("None");
+
+  const [selectedAmortizationPeriod, setSelectedAmortizationPeriod] = useState()
 
   useEffect(() => {
     if (openModal || isFilterClicked) {
@@ -42,13 +44,17 @@ const AgingDetails = ({ agingData }) => {
       content: (
         <DateFilterContent
           setIsFilterClicked={setIsFilterClicked}
-          agingData={agingData}
+          selectedAmortizationPeriod={selectedAmortizationPeriod}
           selectedDateFilter={selectedDateFilter}
           setSelectedDateFilter={setSelectedDateFilter}
         />
       ),
     },
   ];
+
+  useEffect(() =>{
+    console.log(selectedAmortizationPeriod)
+  },[selectedAmortizationPeriod])
 
   return (
     <div className="wrapper text-default full-screen-100 overflow-x-hidden">
@@ -75,6 +81,7 @@ const AgingDetails = ({ agingData }) => {
             <LoanDetail
               selectedItem={selectedItem}
               setOpenModal={setOpenModal}
+              selectedAmortizationPeriod={selectedAmortizationPeriod}
             />
           </div>
         </div>
@@ -86,30 +93,65 @@ const AgingDetails = ({ agingData }) => {
             alt=""
             className="h-7 p-1 cursor-pointer"
             onClick={() => {
-              navigate("/aging");
+              navigate("/my-account");
             }}
           />
-          <h2 className="flex-1 text-2xl text-bold">Loan Details</h2>
+          <h2 className="flex-1 text-2xl text-bold">{(selectedItem && selectedItem.reference)}</h2>
         </section>
-        <span className=""> Schedule of Account's Amortizations</span>
+        <span className=""> Transaction Details</span>
       </section>
       <main className=" flex-1 flex flex-col mt-32">
-        <section className="bg-hoverBg p-4 rounded-lg  mb-6 mx-4 mt-6">
-          <span className="transaction-details-data">
-            <p>CV No.</p>
-            <p>{selectedItem && selectedItem.cv}</p>
-          </span>
+      <section className="bg-hoverBg p-4 rounded-lg  mb-6 mx-4 mt-6">
+      <span className="transaction-details-data">
+          <p>Loan Date</p>
+          <p>{selectedItem && selectedItem.date}</p>
+        </span>
+        <span className="transaction-details-data">
+          <p>CV No.</p>
+          <p>{selectedItem && selectedItem.cvNo}</p>
+        </span>
+        <span className="transaction-details-data">
+          <p>Check No.</p>
+          <p>{selectedItem && selectedItem.checkNo}</p>
+        </span>
+        <span className="transaction-details-data">
+          <p>Loan Terms</p>
+          <p>{selectedItem && selectedItem.loanTerms}</p>
+        </span>
+        <span className="transaction-details-data">
+          <p>OR No.</p>
+          <p>{selectedItem && selectedItem.orNo}</p>
+        </span>
+        <span className="transaction-details-data">
+          <p>GJ No.</p>
+          <p>{selectedItem && selectedItem.gjNo}</p>
+        </span>
+        <span className="transaction-details-data">
+          <p>Share Capital</p>
+          <p>{selectedItem && selectedItem.shareCapital}</p>
+        </span>
+        <span className="transaction-details-data">
+          <p>Loans</p>
+          <p>{selectedItem && selectedItem.loans}</p>
+        </span>
+        <span className="transaction-details-data">
+          <p>Accounts</p>
+          <p>{selectedItem &&  selectedItem.accounts}</p>
+        </span>
+        <span className="transaction-details-data">
+          <p>Interest</p>
+          <p>{selectedItem && selectedItem.interest}</p>
+        </span>
+        <span className="transaction-details-data">
+          <p>Loan Balance</p>
+          <p>{selectedItem && selectedItem.loanBalance}</p>
+        </span>
+      </section>
+      {selectedItem && selectedItem.type  === "loan" && (
+        <section className="bg-hoverBg p-4 rounded-lg  mb-6 mx-4">
           <span className="transaction-details-data">
             <p>Loan Type</p>
             <p>{selectedItem && selectedItem.loanType}</p>
-          </span>
-          <span className="transaction-details-data">
-            <p>Loan Date</p>
-            <p>{selectedItem && selectedItem.loanDate}</p>
-          </span>
-          <span className="transaction-details-data">
-            <p>Loan Terms</p>
-            <p>{selectedItem && selectedItem.loanTerms}</p>
           </span>
           <span className="transaction-details-data">
             <p>Payment Method</p>
@@ -124,7 +166,12 @@ const AgingDetails = ({ agingData }) => {
             <p>{selectedItem && selectedItem.loanAmount}</p>
           </span>
         </section>
+    )}
+        {selectedItem && selectedItem.type  === "loan" && (
+         <>
+            <h1 className="text-xl px-4 mb-2">Schedule of Account's Amortizations</h1>
         <section className="flex flex-row gap-1 overflow-y-scroll pb-2 px-4">
+            
           {filters.map((filter, index) => (
             <span
               key={index}
@@ -147,20 +194,25 @@ const AgingDetails = ({ agingData }) => {
             </span>
           ))}
         </section>
+        </>
+        )}
         <section className="flex flex-col gap-1 overflow-x-scroll px-4 mt-2">
-          <LedgerTable
-            selectedItem={selectedItem}
-            setOpenModal={setOpenModal}
-          />
+         {selectedItem && selectedItem.type  === "loan" && (
+             <LedgerTable
+             selectedItem={selectedItem}
+             setOpenModal={setOpenModal}
+             setSelectedAmortizationPeriod={setSelectedAmortizationPeriod}
+           />
+         )}
         </section>
       </main>
     </div>
   );
 };
 
-const LoanDetail = ({ selectedItem, setOpenModal }) => {
+const LoanDetail = ({ selectedAmortizationPeriod, setOpenModal }) => {
   return (
-    <div className="pb-2">
+        <div className="pb-2">
       <span
         className="flex justify-center m-auto h-1.5 w-16 bg-[#B5B5B5] rounded-full"
         onClick={() => setOpenModal(false)}
@@ -169,39 +221,37 @@ const LoanDetail = ({ selectedItem, setOpenModal }) => {
         <h1 className="text-2xl text-bold mt-1">Loan Details</h1>
         {/* <p className="opacity-75 ">Reference</p> */}
       </section>
-      {selectedItem.deductions.map((data, index) => (
-        <section className="bg-hoverBg p-4 rounded-lg mt-6" key={index}>
+        <section className="bg-hoverBg p-4 rounded-lg mt-6">
           <span className="transaction-details-data">
             <p>Deduction Periods</p>
-            <p>{data.period}</p>
+            <p>{selectedAmortizationPeriod && selectedAmortizationPeriod.period}</p>
           </span>
           <span className="transaction-details-data">
             <p>Salary</p>
-            <p>{data.salary}</p>
+            <p>{selectedAmortizationPeriod && selectedAmortizationPeriod.salary}</p>
           </span>
           <span className="transaction-details-data">
             <p>OTC</p>
-            <p>{data.otc}</p>
+            <p>{selectedAmortizationPeriod && selectedAmortizationPeriod.otc}</p>
           </span>
           <span className="transaction-details-data">
             <p>Other Payroll</p>
-            <p>{data.otherPayroll}</p>
+            <p>{selectedAmortizationPeriod && selectedAmortizationPeriod.otherPayroll}</p>
           </span>
           <span className="transaction-details-data">
             <p>Reconstruction/Others</p>
-            <p>{data.reconstructionOthers}</p>
+            <p>{selectedAmortizationPeriod && selectedAmortizationPeriod.reconstructionOthers}</p>
           </span>
           <span className="transaction-details-data">
             <p>Balance</p>
-            <p>{data.balance}</p>
+            <p>{selectedAmortizationPeriod && selectedAmortizationPeriod.balance}</p>
           </span>
         </section>
-      ))}
     </div>
   );
 };
 
-const LedgerTable = ({ setOpenModal, selectedItem }) => {
+const LedgerTable = ({setSelectedAmortizationPeriod, setOpenModal, selectedItem }) => {
   return (
     <table>
       <tr>
@@ -226,6 +276,7 @@ const LedgerTable = ({ setOpenModal, selectedItem }) => {
               className="sticky-td"
               onClick={() => {
                 setOpenModal(true);
+                setSelectedAmortizationPeriod(data);
               }}
             >
               <span className="text-xs">OPEN</span>
@@ -275,4 +326,4 @@ const DateFilterContent = ({
   );
 };
 
-export default AgingDetails;
+export default MyAccountDetails;

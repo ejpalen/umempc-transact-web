@@ -9,7 +9,7 @@ import totalBalanceIcon from "../../assets/images/total-balance-icon.png";
 import selectedIcon from "../../assets/images/selected-icon.png";
 import notSelectedIcon from "../../assets/images/not-selected-icon.png";
 
-const Ledger = ({}) => {
+const MyAccount = ({accountData}) => {
   const navigate = useNavigate();
 
   const [isFilterClicked, setIsFilterClicked] = useState(false);
@@ -40,204 +40,6 @@ const Ledger = ({}) => {
       .classList.toggle("modal-open", isFilterClicked);
   }, [isFilterClicked]);
 
-  const ledgerData = [
-    {
-      date: "01-Jan-24",
-      reference: "BEGINNING BALANCE",
-      cvNo: null,
-      checkNo: null,
-      loanTerms: null,
-      orNo: null,
-      gjNo: null,
-      shareCapital: 36400.04,
-      loans: 34043.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 31673.0,
-    },
-    {
-      date: "13-Jan-24",
-      reference: "PAYROLL",
-      cvNo: null,
-      checkNo: null,
-      loanTerms: null,
-      orNo: "10714",
-      gjNo: "2024-01-003",
-      shareCapital: 100.0,
-      loans: -1502.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 33173.0,
-    },
-    {
-      date: "18-Jan-24",
-      reference: "CASH ADVANCE PAYMENT",
-      cvNo: null,
-      checkNo: null,
-      loanTerms: null,
-      orNo: "10749",
-      gjNo: "2024-01-005",
-      shareCapital: 100.0,
-      loans: -1502.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 31673.0,
-    },
-    {
-      date: "23-Jan-24",
-      reference: "PAYROLL",
-      cvNo: null,
-      checkNo: null,
-      loanTerms: null,
-      orNo: "10793",
-      gjNo: "2024-01-011",
-      shareCapital: 100.0,
-      loans: -1502.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 33173.0,
-    },
-    {
-      date: "25-Feb-24",
-      reference: "CASH ADVANCE PAYMENT",
-      cvNo: null,
-      checkNo: null,
-      loanTerms: null,
-      orNo: "10714",
-      gjNo: "2024-02-005",
-      shareCapital: 100.0,
-      loans: -1502.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 31673.0,
-    },
-    {
-      date: "28-Feb-24",
-      reference: "PREPAID CASH LOAN",
-      cvNo: "37862",
-      checkNo: "298",
-      loanTerms: "10",
-      orNo: null,
-      gjNo: null,
-      shareCapital: 0.0,
-      loans: 25000.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 56673.0,
-    },
-    {
-      date: "01-Mar-24",
-      reference: "PAYROLL",
-      cvNo: null,
-      checkNo: null,
-      loanTerms: null,
-      orNo: "10855",
-      gjNo: "2024-03-001",
-      shareCapital: 100.0,
-      loans: -1502.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 55173.0,
-    },
-    {
-      date: "13-Mar-24",
-      reference: "CASH ADVANCE PAYMENT",
-      cvNo: null,
-      checkNo: null,
-      loanTerms: null,
-      orNo: "10911",
-      gjNo: "2024-03-015",
-      shareCapital: 100.0,
-      loans: -1502.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 53673.0,
-    },
-    {
-      date: "15-Apr-24",
-      reference: "PAYROLL",
-      cvNo: null,
-      checkNo: null,
-      loanTerms: null,
-      orNo: "10958",
-      gjNo: "2024-04-015",
-      shareCapital: 100.0,
-      loans: -1502.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 52173.0,
-    },
-    {
-      date: "25-Apr-24",
-      reference: "PAYROLL",
-      cvNo: null,
-      checkNo: null,
-      loanTerms: null,
-      orNo: "10998",
-      gjNo: "2024-04-025",
-      shareCapital: 100.0,
-      loans: -1502.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 50673.0,
-    },
-    {
-      date: "05-May-24",
-      reference: "CASH ADVANCE PAYMENT",
-      cvNo: "38210",
-      checkNo: "422051",
-      loanTerms: null,
-      orNo: null,
-      gjNo: null,
-      shareCapital: 0.0,
-      loans: 0.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 50673.0,
-    },
-    {
-      date: "17-May-24",
-      reference: "LAMAYAN - CESAR",
-      cvNo: "38213",
-      checkNo: "421178",
-      loanTerms: null,
-      orNo: null,
-      gjNo: null,
-      shareCapital: 0.0,
-      loans: 0.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 50673.0,
-    },
-    {
-      date: "20-Jun-24",
-      reference: "PAYROLL",
-      cvNo: "38233",
-      checkNo: "422192",
-      loanTerms: null,
-      orNo: null,
-      gjNo: null,
-      shareCapital: 0.0,
-      loans: 0.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 51849.0,
-    },
-    {
-      date: "03-Jul-24",
-      reference: "13TH & 14TH MONTH 2024",
-      cvNo: "38233",
-      checkNo: "422192",
-      loanTerms: null,
-      orNo: null,
-      gjNo: "2024-06-025",
-      shareCapital: 100.0,
-      loans: 0.0,
-      accounts: 0.0,
-      interest: 0.0,
-      loanBalance: 51849.0,
-    },
-  ];
 
   const filters = [
     {
@@ -247,7 +49,7 @@ const Ledger = ({}) => {
       content: (
         <DateFilterContent
           setIsFilterClicked={setIsFilterClicked}
-          ledgerData={ledgerData}
+          accountData={accountData}
           selectedDateFilter={selectedDateFilter}
           setSelectedDateFilter={setSelectedDateFilter}
         />
@@ -262,7 +64,7 @@ const Ledger = ({}) => {
       content: (
         <ReferenceFilterContent
           setIsFilterClicked={setIsFilterClicked}
-          ledgerData={ledgerData}
+          accountData={accountData}
           selectedReferenceFilter={selectedReferenceFilter}
           setSelectedReferenceFilter={setSelectedReferenceFilter}
         />
@@ -275,7 +77,7 @@ const Ledger = ({}) => {
       content: (
         <CVNoFilterContent
           setIsFilterClicked={setIsFilterClicked}
-          ledgerData={ledgerData}
+          accountData={accountData}
           selectedCVNOFilter={selectedCVNOFilter}
           setSelectedCVNoFilter={setSelectedCVNoFilter}
         />
@@ -404,9 +206,10 @@ const Ledger = ({}) => {
           <section className="table-container overflow-scroll pb-1 mt-4 mr-4">
             <div className="px-4 ">
               <LedgerTable
-                ledgerData={ledgerData}
+                accountData={accountData}
                 setSelectedItem={setSelectedItem}
                 setOpenModal={setOpenModal}
+                navigate={navigate}
               />
             </div>
           </section>
@@ -457,7 +260,7 @@ const DateFilterContent = ({
 
 const ReferenceFilterContent = ({
   setIsFilterClicked,
-  ledgerData,
+  accountData,
   selectedReferenceFilter,
   setSelectedReferenceFilter,
 }) => {
@@ -470,7 +273,7 @@ const ReferenceFilterContent = ({
       <h2 className="text-xl text-bold mb-4 mt-4 text-center">Reference</h2>
       <section className="flex flex-col gap-1">
         {Array.from(
-          new Set(ledgerData.map((transaction) => transaction.reference))
+          new Set(accountData.map((transaction) => transaction.reference))
         )
           .filter((reference) => reference)
           .map((reference, index) => (
@@ -521,7 +324,7 @@ const ReferenceFilterContent = ({
 
 const CVNoFilterContent = ({
   setIsFilterClicked,
-  ledgerData,
+  accountData,
   selectedCVNOFilter,
   setSelectedCVNoFilter,
 }) => {
@@ -533,7 +336,7 @@ const CVNoFilterContent = ({
       ></span>
       <h2 className="text-xl text-bold mb-4 mt-4 text-center">CV No.</h2>
       <section className="flex flex-col gap-1">
-        {Array.from(new Set(ledgerData.map((transaction) => transaction.cvNo)))
+        {Array.from(new Set(accountData.map((transaction) => transaction.cvNo)))
           .filter((cv) => cv)
           .map((cv, index) => (
             <span
@@ -573,7 +376,7 @@ const CVNoFilterContent = ({
   );
 };
 
-const LedgerTable = ({ ledgerData, setSelectedItem, setOpenModal }) => {
+const LedgerTable = ({ accountData, setSelectedItem, navigate }) => {
   return (
     <table>
       <tr>
@@ -591,7 +394,7 @@ const LedgerTable = ({ ledgerData, setSelectedItem, setOpenModal }) => {
         <th>Loan Balance</th>
         <th>Action</th>
       </tr>
-      {ledgerData.map((data, index) => (
+      {accountData.map((data, index) => (
         <tr key={index}>
           <td>{data.date}</td>
           <td>{data.reference}</td>
@@ -609,7 +412,7 @@ const LedgerTable = ({ ledgerData, setSelectedItem, setOpenModal }) => {
             className="sticky-td"
             onClick={() => {
               setSelectedItem(data);
-              setOpenModal(true);
+              navigate(`${data.id}`);
             }}
           >
             <span className="text-xs">OPEN</span>
@@ -677,4 +480,4 @@ const LedgerDetail = ({ selectedItem, setOpenModal }) => {
   );
 };
 
-export default Ledger;
+export default MyAccount;

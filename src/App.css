@@ -96,6 +96,10 @@ html {
     
   }
 
+  .admin-nav-link span{
+    font-size: 1rem;
+  }
+
   .share-capital-text{
     border-top: 1px solid #EBEBEB;
   }

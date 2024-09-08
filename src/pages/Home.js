@@ -37,7 +37,7 @@ const Home = ({ setActiveLink, transactionItemData }) => {
     {
       name: "My Account",
       image: ledgerIcon,
-      link: "/ledger",
+      link: "/my-account",
     },
     {
       name: "Chat Support",
@@ -104,7 +104,7 @@ const Home = ({ setActiveLink, transactionItemData }) => {
           </div>
           
         </section>
-        <section className="mt-8 flex gap-2 container">
+        <section className="mt-8 flex gap-2 w-full">
           {features.slice(0, 3).map((feature) => (
             <div
               className="feature-link cursor-pointer"

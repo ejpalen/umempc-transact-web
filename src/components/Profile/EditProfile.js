@@ -57,9 +57,11 @@ const EditProfile = ({
               Name
             </label>
             <input
+            className="opacity-75"
               type="text"
               id="name"
               name="name"
+              readOnly
               placeholder="Type your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -109,12 +111,11 @@ const EditProfile = ({
               {membershipStatus.map((status, index) => (
                 <span
                   key={index}
-                  className={`text-nowrap text-base rounded-full py-2 px-6  text-center ${
+                  className={`text-nowrap text-base rounded-full py-2 px-6  text-center opacity-75 ${
                     selectedMembershipStatus === status
                       ? "button-1"
                       : "button-2"
                   }`}
-                  onClick={() => setSelectedMembershipStatus(status)}
                 >
                   {status}
                 </span>
@@ -127,12 +128,11 @@ const EditProfile = ({
               {employmentStatus.map((status, index) => (
                 <span
                   key={index}
-                  className={`text-nowrap text-base rounded-full py-2 px-6 flex-1 text-center ${
+                  className={`text-nowrap text-base rounded-full py-2 px-6 flex-1 text-center opacity-75 ${
                     selectedEmploymentStatus === status
                       ? "button-1"
                       : "button-2"
                   }`}
-                  onClick={() => setSelectedEmploymentStatus(status)}
                 >
                   {status}
                 </span>

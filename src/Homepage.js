@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
-import { uuid } from "uuidv4";
 import Support from "./pages/Support";
 import SupportChat from "./components/SupportChat";
 import Home from "./pages/Home";
@@ -12,11 +11,8 @@ import LoanDetails from ".//components/ApplyForLoan/LoanDetails";
 import PersonalDetails from ".//components/ApplyForLoan/PersonalDetails";
 import ReviewDetails from ".//components/ApplyForLoan/ReviewDetails";
 import Calculator from "./components/Features/Calculator";
-import Ledger from "./components/Features/Ledger";
-import Aging from "./components/Features/Aging";
-import AgingDetails from "./components/Features/AgingDetails";
-import Withdraw from "./components/Features/Withdraw";
-import WithdrawDetails from "./components/Features/WithdrawDetails";
+import MyAccount from "./components/Features/MyAccount";
+import MyAccountDetails from "./components/Features/MyAccountDetails";
 import Transaction from "./components/Transactions/Transaction";
 import EditProfile from "./components/Profile/EditProfile";
 import Settings from "./components/Profile/Settings";
@@ -153,13 +149,25 @@ const Homepage = () => {
     },
   ];
 
-  const agingData = [
+  const accountData = [
     {
       id: "111",
-      cv: null,
-      loanType: "Lamayan",
-      loanDate: null,
+      type: "loan",
+      //ledger data
+      date: "01-Jan-24",
+      reference: "LAMAYAN",
+      cvNo: null,
+      checkNo: null,
       loanTerms: null,
+      orNo: null,
+      gjNo: null,
+      shareCapital: 36400.04,
+      loans: 34043.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 31673.0,
+      //aging data
+      loanType: "Lamayan",
       modeOfPayment: "Dividend",
       amortization: null,
       loanAmount: 600,
@@ -185,79 +193,216 @@ const Homepage = () => {
     },
     {
       id: "222",
-      cv: null,
-      loanType: "Capital Build Up",
-      loanDate: null,
-      loanTerms: 24,
-      modeOfPayment: "Payroll",
-      amortization: 100,
-      loanAmount: 100000,
-      deductions: [
-        {
-          period: "Jan. 1-15",
-          salary: 100,
-          otc: 0,
-          otherPayroll: 0,
-          reconstructionOthers: 0,
-          balance: 99900,
-        },
-        // ... more periods ...
-      ],
+      date: "01-Jan-24",
+      reference: "BEGINNING BALANCE",
+      cvNo: null,
+      checkNo: null,
+      loanTerms: null,
+      orNo: null,
+      gjNo: null,
+      shareCapital: 36400.04,
+      loans: 34043.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 31673.0,
     },
     {
       id: "333",
-      cv: 36536,
-      loanType: "Prepaid Cash Loan",
-      loanDate: "2022-12-13",
-      loanTerms: 24,
-      modeOfPayment: "Payroll",
-      amortization: 1002,
-      loanAmount: 29073,
-      deductions: [
-        {
-          period: "Jan. 1-15",
-          salary: 1002,
-          otc: 0,
-          otherPayroll: 0,
-          reconstructionOthers: 0,
-          balance: 28071,
-        },
-        // ... more periods ...
-      ],
+      date: "13-Jan-24",
+      reference: "PAYROLL",
+      cvNo: null,
+      checkNo: null,
+      loanTerms: null,
+      orNo: "10714",
+      gjNo: "2024-01-003",
+      shareCapital: 100.0,
+      loans: -1502.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 33173.0,
     },
     {
       id: "444",
-      cv: 43,
-      loanType: "Cash Advance",
-      loanDate: "2023-09-30",
-      loanTerms: 4,
-      modeOfPayment: "OTC",
-      amortization: 500,
-      loanAmount: 2500,
-      deductions: [
-        {
-          period: "Jan. 1-15",
-          salary: 0,
-          otc: 500,
-          otherPayroll: 0,
-          reconstructionOthers: 0,
-          balance: 2000,
-        },
-        // ... more periods ...
-      ],
+      date: "18-Jan-24",
+      reference: "CASH ADVANCE PAYMENT",
+      cvNo: null,
+      checkNo: null,
+      loanTerms: null,
+      orNo: "10749",
+      gjNo: "2024-01-005",
+      shareCapital: 100.0,
+      loans: -1502.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 31673.0,
     },
     {
       id: "555",
-      cv: 37862,
-      loanType: "Prepaid Cash Loan",
-      loanDate: "2024-03-05",
+      date: "23-Jan-24",
+      reference: "PAYROLL",
+      cvNo: null,
+      checkNo: null,
       loanTerms: null,
-      modeOfPayment: "Payroll",
-      amortization: null,
-      loanAmount: 5000,
-      deductions: [], // No deductions yet as it's a future loan
+      orNo: "10793",
+      gjNo: "2024-01-011",
+      shareCapital: 100.0,
+      loans: -1502.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 33173.0,
+    },
+    {
+      id: "666",
+      date: "25-Feb-24",
+      reference: "CASH ADVANCE PAYMENT",
+      cvNo: null,
+      checkNo: null,
+      loanTerms: null,
+      orNo: "10714",
+      gjNo: "2024-02-005",
+      shareCapital: 100.0,
+      loans: -1502.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 31673.0,
+    },
+    {
+      id: "777",
+      date: "28-Feb-24",
+      reference: "PREPAID CASH LOAN",
+      cvNo: "37862",
+      checkNo: "298",
+      loanTerms: "10",
+      orNo: null,
+      gjNo: null,
+      shareCapital: 0.0,
+      loans: 25000.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 56673.0,
+    },
+    {
+      id: "888",
+      date: "01-Mar-24",
+      reference: "PAYROLL",
+      cvNo: null,
+      checkNo: null,
+      loanTerms: null,
+      orNo: "10855",
+      gjNo: "2024-03-001",
+      shareCapital: 100.0,
+      loans: -1502.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 55173.0,
+    },
+    {
+      id: "999",
+      date: "13-Mar-24",
+      reference: "CASH ADVANCE PAYMENT",
+      cvNo: null,
+      checkNo: null,
+      loanTerms: null,
+      orNo: "10911",
+      gjNo: "2024-03-015",
+      shareCapital: 100.0,
+      loans: -1502.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 53673.0,
+    },
+    {
+      id: "101010",
+      date: "15-Apr-24",
+      reference: "PAYROLL",
+      cvNo: null,
+      checkNo: null,
+      loanTerms: null,
+      orNo: "10958",
+      gjNo: "2024-04-015",
+      shareCapital: 100.0,
+      loans: -1502.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 52173.0,
+    },
+    {
+      id: "111111",
+      date: "25-Apr-24",
+      reference: "PAYROLL",
+      cvNo: null,
+      checkNo: null,
+      loanTerms: null,
+      orNo: "10998",
+      gjNo: "2024-04-025",
+      shareCapital: 100.0,
+      loans: -1502.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 50673.0,
+    },
+    {
+      id: "121212",
+      date: "05-May-24",
+      reference: "CASH ADVANCE PAYMENT",
+      cvNo: "38210",
+      checkNo: "422051",
+      loanTerms: null,
+      orNo: null,
+      gjNo: null,
+      shareCapital: 0.0,
+      loans: 0.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 50673.0,
+    },
+    {
+      id: "131313",
+      date: "17-May-24",
+      reference: "LAMAYAN - CESAR",
+      cvNo: "38213",
+      checkNo: "421178",
+      loanTerms: null,
+      orNo: null,
+      gjNo: null,
+      shareCapital: 0.0,
+      loans: 0.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 50673.0,
+    },
+    {
+      id: "141414",
+      date: "20-Jun-24",
+      reference: "PAYROLL",
+      cvNo: "38233",
+      checkNo: "422192",
+      loanTerms: null,
+      orNo: null,
+      gjNo: null,
+      shareCapital: 0.0,
+      loans: 0.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 51849.0,
+    },
+    {
+      id: "151515",
+      date: "03-Jul-24",
+      reference: "13TH & 14TH MONTH 2024",
+      cvNo: "38233",
+      checkNo: "422192",
+      loanTerms: null,
+      orNo: null,
+      gjNo: "2024-06-025",
+      shareCapital: 100.0,
+      loans: 0.0,
+      accounts: 0.0,
+      interest: 0.0,
+      loanBalance: 51849.0,
     },
   ];
+
 
   return (
     <div className="home">
@@ -399,14 +544,8 @@ const Homepage = () => {
             />
           }
         />
-        <Route path="/ledger" element={<Ledger />} />
-        <Route path="/aging" element={<Aging agingData={agingData} />} />
-        <Route
-          path="/aging/:id"
-          element={<AgingDetails agingData={agingData} />}
-        />
-        <Route path="/withdraw" element={<Withdraw />} />
-        <Route path="/withdraw/:id" element={<WithdrawDetails />} />
+        <Route path="/my-account" element={<MyAccount accountData={accountData} />} />
+        <Route path="/my-account/:id" element={<MyAccountDetails accountData={accountData} />} />
       </Routes>
     </div>
   );
