@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./Nav"
 
+import "./admin.css"
+
 import Dashboard from "./pages/Dashboard"
 import LoanManagement from "./pages/LoanManagement"
 import MemberManagement from "./pages/MemberManagement"
@@ -14,9 +16,9 @@ const AdminHomepage = () => {
   const [activeLink, setActiveLink] = useState(0);
 
   return (
-    <div className="flex gap-2 h-screen">
+    <div className="flex h-screen text-default">
       <Nav activeLink={activeLink} setActiveLink={setActiveLink} />
-      <div className="content p-4 bg flex-1 overflow-y-scroll">
+      <div className="content p-5 bg flex-1 overflow-y-scroll">
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/loan-management" element={<LoanManagement />} />

@@ -71,17 +71,19 @@ const Nav = ({ activeLink, setActiveLink }) => {
 
   return (
     // <div className="fixed bottom-0 left-0 p-4 bg-primary z-10 h-screen flex items-start justify-between flex-col">
-      <div className="min-w-max p-4 bg-primary z-10 h-screen flex items-start justify-between flex-col">
+      <div className=" min-w-max p-2 bg-white z-10 h-screen flex items-start justify-between flex-col shadow-md">
       <div>
-      <img src={logo} className="h-10 mx-auto mb-6"/>
+      <section className="mx-auto mb-4 mt-2 w-full ">
+      <img src={logo} className="h-10 w-auto scale-[80%]"/>
+      </section>
       <nav className="flex flex-col gap-1">
         {links.map((link, index) => (
           <Link
             to={link.path}
             className={` admin-nav-link flex items-center
-              px-4 py-2 gap-2 rounded-full
+              p-3 gap-2 rounded-lg
               w-full flex-row justify-start ${index === -1 && "nav-link-loan"} ${
-              activeLink === index && "active bg-white"
+              activeLink === index && "active bg-primary"
             }`}
             onClick={() => handleLinkClick(index)}
           >
@@ -89,18 +91,18 @@ const Nav = ({ activeLink, setActiveLink }) => {
                 src={activeLink === index ? link.activeIcon : link.icon}
                 alt=""
               />
-            <span className={`${activeLink === index ? "text-primary" : "text-white"}`}>{link.text}</span>
+            <span className={`text-sm ${activeLink !== index ? "text-primary" : "text-white"}`}>{link.text}</span>
           </Link>
         ))}
       </nav>
       </div>
-      <div className="flex gap-2 bg-white rounded-full w-full px-4 py-2 items-center justify-between">
+      {/* <div className="flex gap-2 bg-white rounded-full w-full px-4 py-2 items-center justify-between">
         <span className="flex gap-2 items-center">
         <img src={profileIconActive} className="size-4"/>
         <p className="text-primary">Admin</p>
         </span>
         <img src={dropdownIcon} className="size-4"/>
-      </div>
+      </div> */}
     </div>
   );
 };

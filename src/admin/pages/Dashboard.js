@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
+import Profile from "../components/Profile.js";
 const Dashboard = () => {
 
   return (
     <div className="dashboard">
-        <h1 className="text-3xl text-bold">Dashboard</h1>
-        <p>
-          
-        </p>
+        <section className="flex gap-2 items-start justify-between">
+        <span>
+        <h1 className="text-2xl text-bold">Dashboard</h1>
+        </span>
+        <Profile/>
+        </section>
     </div>
   );
 };
