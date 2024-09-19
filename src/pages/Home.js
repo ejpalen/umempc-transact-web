@@ -62,6 +62,8 @@ const Home = ({ setActiveLink, transactionItemData }) => {
     },
   ];
 
+  
+
   return (
     <div className="wrapper">
       <section>
