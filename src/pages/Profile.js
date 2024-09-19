@@ -8,7 +8,7 @@ import settingsIcon from "../assets/images/settings-icon.png";
 import aboutIcon from "../assets/images/about-icon.png";
 import logoutIcon from "../assets/images/logout-icon.png";
 
-const Profile = () => {
+const Profile = ({ memberPersonalDetails }) => {
   const navigate = useNavigate();
 
   const settings = [
@@ -38,7 +38,9 @@ const Profile = () => {
       <div className=" flex gap-2 items-center justify-between p-4 pb-12 gradient-bg-4">
         <span className="text-white">
           <span className="flex gap-2 items-center">
-            <h2 className="text-2xl text-bold">Edgar Palen</h2>
+            <h2 className="text-2xl text-bold">
+              {memberPersonalDetails[0].member_name}
+            </h2>
             <img
               src={editIcon}
               alt=""
@@ -46,7 +48,7 @@ const Profile = () => {
               onClick={() => navigate("../profile/edit-profile")}
             />
           </span>
-          <p className="">K11940758</p>
+          <p className="">{memberPersonalDetails[0].member_id}</p>
         </span>
         {/* <span className="profile-icon  bg-secondary rounded-full h-16 w-16 items-center flex relative">
           <h1 className="text-xl text-bold m-auto flex justify-center">E</h1>

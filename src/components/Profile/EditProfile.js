@@ -22,6 +22,7 @@ const EditProfile = ({
   membershipStatus,
   employmentStatus,
   colleges,
+  memberPersonalDetails,
 }) => {
   const navigate = useNavigate();
 
@@ -49,7 +50,9 @@ const EditProfile = ({
             <img src={cameraIcon} alt="" />
             <h1 className="text-xl text-bold m-auto flex justify-center">E</h1>
           </span>
-          <p className="opacity-75 mt-1">K11940758</p>
+          <p className="opacity-75 mt-1">
+            {memberPersonalDetails[0].member_id}
+          </p>
         </section>
         <section className="flex flex-col gap-1 mt-6">
           <section className="px-4 flex flex-col">
@@ -57,7 +60,7 @@ const EditProfile = ({
               Name
             </label>
             <input
-            className="opacity-75"
+              className="opacity-75"
               type="text"
               id="name"
               name="name"

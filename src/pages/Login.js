@@ -2,24 +2,17 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 //Firebase
 import { db } from "../firebaseConfig";
-import {
-  getDocs,
-  collection,
-  where,
-  query,
-  updateDoc,
-  onSnapshot,
-  doc,
-  addDoc,
-} from "@firebase/firestore";
+import { getDocs, collection, where, query } from "@firebase/firestore";
 import UmempcLogo from "../assets/images/umempc-transact-logo.png";
 
-import {toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-const Login = ({setMemberData, memberData}) => {
+const Login = ({ setMemberPersonalDetails, memberPersonalDetails }) => {
   const navigate = useNavigate();
 
   document.querySelector("meta[name='theme-color']").content = "#0051FF";
+
+  const [loginText, setLoginText] = useState("Log in");
 
   const [memberID, setMemberID] = useState("k11937320");
   const [password, setPassword] = useState("");
@@ -37,22 +30,36 @@ const Login = ({setMemberData, memberData}) => {
         ...val.data(),
         id: val.id,
       }));
-      setMemberData(allData);
-  
-      console.log(allData);
+      setMemberPersonalDetails(allData);
 
-      toast.error('🦄 Wow so easy!', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+      if (allData.length >= 1) {
+        toast.success("Log in successful", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
         });
-  
-      // navigate("/home");
+        setLoginText("Logging in...");
+        navigate("/home");
+        setLoginText("Log in");
+      } else {
+        toast.error("Invalid Entry!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        console.log("error");
+        setLoginText("Log in");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +72,7 @@ const Login = ({setMemberData, memberData}) => {
         <h2 className="text-2xl">Log in and let's start</h2>
         <section className="flex flex-col mt-4 container-with-label">
           <label htmlFor="email" className="text-sm">
-            Email
+            Account ID
           </label>
           <input
             placeholder="Email"
@@ -98,7 +105,7 @@ const Login = ({setMemberData, memberData}) => {
           onClick={login}
           className="h-12 mt-4 px-6 py-2 bg-white text-primary rounded-lg w-full text-bold"
         >
-          Log in
+          {loginText}
         </button>
       </section>
     </div>

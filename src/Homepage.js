@@ -19,30 +19,38 @@ import Settings from "./components/Profile/Settings";
 import ChangePassword from "./components/Profile/ChangePassword";
 import About from "./components/Profile/About";
 
-const Homepage = () => {
+//Firebase
+import { db } from "./firebaseConfig";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query as firestoreQuery,
+  query,
+  addDoc,
+  where,
+} from "firebase/firestore";
+
+const Homepage = ({ memberPersonalDetails }) => {
   const [activeLink, setActiveLink] = useState(0);
 
   // Loan Details
   const [loanAmount, setLoanAmount] = useState("");
   const [selectedLoanTerm, setSelectedLoanTerm] = useState("5 months");
   const [loanTerm, setLoanTerm] = useState("5 months");
-  const [selectedKindOfLoan, setSelectedKindOfLoan] = useState("Salary Loan")
+  const [selectedKindOfLoan, setSelectedKindOfLoan] = useState("Salary Loan");
   const [selectedLoanType, setSelectedLoanType] = useState("Prepaid Cash");
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState("Salary Deduction");
 
-  const loanTerms = [
-    5,
-    6,
-    12,
-    18,
-    24,
-    36,
-  ];
+  const loanTerms = [5, 6, 12, 18, 24, 36];
 
   const kindOfLoan = [
-    "Salary Loan", "Benefits Loan", "Merchandise Loan", "Others"
-  ]
+    "Salary Loan",
+    "Benefits Loan",
+    "Merchandise Loan",
+    "Others",
+  ];
 
   const loanTypes = ["Prepaid Cash", "Add-on Cash"];
   const paymentMethod = [
@@ -52,19 +60,23 @@ const Homepage = () => {
   ];
 
   // Personal Details
-  const [name, setName] = useState("Edgar Palen Jr.");
+  const [name, setName] = useState(memberPersonalDetails[0].member_name);
   const [address, setAddress] = useState(
-    "JP Rizal Extension, West Rembo, 1644 City of Taguig, Metro Manila, Philippines"
+    memberPersonalDetails[0].member_address
   );
-  const [contactNumber, setContactNumber] = useState("09178335355");
-  const [email, setEmail] = useState("umempc_transact@gmaill.com");
+  const [contactNumber, setContactNumber] = useState(
+    memberPersonalDetails[0].member_contact_number
+  );
+  const [email, setEmail] = useState(memberPersonalDetails[0].member_email);
   const [selectedCollege, setSelectedCollege] = useState(
-    "College of Computing and Information Sciences"
+    memberPersonalDetails[0].member_college
   );
-  const [selectedMembershipStatus, setSelectedMembershipStatus] =
-    useState("Regular");
-  const [selectedEmploymentStatus, setSelectedEmploymentStatus] =
-    useState("Casual");
+  const [selectedMembershipStatus, setSelectedMembershipStatus] = useState(
+    memberPersonalDetails[0].member_membership_status
+  );
+  const [selectedEmploymentStatus, setSelectedEmploymentStatus] = useState(
+    memberPersonalDetails[0].member_employment_status
+  );
 
   const membershipStatus = ["Regular", "Associate"];
   const employmentStatus = ["Regular", "Casual", "Part-time", "Retire"];
@@ -403,6 +415,31 @@ const Homepage = () => {
     },
   ];
 
+  const [memberLoans, setMemberLoans] = useState([]);
+
+  const loans_ref = collection(db, "applied_loans");
+  const loans_query = firestoreQuery(
+    loans_ref,
+    where("loan_applicant_id", "==", memberPersonalDetails[0].member_id)
+  );
+
+  //Fetch cashiers from database
+  useEffect(() => {
+    const unsubscribe = onSnapshot(loans_query, (snapshot) => {
+      const allData = snapshot.docs.map((val) => ({
+        ...val.data(),
+        id: val.id,
+      }));
+      setMemberLoans(allData);
+    });
+
+    // Cleanup the listener when the component unmounts
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  console.log(memberLoans);
 
   return (
     <div className="home">
@@ -494,7 +531,10 @@ const Homepage = () => {
           element={<Transaction transactionItemData={transactionItemData} />}
         />
 
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={<Profile memberPersonalDetails={memberPersonalDetails} />}
+        />
         <Route
           path="/profile/edit-profile"
           element={
@@ -516,6 +556,7 @@ const Homepage = () => {
               membershipStatus={membershipStatus}
               employmentStatus={employmentStatus}
               colleges={colleges}
+              memberPersonalDetails={memberPersonalDetails}
             />
           }
         />
@@ -544,8 +585,14 @@ const Homepage = () => {
             />
           }
         />
-        <Route path="/my-account" element={<MyAccount accountData={accountData} />} />
-        <Route path="/my-account/:id" element={<MyAccountDetails accountData={accountData} />} />
+        <Route
+          path="/my-account"
+          element={<MyAccount accountData={accountData} />}
+        />
+        <Route
+          path="/my-account/:id"
+          element={<MyAccountDetails accountData={accountData} />}
+        />
       </Routes>
     </div>
   );
