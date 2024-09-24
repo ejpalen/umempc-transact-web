@@ -200,7 +200,7 @@ html {
     border: 1px solid #E6E6E6;
   }
 
-  input, textarea, select{
+  input, textarea, select, .search-container{
     @apply p-2 rounded-lg h-10;
     border: 1px solid #BFBFBF;
     
@@ -389,6 +389,10 @@ background: linear-gradient(0deg, rgba(255,249,235,1) 0%, rgba(253,237,236,1) 10
 * input:focus, button:focus, select:focus, textarea:focus {
   outline: none;
   border: 1px solid #2469FF;
+}
+
+.search-container input:focus{
+  border: none;
 }
 
 .text-bold{
