@@ -490,3 +490,101 @@ background: linear-gradient(0deg, #BD33FF 0%, #0051FF 70%);
 .loan-again-item{
   background: linear-gradient(0deg, rgba(235,245,254,1) 0%, rgba(240,250,246,1) 100%);   
 }
+
+
+
+/* date container */
+.selectdate-cont p {
+  gap: 5px;
+}
+
+.selectdate-cont{
+  display: flex;
+  width: fit-content;
+  margin: auto;
+  padding-right: 10px;
+  gap: 5px;
+  align-items: center;
+}
+
+.selectdate-cont input {
+
+ border-radius: 10px;
+ height: auto;
+ display: flex;
+ align-items: center;
+ width: fit-content;
+ padding: 10px 20px;
+ border: 1px solid #D6E4FF;
+}
+
+.from-to-date{
+  display: flex;
+  gap: 10px;
+}
+
+.from-to-date input{
+  margin-top: 5px;
+  padding: 5px;
+  border: none;
+  border: 1px solid #D6E4FF;
+  border-radius: 10px;
+}
+
+.date-picker{
+  box-shadow: 2px 4px 12px rgba(0,0,0,.08);
+  margin-top: 10px;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #D6E4FF;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 10;
+  right: 40px;
+}
+
+.date-options{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.date-text{
+  border: none;
+  padding: 0 !important;
+}
+
+
+.date-options button, .file-options .addprodmodal-btn{
+  padding: 10px;
+  border: 1px solid #D6E4FF !important;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.file-options .addprodmodal-btn p{
+  color: #0057FF;
+  font-size: 14px;
+  padding: 0 20px;
+  display: block !important;
+}
+
+.date-options button.active, .file-options .addprodmodal-btn.active{
+  background-color: #0057FF;
+  color: #fff;
+}
+
+.file-options .addprodmodal-btn.active p{
+  color: #fff;
+}
+
+.date-options button:hover, .file-options .addprodmodal-btn:hover{
+  background-color: #F0F5FA !important;
+}
+
+.date-options button.active:hover, .file-options .addprodmodal-btn.active:hover{
+  background-color: #1A68FF;
+  color: #fff;
+}
