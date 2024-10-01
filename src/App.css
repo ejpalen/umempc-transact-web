@@ -556,12 +556,11 @@ background: linear-gradient(0deg, #BD33FF 0%, #0051FF 70%);
 }
 
 
-.date-options button, .file-options .addprodmodal-btn{
+.date-options button{
   padding: 10px;
   border: 1px solid #D6E4FF !important;
   border-radius: 40px;
   cursor: pointer;
-  font-weight: 800;
 }
 
 .file-options .addprodmodal-btn p{

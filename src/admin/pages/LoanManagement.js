@@ -5,7 +5,7 @@ import Profile from "../components/Profile";
 import LoanIcon from "../../assets/images/loan-management-icon.png";
 import closeIcon from "../../assets/images/search-icon.png";
 import dateIcon from "../../assets/images/date-icon.png";
-import downArrow from "../../assets/images/drowdown-icon.png";
+import downArrow from "../../assets/images/down-arrow.png";
 
 const LoanManagement = () => {
   const moment = require("moment");
@@ -257,7 +257,7 @@ const LoanManagement = () => {
           <Profile />
         </div>
       </section>
-      <main className="mt-4 p-4 bg-white rounded-lg">
+      <main className="mt-10 p-4 bg-white rounded-lg">
         <section className="flex items-center gap-1 border-bottom pb-4">
           {navLinks.map((link, index) => (
             <span
@@ -348,7 +348,7 @@ const LoanManagement = () => {
                 <img
                   src={downArrow}
                   alt="Add Icon"
-                  className={`h-4 bottom-arrow ${isDatePickerOpen && "active"}`}
+                  className={`h-1.5 bottom-arrow ${isDatePickerOpen && "active"}`}
                 />
               </div>
             </div>
@@ -409,7 +409,7 @@ const LoanManagement = () => {
                     }
                     onClick={() => handleDateRangeSelection("Today")}
                   >
-                    TODAY
+                    Today
                   </button>
                   <button
                     className={
@@ -420,7 +420,7 @@ const LoanManagement = () => {
                       handleDateRangeSelection("This Month");
                     }}
                   >
-                    THIS MONTH
+                    This Month
                   </button>
                   <button
                     className={
@@ -431,13 +431,13 @@ const LoanManagement = () => {
                       handleDateRangeSelection("This Year");
                     }}
                   >
-                    THIS YEAR
+                    This Year
                   </button>
                   <button
                     className={`show-all-date hover-1`}
                     onClick={() => handleDateRangeSelection("All Time")}
                   >
-                    SHOW ALL
+                    Show All
                   </button>
                 </div>
               </div>
