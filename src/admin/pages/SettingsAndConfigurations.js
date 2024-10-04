@@ -57,7 +57,6 @@ const SettingsAndConfigurations = () => {
       <section className="mt-8 flex gap-2 flex-col">
         <div>
         <h1 className="text-2xl">Loan Type</h1>
-
         </div>
 
       </section>
