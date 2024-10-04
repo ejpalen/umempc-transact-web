@@ -79,14 +79,16 @@ const MemberManagement = () => {
             <span>
               <p className="text-primary text-sm">Clear</p>
             </span>
-            <span className="search-container ml-4 flex gap-1 items-center overflow-hidden">
+          </div>
+          <div>
+          <span className="search-container ml-4 flex gap-1 items-center overflow-hidden">
               <img src={closeIcon} alt="" className="size-4" />
               <input
                 type="text"
                 name="search"
                 id=""
                 className="border-none"
-                placeholder="Search by Loan or Member"
+                placeholder="Search by Books"
               />
             </span>
           </div>

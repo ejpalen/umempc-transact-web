@@ -73,24 +73,7 @@ const ReportAndAnalytics = () => {
       icon: loanManagementIcon,
       activeIcon: loanManagementIconActive,
     },
-    {
-      path: "/admin/member-management",
-      text: "Cash Receipt Book",
-      icon: memberManagementIcon,
-      activeIcon: memberManagementIconActive,
-    },
-    {
-      path: "/admin/report-and-analytics",
-      text: "General Journal",
-      icon: reportAnalyticsIcon,
-      activeIcon: reportAnalyticsIconActive,
-    },
-    {
-      path: "/admin/settings-and-configurations",
-      text: "Loan Status Report",
-      icon: settingsIcon,
-      activeIcon: settingsIconActive,
-    },
+  
     
   ];
   
@@ -207,6 +190,22 @@ const ReportAndAnalytics = () => {
         ))}
       </nav>
       <main className="p-4 bg-white rounded-lg flex-1">
+        <section className="flex gap-4 mb-4 border-bottom pb-4">
+        <span className="bg-secondary p-4 rounded-lg">
+        <p className="opacity-75">Account Code</p>
+        <h1 className="text-2xl text-bold">11340</h1>
+        </span>
+        <span className="p-4">
+        <p className="opacity-75">Total Debit (Dr.)</p>
+        <h1 className="text-2xl text-bold">₱6,494,672.99</h1>
+        </span>
+        <span className="p-4">
+        <p className="opacity-75">Total Credit  (Dr.)</p>
+        <h1 className="text-2xl text-bold">₱62,578,712.52         </h1>
+        </span>
+        
+        
+        </section>
         <section className=" flex gap-2 items-center justify-between">
           <div className="flex gap-2 items-center">
             <select
@@ -238,7 +237,10 @@ const ReportAndAnalytics = () => {
             <span>
               <p className="text-primary text-sm">Clear</p>
             </span>
-            <span className="search-container ml-4 flex gap-1 items-center overflow-hidden">
+            
+          </div>
+          <div>
+          <span className="search-container ml-4 flex gap-1 items-center overflow-hidden">
               <img src={closeIcon} alt="" className="size-4" />
               <input
                 type="text"
@@ -247,12 +249,6 @@ const ReportAndAnalytics = () => {
                 className="border-none"
                 placeholder="Search by Books"
               />
-            </span>
-          </div>
-          <div>
-            <span className="flex gap-2">
-              <span>Account Code</span>
-              <span className="text-bold">113430</span>
             </span>
           </div>
         </section>
