@@ -354,6 +354,11 @@ html {
     border: 1px solid #fff;
   }
 
+
+  .dashboard main{
+    @apply shadow-md;
+  }
+
   
 }
 
@@ -527,18 +532,18 @@ background: linear-gradient(0deg, #BD33FF 0%, #0051FF 70%);
   margin-top: 5px;
   padding: 5px;
   border: none;
-  border: 1px solid #D6E4FF;
-  border-radius: 10px;
+  border: 1px solid #BFBFBF;
+  border-radius: 0.5rem;
+  font-size: 14px;
 }
 
 .date-picker{
-  box-shadow: 2px 4px 12px rgba(0,0,0,.08);
-  margin-top: 10px;
+  box-shadow: 0px 0px 6px rgba(0,0,0,.15);
+  margin-top: 1rem;
   position: absolute;
   background-color: #fff;
-  border: 1px solid #D6E4FF;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 0.5rem;
+  padding: 1rem;
   z-index: 10;
   right: 40px;
 }
@@ -558,8 +563,8 @@ background: linear-gradient(0deg, #BD33FF 0%, #0051FF 70%);
 
 .date-options button{
   padding: 10px;
-  border: 1px solid #D6E4FF !important;
-  border-radius: 40px;
+  border: 1px solid #BFBFBF !important;
+  border-radius: 0.5rem;
   cursor: pointer;
 }
 

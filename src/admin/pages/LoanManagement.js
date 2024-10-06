@@ -13,6 +13,8 @@ const LoanManagement = () => {
   const [selectedNav, setSelectedNav] = useState(0);
   const [selectedFilter, setSelectedFilter] = useState("Filter");
 
+  const actions = ["View Details", "Edit Details", "Send Reminder"];
+
   //Date
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("Today");
@@ -34,6 +36,19 @@ const LoanManagement = () => {
     {
       id: "12345",
       member: "Nomar Maestro",
+      loanAmount: 35600.0,
+      loanTerm: "5",
+      loanType: "Prepaid Cash",
+      kindOfLoan: "Salary Loan",
+      loanStartDate: "08-12-2024",
+      loanDueDate: "04-12-2024",
+      paymentMethod: "Salary Deduction",
+      repaymentStatus: "On Track",
+      remainingBalance: 12000.0,
+    },
+    {
+      id: "67890",
+      member: "Ellaine Cervantes",
       loanAmount: 35600.0,
       loanTerm: "5",
       loanType: "Prepaid Cash",
@@ -239,6 +254,35 @@ const LoanManagement = () => {
   //   handleDateRangeSelection(selectedDate);
   // }, [selectedFilter, selectedLogsUser, filteredLogs]);
 
+
+  const loanOptions = {
+    loanType: {
+      label: "Loan Type",
+      options: [
+        { value: "Prepaid Cash", label: "Prepaid Cash" },
+        { value: "Add-on Cash", label: "Add-on Cash" }
+      ]
+    },
+    kindOfLoan: {
+      label: "Kind of Loan",
+      options: [
+        { value: "Salary Loan", label: "Salary Loan" },
+        { value: "Benefits Loan", label: "Benefits Loan" },
+        { value: "Merchandise Loan", label: "Merchandise Loan" },
+        { value: "Others", label: "Others" }
+      ]
+    },
+    paymentMethod: {
+      label: "Payment Method",
+      options: [
+        { value: "Salary Deduction", label: "Salary Deduction" },
+        { value: "Over-the-counter", label: "Over-the-counter" },
+        { value: "Post Dated Check", label: "Post Dated Check" }
+      ]
+    }
+  };
+  
+
   return (
     <div className="dashboard">
       <section className="flex gap-2 justify-between items-start">
@@ -275,32 +319,48 @@ const LoanManagement = () => {
         </section>
         <section className="mt-4 flex gap-2 items-center justify-between">
           <div className="flex gap-2 items-center">
-            <select
-              name="loanTerms"
-              id="loanTerms"
-              onChange={(e) => {
-                setSelectedFilter(e.target.value);
-              }}
-              value={selectedFilter}
-            >
-              <optgroup label="Loan Type">
-                <option value="Prepaid Cash">Prepaid Cash</option>
-                <option value="Add-on Cash">Add-on Cash</option>
-              </optgroup>
-              <optgroup label="Kind of Loan">
-                <option value="Salary Loan">Salary Loan</option>
-                <option value="Benefits Loan">Benefits Loan</option>
-                <option value="Merchandise Loan">Merchandise Loan</option>
-                <option value="Others">Others</option>
-              </optgroup>
-              <optgroup label="Payment Method">
-                <option value="Salary Deduction">Salary Deduction</option>
-                <option value="Over-the-counter">Over-the-counter</option>
-                <option value="Post Dated Check">Post Dated Check</option>
-              </optgroup>
-            </select>
+          <div
+                className="dropdown dropdown-select search-container text-sm"
+              >
+                <button className="dropbtn hover-1 gap-2 w-full">
+                  <p className={`${selectedFilter === "Filter" && "opacity-50"}`}>
+                    {!selectedFilter
+                      ? "Filter"
+                      : selectedFilter}
+                  </p>
+                  <img src={downArrow} alt="" className="h-1.5 w-auto" />
+                </button>
+          <div className="dropdown-content-container mt-1">
+  <div className="dropdown-content">
+    {Object.keys(loanOptions).map((key) => (
+      <div key={key}>
+        <h2 className="dropdown-label text-bold">{loanOptions[key].label}</h2>
+        {loanOptions[key].options.map((option) => (
+          <a
+            href="#"
+            className="dropdown-sublist-link hover-1"
+            key={option.value}
+            onClick={() => {
+              // You can define your custom action here
+              setSelectedFilter(option.value)
+              console.log(`Selected: ${option.value}`);
+            }}
+          >
+            {option.label}
+          </a>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+</div>
+          
+     
+
             <span>
-              <p className="text-primary text-sm">Clear</p>
+              <p className="text-primary text-sm cursor-pointer"
+              onClick={() => setSelectedFilter("Filter")}
+              >Clear</p>
             </span>
           </div>
           <div className="flex gap-2">
@@ -310,21 +370,19 @@ const LoanManagement = () => {
                 type="text"
                 name="search"
                 id=""
-                className="border-none"
+                className="border-none text-sm"
                 placeholder="Search by Books"
               />
             </span>
           <div className="search-container date-container">
             <div
-              className="flex"
-              style={{ cursor: "pointer", gap: 20 }}
+              className="flex w-64 cursor-pointer gap-2 justify-between"
               onClick={() => {
                 setIsDatePickerOpen(!isDatePickerOpen);
               }}
             >
               <div
                 className="date-text"
-                style={{ flexDirection: "column", background: "none" }}
               >
                 <div
                   style={{
@@ -334,7 +392,7 @@ const LoanManagement = () => {
                   }}
                 >
                   <img src={dateIcon} alt="Date Icon" className="h-4" />
-                  <p className="" style={{ fontSize: 14 }}>
+                  <p className="text-sm">
                     {selectedDate}
                   </p>
                 </div>
@@ -354,7 +412,7 @@ const LoanManagement = () => {
               </div>
             </div>
             {isDatePickerOpen && (
-              <div className="date-picker">
+              <div className="date-picker text-sm">
                 <div className="from-to-date">
                   <div className="date-input">
                     <label htmlFor="" className="mr-2">
@@ -470,17 +528,32 @@ const LoanManagement = () => {
                 <td>{loan.loanDueDate}</td>
                 <td>{loan.repaymentStatus}</td>
                 <td>
-                  <select
-                    name="loanTerms"
-                    id="loanTerms"
-                    onChange={(e) => {
-                      setSelectedFilter(e.target.value);
-                    }}
-                  >
-                    <option value="Salary Deduction">View Details</option>
-                    <option value="Over-the-counter">Edit Loan</option>
-                    <option value="Post Dated Check">Send Reminder</option>
-                  </select>
+                <div
+                className="dropdown dropdown-select search-container text-sm"
+              >
+                <button className="dropbtn hover-1 gap-2 w-full">
+                  <p className={`${"opacity-50"}`}>
+                  Select Action
+                  </p>
+                  <img src={downArrow} alt="" className="h-1.5 w-auto" />
+                </button>
+          <div className="dropdown-content-container mt-1">
+  <div className="dropdown-content">
+    {actions.map((action) => (
+       <a
+       href="#"
+       className="dropdown-sublist-link hover-1"
+       key={action}
+       onClick={() => {
+         setSelectedFilter(action)
+       }}
+     >
+       {action}
+     </a>
+    ))}
+  </div>
+</div>
+</div>
                 </td>
               </tr>
             ))}

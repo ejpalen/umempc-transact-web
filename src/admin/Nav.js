@@ -17,15 +17,11 @@ import loanManagementIcon from "../assets/images/loan-management-icon.png";
 import loanManagementIconActive from "../assets/images/loan-management-icon-active.png";
 import reportAnalyticsIcon from "../assets/images/report-analytics-icon.png";
 import reportAnalyticsIconActive from "../assets/images/report-analytics-icon-active.png";
+import inboxIcon from "../assets/images/inbox-icon.png";
+import inboxIconActive from "../assets/images/inbox-icon-active.png";
 
 const Nav = ({ activeLink, setActiveLink }) => {
   const links = [
-    {
-      path: "/admin/dashboard",
-      text: "Dashboard",
-      icon: dashboardIcon,
-      activeIcon: dashboardIconActive,
-    },
     {
       path: "/admin/loan-management",
       text: "Loan Management",
@@ -45,6 +41,12 @@ const Nav = ({ activeLink, setActiveLink }) => {
       activeIcon: reportAnalyticsIconActive,
     },
     {
+      path: "/admin/inbox",
+      text: "Inbox",
+      icon: inboxIcon,
+      activeIcon: inboxIconActive,
+    },
+    {
       path: "/admin/settings-and-configurations",
       text: "Settings & Configurations",
       icon: settingsIcon,
@@ -58,7 +60,7 @@ const Nav = ({ activeLink, setActiveLink }) => {
   };
 
   useEffect(() => {
-    document.title = `${links[activeLink].text} - UMEMPC Transact`
+    document.title = `${links[activeLink].text} | UMEMPC Transact`
  }, [links]);
 
   useEffect(() => {
@@ -74,7 +76,7 @@ const Nav = ({ activeLink, setActiveLink }) => {
       <div className=" min-w-max p-2 bg-white z-10 h-screen flex items-start justify-between flex-col shadow-md">
       <div>
       <section className="mx-auto mb-4 mt-2 w-full ">
-      <img src={logo} className="h-10 w-auto scale-[80%]"/>
+      <img src={logo} className="h-12 w-auto scale-[80%]"/>
       </section>
       <nav className="flex flex-col gap-1">
         {links.map((link, index) => (
@@ -83,7 +85,7 @@ const Nav = ({ activeLink, setActiveLink }) => {
             className={` admin-nav-link flex items-center
               p-3 gap-2 rounded-lg
               w-full flex-row justify-start ${index === -1 && "nav-link-loan"} ${
-              activeLink === index && "active bg-primary"
+              activeLink === index && "active bg-default"
             }`}
             onClick={() => handleLinkClick(index)}
           >
@@ -91,7 +93,7 @@ const Nav = ({ activeLink, setActiveLink }) => {
                 src={activeLink === index ? link.activeIcon : link.icon}
                 alt=""
               />
-            <span className={`text-sm ${activeLink !== index ? "text-primary" : "text-white"}`}>{link.text}</span>
+            <span className={`text-sm ${activeLink !== index ? "text-default" : "text-white"}`}>{link.text}</span>
           </Link>
         ))}
       </nav>

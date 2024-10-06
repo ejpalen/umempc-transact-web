@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Profile from "../components/Profile";
 import closeIcon from "../../assets/images/search-icon.png";
 
+import downArrow from "../../assets/images/down-arrow.png";
+
 const MemberManagement = () => {
   const moment = require("moment");
 
@@ -10,6 +12,8 @@ const MemberManagement = () => {
   const [selectedFilter, setSelectedFilter] = useState("Filter");
 
   const navLinks = ["All Members", "Regular", "Casual", "Part-time", "Retire"];
+
+  const actions = ["View Profile", "Edit Profile"]
 
   const members = [
     {
@@ -22,6 +26,24 @@ const MemberManagement = () => {
       joinDate: "08-12-2024",
     },
   ];
+
+  const loanTermsOptions = {
+    membershipStatus: {
+      label: "Membership Status",
+      options: [
+        { value: "Prepaid Cash", label: "Active" },
+        { value: "Add-on Cash", label: "Inactive" }
+      ]
+    },
+    employmentStatus: {
+      label: "Employment Status",
+      options: [
+        { value: "Prepaid Cash", label: "Regular" },
+        { value: "Add-on Cash", label: "Associate" }
+      ]
+    }
+  };
+  
 
   return (
     <div className="dashboard">
@@ -59,23 +81,42 @@ const MemberManagement = () => {
         </section>
         <section className="mt-4 flex gap-2 items-center justify-between">
           <div className="flex gap-2 items-center">
-            <select
-              name="loanTerms"
-              id="loanTerms"
-              onChange={(e) => {
-                setSelectedFilter(e.target.value);
-              }}
-              value={selectedFilter}
-            >
-              <optgroup label="Membership Status">
-                <option value="Prepaid Cash">Active</option>
-                <option value="Add-on Cash">Inactive</option>
-              </optgroup>
-              <optgroup label="Employment Status">
-                <option value="Prepaid Cash">Regular</option>
-                <option value="Add-on Cash">Associate</option>
-              </optgroup>
-            </select>
+        
+            <div
+                className="dropdown dropdown-select search-container text-sm"
+              >
+                <button className="dropbtn hover-1 gap-2 w-full">
+                  <p className={`${selectedFilter === "Filter" && "opacity-50"}`}>
+                    {!selectedFilter
+                      ? "Filter"
+                      : selectedFilter}
+                  </p>
+                  <img src={downArrow} alt="" className="h-1.5 w-auto" />
+                </button>
+          <div className="dropdown-content-container mt-1">
+  <div className="dropdown-content">
+    {Object.keys(loanTermsOptions).map((key) => (
+      <div key={key}>
+        <h2 className="dropdown-label text-bold">{loanTermsOptions[key].label}</h2>
+        {loanTermsOptions[key].options.map((option) => (
+          <a
+            href="#"
+            className="dropdown-sublist-link hover-1"
+            key={option.value}
+            onClick={() => {
+              // You can define your custom action here
+              setSelectedFilter(option.value)
+              console.log(`Selected: ${option.value}`);
+            }}
+          >
+            {option.label}
+          </a>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+</div>
             <span>
               <p className="text-primary text-sm">Clear</p>
             </span>
@@ -87,7 +128,7 @@ const MemberManagement = () => {
                 type="text"
                 name="search"
                 id=""
-                className="border-none"
+                className="border-none text-sm"
                 placeholder="Search by Books"
               />
             </span>
@@ -115,16 +156,31 @@ const MemberManagement = () => {
                 <td>₱{loan.outstandingBalance.toFixed()}</td>
                 <td>{loan.joinDate}</td>
                 <td>
-                  <select
-                    name="loanTerms"
-                    id="loanTerms"
-                    onChange={(e) => {
-                      setSelectedFilter(e.target.value);
-                    }}
-                  >
-                    <option value="Salary Deduction">View Profile</option>
-                    <option value="Over-the-counter">Edit Profile</option>
-                  </select>
+                <div
+                className="dropdown dropdown-select search-container text-sm"
+              >
+                <button className="dropbtn hover-1 gap-2 w-full">
+                  <p className={`${"opacity-50"}`}>
+                  Select Action
+                  </p>
+                  <img src={downArrow} alt="" className="h-1.5 w-auto" />
+                </button>
+          <div className="dropdown-content-container mt-1">
+  <div className="dropdown-content">
+    {actions.map((action) => (
+       <a
+       href="#"
+       className="dropdown-sublist-link hover-1"
+       onClick={() => {
+         setSelectedFilter(action)
+       }}
+     >
+       {action}
+     </a>
+    ))}
+  </div>
+</div>
+</div>
                 </td>
               </tr>
             ))}

@@ -11,6 +11,7 @@ import LedgerManagement from "./pages/LedgerManagement"
 import AgingReport from "./pages/AgingReport"
 import ReportAndAnalytics from "./pages/ReportAndAnalytics"
 import SettingsAndConfigurations from "./pages/SettingsAndConfigurations"
+import Inbox from "./pages/Inbox";
 
 const AdminHomepage = () => {
   const [activeLink, setActiveLink] = useState(0);
@@ -25,6 +26,7 @@ const AdminHomepage = () => {
         <Route path="/member-management" element={<MemberManagement />} />
         <Route path="/ledger-management" element={<LedgerManagement />} />
         <Route path="/aging-report" element={<AgingReport />} />
+        <Route path="/inbox" element={<Inbox />} />
         <Route path="/report-and-analytics" element={<ReportAndAnalytics />} />
         <Route path="/settings-and-configurations" element={<SettingsAndConfigurations />} />
       </Routes>
