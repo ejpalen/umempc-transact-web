@@ -1,22 +1,13 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
-
-import profileIconActive from "../assets/images/profile-icon-active.png";
-
 import logo from "../assets/images/umempc-logo.png";
-import dropdownIcon from "../assets/images/drowdown-icon.png";
-
-import dashboardIcon from "../assets/images/dashboard-icon.png";
-import dashboardIconActive from "../assets/images/dashboard-icon-active.png";
 import settingsIcon from "../assets/images/settings-and-configuration-icon.png";
 import settingsIconActive from "../assets/images/settings-and-configuration-icon-active.png";
 import memberManagementIcon from "../assets/images/member-management-icon.png";
 import memberManagementIconActive from "../assets/images/member-management-icon-active.png";
 import loanManagementIcon from "../assets/images/loan-management-icon.png";
 import loanManagementIconActive from "../assets/images/loan-management-icon-active.png";
-import reportAnalyticsIcon from "../assets/images/report-analytics-icon.png";
-import reportAnalyticsIconActive from "../assets/images/report-analytics-icon-active.png";
 import inboxIcon from "../assets/images/inbox-icon.png";
 import inboxIconActive from "../assets/images/inbox-icon-active.png";
 
@@ -33,12 +24,6 @@ const Nav = ({ activeLink, setActiveLink }) => {
       text: "Member Management",
       icon: memberManagementIcon,
       activeIcon: memberManagementIconActive,
-    },
-    {
-      path: "/admin/report-and-analytics",
-      text: "Report & Analytics",
-      icon: reportAnalyticsIcon,
-      activeIcon: reportAnalyticsIconActive,
     },
     {
       path: "/admin/inbox",
@@ -98,13 +83,6 @@ const Nav = ({ activeLink, setActiveLink }) => {
         ))}
       </nav>
       </div>
-      {/* <div className="flex gap-2 bg-white rounded-full w-full px-4 py-2 items-center justify-between">
-        <span className="flex gap-2 items-center">
-        <img src={profileIconActive} className="size-4"/>
-        <p className="text-primary">Admin</p>
-        </span>
-        <img src={dropdownIcon} className="size-4"/>
-      </div> */}
     </div>
   );
 };
