@@ -164,7 +164,7 @@ const Inbox = () => {
           </div>
             </section>
             <section className="flex flex-col  relative flex-1 justify-between overflow-hidden">
-            <div className=" flex-none w-full bg-white p-4 flex gap-2 items-start gap-8 justify-between flex-1 border-bottom items-center">
+            <div className="rounded-lg flex-none w-full bg-white p-4 flex gap-2 items-start gap-8 justify-between flex-1 border-bottom items-center">
    <span className="flex gap-2 items-center">
    <img src={profile} className="size-12 rounded-full"/>
     <h2 className="text-bold">Nomar Maestro</h2>
@@ -201,7 +201,7 @@ const Inbox = () => {
             ))}
             <div ref={bottomRef}></div>
           </div>
-        <nav className="flex flex-none justify-around items-center px-4 gap-2 bg-white w-full h-16 ">
+        <nav className="rounded-lg flex flex-none justify-around items-center px-4 gap-2 bg-white w-full h-16 ">
           <textarea
             type="text"
             className="flex-1"

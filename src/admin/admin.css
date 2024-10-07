@@ -16,7 +16,7 @@
 }
 
 .dropdown{
-    width: 12rem;
+    width: 10rem;
 }
 
 .dropdown.w20rem{
@@ -177,4 +177,12 @@
 
   .inbox-main textarea{
     border: 1px solid #EBEBEB;
+  }
+
+  .admin-min-height{
+    min-height: calc(100vh - 8.5rem);
+  }
+
+  table th{
+    padding-bottom: 1rem !important;
   }

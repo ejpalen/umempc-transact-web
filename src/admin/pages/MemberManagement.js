@@ -63,7 +63,7 @@ const MemberManagement = () => {
           <Profile />
         </div>
       </section>
-      <main className="mt-10 p-4 bg-white rounded-lg">
+      <main className="mt-10 p-4 bg-white rounded-lg admin-min-height">
         <section className="flex items-center gap-1 border-bottom pb-4">
           {navLinks.map((link, index) => (
             <span

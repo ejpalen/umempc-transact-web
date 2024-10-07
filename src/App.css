@@ -315,10 +315,20 @@ html {
 
   table td, table th{
     @apply p-2 text-left text-sm;
-    border: 1px solid #ECECEC;
+    border-bottom: 1px solid #ECECEC;
     width: 100%;
     text-wrap: nowrap;
 
+  }
+
+  table tr:hover{
+    background-color: #f8f8f8;
+    cursor: pointer;
+  }
+
+  table tr:first-child:hover{
+    background-color: white;
+    cursor: default;
   }
 
   table th{
