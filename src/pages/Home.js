@@ -15,6 +15,8 @@ import rightArrow2Icon from "../assets/images/right-arrow-2-icon.png";
 import eyeActiveIcon from "../assets/images/eye-active-icon.png";
 import loanAgainIcon from "../assets/images/loan-again-icon.png";
 
+import LoanPrediction from "../components/LoanPrediction";
+
 const Home = ({ setActiveLink, transactionItemData }) => {
   const navigate = useNavigate();
 
@@ -66,6 +68,7 @@ const Home = ({ setActiveLink, transactionItemData }) => {
 
   return (
     <div className="wrapper">
+    <LoanPrediction />
       <section>
         {openAllFeature && (
           <div className="modal">

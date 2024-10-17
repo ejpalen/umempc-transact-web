@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import axios from "axios";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import Homepage from "./Homepage";
@@ -15,6 +16,17 @@ import { ToastContainer } from "react-toastify";
 function App() {
   const [memberPersonalDetails, setMemberPersonalDetails] = useState([]);
   const [adminPersonalDetails, setAdminPersonalDetails] = useState([]);
+  const [array, setArray] = useState([]);
+
+  const fetchAPI = async () => {
+    const response = await axios.get("http://localhost:8080/predict");
+    setArray(response.data.fruits);
+    console.log(response.data.fruits);
+  };
+
+  useEffect(() => {
+    fetchAPI();
+  }, []);
 
   return (
     <div className="App">
