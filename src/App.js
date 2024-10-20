@@ -18,15 +18,40 @@ function App() {
   const [adminPersonalDetails, setAdminPersonalDetails] = useState([]);
   const [array, setArray] = useState([]);
 
+
+  const [prediction, setPrediction] = useState(null);
+  const [error, setError] = useState(null);
+
   const fetchAPI = async () => {
-    const response = await axios.get("http://localhost:8080/predict");
-    setArray(response.data.fruits);
-    console.log(response.data.fruits);
+    try {
+      const response = await axios.post("http://localhost:8080/predict");
+      console.log(response.data);
+    } catch (err) {
+      console.error("Error fetching prediction:", err);
+      setError("Failed to fetch prediction");
+    }
   };
 
   useEffect(() => {
-    fetchAPI();
-  }, []);
+    if (prediction && prediction.output) {
+      try {
+        const finalOutput = JSON.parse(prediction.output);
+
+        // const probabilityPercentage = (finalOutput.probability * 100).toFixed(2) + '%';
+        // console.log(`Probability: ${probabilityPercentage}`);
+        // console.log(prediction.eligibility);
+        // console.log(probabilityPercentage);
+        // console.log(prediction.reasons);
+
+        setPrediction(finalOutput);
+        console.log("Parsed prediction:", prediction);
+      } catch (err) {
+        console.error("Error parsing prediction output:", err);
+        setError("Failed to parse prediction output");
+      }
+    }
+  }, [prediction]);
+
 
   return (
     <div className="App">
@@ -39,6 +64,8 @@ function App() {
               <Login
                 setMemberPersonalDetails={setMemberPersonalDetails}
                 memberPersonalDetails={memberPersonalDetails}
+                prediction={prediction}
+                setPrediction={setPrediction}
               />
             }
           />

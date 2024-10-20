@@ -1,6 +1,7 @@
 {
   "name": "umempc-transact-web",
   "version": "0.1.0",
+  "main": "src/backend/server.js",
   "private": true,
   "dependencies": {
     "@craco/craco": "^7.1.0",
@@ -51,6 +52,7 @@
   },
   "devDependencies": {
     "concurrently": "^9.0.1",
+    "nodemon": "^3.1.7",
     "tailwindcss": "^3.4.10"
   }
 }
