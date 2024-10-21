@@ -37,12 +37,6 @@ function App() {
       try {
         const finalOutput = JSON.parse(prediction.output);
 
-        // const probabilityPercentage = (finalOutput.probability * 100).toFixed(2) + '%';
-        // console.log(`Probability: ${probabilityPercentage}`);
-        // console.log(prediction.eligibility);
-        // console.log(probabilityPercentage);
-        // console.log(prediction.reasons);
-
         setPrediction(finalOutput);
         console.log("Parsed prediction:", prediction);
       } catch (err) {

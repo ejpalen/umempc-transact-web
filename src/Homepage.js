@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Transactions from "./pages/Transactions";
 import Profile from "./pages/Profile";
 import ApplyForLoan from "./pages/ApplyForLoan";
+import CheckEligibility from "./components/ApplyForLoan/CheckEligibility";
 import LoanDetails from ".//components/ApplyForLoan/LoanDetails";
 import PersonalDetails from ".//components/ApplyForLoan/PersonalDetails";
 import ReviewDetails from ".//components/ApplyForLoan/ReviewDetails";
@@ -439,8 +440,6 @@ const Homepage = ({ memberPersonalDetails }) => {
     };
   }, []);
 
-  console.log(memberLoans);
-
   return (
     <div className="home">
       <Nav activeLink={activeLink} setActiveLink={setActiveLink} />
@@ -457,6 +456,8 @@ const Homepage = ({ memberPersonalDetails }) => {
         />
         <Route path="/support" element={<Support />} />
         <Route path="/apply-for-loan" element={<ApplyForLoan />} />
+        <Route path="/apply-for-loan/check-eligibility" element={<CheckEligibility
+         />} />
         <Route
           path="/apply-for-loan/loan-details"
           element={
@@ -519,6 +520,7 @@ const Homepage = ({ memberPersonalDetails }) => {
               selectedCollege={selectedCollege}
               selectedMembershipStatus={selectedMembershipStatus}
               selectedEmploymentStatus={selectedEmploymentStatus}
+              memberPersonalDetails={memberPersonalDetails}
             />
           }
         />

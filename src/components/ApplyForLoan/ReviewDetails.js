@@ -1,7 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore"; // Import Firestore functions
 import backIcon from "../../assets/images/back-icon.png";
 import homeIcon from "../../assets/images/home-icon.png";
+import { db } from "../../firebaseConfig"; 
 
 const ReviewDetails = ({
   loanAmount,
@@ -14,9 +16,11 @@ const ReviewDetails = ({
   selectedCollege,
   selectedMembershipStatus,
   selectedEmploymentStatus,
-  selectedKindOfLoan
+  selectedKindOfLoan,
+  memberPersonalDetails
 }) => {
   const navigate = useNavigate();
+  const moment = require("moment");
 
   const [isChecked, setIsChecked] = useState(false);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
@@ -32,6 +36,37 @@ const ReviewDetails = ({
       document.querySelector("meta[name='theme-color']").content = "#ffffff";
     }
   }, [isSubmitClicked]);
+
+  const addLoan = async (e) => {
+
+    const currentDate = new Date();
+
+    try {
+      const formData = {
+        loanAmount: loanAmount,
+        loan_term: loanTerm,
+        loan_type: selectedLoanType,
+        payment_method: selectedPaymentMethod,
+        kind_of_loan: selectedKindOfLoan,
+        issued_date: currentDate,
+       loan_applicant: {
+        id: memberPersonalDetails[0].id,
+        name: name,
+        address: address,
+        contactNumber: contactNumber,
+        selectedCollege: selectedCollege,
+        selectedMembershipStatus: selectedMembershipStatus,
+        selectedEmploymentStatus: selectedEmploymentStatus,
+       },
+      };
+
+      await addDoc(collection(db, "loans"), formData);
+console.log("Loan Added!")
+      setIsSubmitClicked(true); 
+    } catch (error) {
+      console.error("Error adding loan:", error);
+    }
+  };
 
   return (
     <div className="wrapper text-default">
@@ -50,7 +85,7 @@ const ReviewDetails = ({
             <span className="h-1 flex-1 w-full bg-primary rounded-full"></span>
           </section>
           <span
-            onClick={() => setIsSubmitClicked(isChecked)}
+            onClick={addLoan} 
             className={`${
               !isChecked && "opacity-50"
             } text-white text-bold p-4 flex-1 text-center bg-primary w-full rounded-full`}
@@ -76,7 +111,7 @@ const ReviewDetails = ({
           <label className="text-sm opacity-75">Loan Amount</label>
           <p className="">₱{loanAmount}</p>
           <label className="text-sm opacity-75">Loan Term</label>
-          <p className="text">{loanTerm} months</p>
+          <p className="">{loanTerm} months</p>
           <label className="text-sm opacity-75">Loan Type</label>
           <p className="">{selectedLoanType}</p>
           <label className="text-sm opacity-75">Kind of Loan</label>

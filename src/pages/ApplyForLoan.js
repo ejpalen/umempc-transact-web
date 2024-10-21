@@ -25,7 +25,7 @@ const ApplyForLoan = () => {
         </section>
         <section className="flex flex-col justify-center items-center">
           <span
-            onClick={() => navigate("/apply-for-loan/loan-details")}
+            onClick={() => navigate("/apply-for-loan/check-eligibility")}
             className={` text-white text-bold p-4 px-16 flex-1 text-center bg-primary rounded-full`}
           >
             Get Started

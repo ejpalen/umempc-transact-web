@@ -467,6 +467,11 @@ background: linear-gradient(0deg, #BD33FF 0%, #0051FF 70%);
   background: linear-gradient(0deg, #55C0C6 0%, #6ED097 100%);
 }
 
+.gradient-bg-5{
+  background: rgb(0,81,255);
+  background: linear-gradient(0deg, #E42F76 0%, #F08C3D 100%);
+}
+
 .nav-container{
   box-shadow: 0 -4px 6px -4px rgba(0, 0, 0, 0.2);
 }

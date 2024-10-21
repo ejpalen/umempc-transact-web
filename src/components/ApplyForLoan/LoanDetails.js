@@ -17,13 +17,13 @@ const LoanDetails = ({
   setLoanTerm,
   selectedKindOfLoan,
   setSelectedKindOfLoan,
-  kindOfLoan
+  kindOfLoan,
 }) => {
   const navigate = useNavigate();
 
   const [numberLoanTerm, setNumberLoanTerm] = useState(5);
-  const [isLoanTermOthers, setIsLoanTermOthers] = useState(false);
-
+  const [isLoanTermOthers, setIsLoanTermOthers] = useState(true);
+  
   useEffect(() => {
     if (selectedLoanTerm === "Others") {
       setIsLoanTermOthers(true);
@@ -35,7 +35,7 @@ const LoanDetails = ({
   useEffect(() => {
     setLoanTerm(numberLoanTerm);
   }, [numberLoanTerm]);
-
+  
   return (
     <div className="wrapper text-default">
       <div className="support-bottom-nav fixed bottom-0 left-0 right-0 py-4 px-0 pt-0 z-10">
@@ -46,8 +46,8 @@ const LoanDetails = ({
             <span className="h-1 flex-1 w-full bg-inactive opacity-15 rounded-full"></span>
           </section>
           <span
-            onClick={() => navigate("/apply-for-loan/personal-details")}
-            className={`text-white text-bold p-4 flex-1 text-center bg-primary w-full rounded-full`}
+            onClick={() => navigate(`${loanAmount !== "" ?  "/apply-for-loan/personal-details" : "#"}`)}
+            className={`text-white text-bold p-4 flex-1 text-center bg-primary w-full rounded-full ${loanAmount==="" && 'opacity-50 cursor-not-allowed'}`}
           >
             Next
           </span>
@@ -66,6 +66,9 @@ const LoanDetails = ({
       </section>
       <main className=" flex-1 flex flex-col mt-20 container-with-label pb-20">
         <section className="flex flex-col gap-1">
+        <section>
+
+        </section>
           <section className="px-4 flex flex-col">
             <label className="mb-1" htmlFor="loanAmount">
               Loan Amount
@@ -169,3 +172,4 @@ const LoanDetails = ({
 };
 
 export default LoanDetails;
+
