@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import moment from "moment";
+
 import backIcon from "../../assets/images/back-icon.png";
 import loanIcon from "../../assets/images/loan-transact-icon.png";
 
-const Transaction = ({ transactionItemData }) => {
+const Transaction = ({ loans }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -11,15 +13,15 @@ const Transaction = ({ transactionItemData }) => {
     document.querySelector("meta[name='theme-color']").content = "#ffffff";
   }, []);
 
-  const [transactionItem, setTransactionItem] = useState();
+  const [transactionItem, setTransactionItem] = useState({});
 
   useEffect(() => {
-    const findTransactionItem = transactionItemData.find(
+    const findTransactionItem = loans.find(
       (item) => item.id === id
     );
 
     setTransactionItem(findTransactionItem);
-  }, []);
+  }, [loans]);
 
   return (
     transactionItem && (
@@ -38,26 +40,27 @@ const Transaction = ({ transactionItemData }) => {
         <main className=" flex-1 flex flex-col mt-14 px-4">
           <section className="flex flex-col gap-1  items-center mt-6">
             <img src={loanIcon} alt="" className="h-14 w-14" />
-            <h1 className="text-2xl text-bold mt-1">{transactionItem.type}</h1>
+            <h1 className="text-2xl text-bold mt-1">{transactionItem.loan_type}</h1>
 
-            <p className="opacity-75 ">Reference No. {transactionItem.id}</p>
+            {/* <p className="opacity-75 ">Reference No. {transactionItem.id}</p> */}
           </section>
           <section className="bg-hoverBg p-4 rounded-lg mt-6">
             <span className="transaction-details-data">
               <p>Amount</p>
-              <p>{transactionItem.amount}</p>
+              <p>₱{Intl.NumberFormat().format(transactionItem.loanAmount)}</p>
             </span>
             <span className="transaction-details-data">
               <p>Status</p>
-              <p>{transactionItem.status}</p>
+              <p>{transactionItem.loan_status}</p>
             </span>
             <span className="transaction-details-data">
               <p>Date</p>
-              <p>{transactionItem.date}</p>
+              <p>
+              {moment(transactionItem.issued_date.toDate()).format("DD MMMM YYYY")}</p>
             </span>
             <span className="transaction-details-data">
               <p>Time</p>
-              <p>{transactionItem.time}</p>
+              <p>{moment(transactionItem.issued_date.toDate()).format('hh:mm A')}</p>
             </span>
           </section>
         </main>

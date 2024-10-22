@@ -1,6 +1,18 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+
+//Firebase
+import { db } from "./firebaseConfig";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query as firestoreQuery,
+  query,
+  addDoc,
+  where,
+} from "firebase/firestore";
+
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import Homepage from "./Homepage";
@@ -14,38 +26,54 @@ import AdminHomepage from "./admin/AdminHomepage";
 import { ToastContainer } from "react-toastify";
 
 function App() {
-  const [memberPersonalDetails, setMemberPersonalDetails] = useState([]);
+  const [memberPersonalDetails, setMemberPersonalDetails] = useState(() => {
+    const storedMemberDetails = sessionStorage.getItem("memberPersonalDetails");
+    return storedMemberDetails || null;
+  });
   const [adminPersonalDetails, setAdminPersonalDetails] = useState([]);
   const [array, setArray] = useState([]);
+  const [prediction, setPrediction] = useState(() => {
+    const storedPrediction = sessionStorage.getItem("prediction");
+    return storedPrediction || null;
+  });
 
+  const [loans, setLoans] = useState([]);
+  const [loanTotalBalance, setLoanTotalBalance] = useState([]);
 
-  const [prediction, setPrediction] = useState(null);
-  const [error, setError] = useState(null);
-
-  const fetchAPI = async () => {
-    try {
-      const response = await axios.post("http://localhost:8080/predict");
-      console.log(response.data);
-    } catch (err) {
-      console.error("Error fetching prediction:", err);
-      setError("Failed to fetch prediction");
-    }
-  };
-
-  useEffect(() => {
-    if (prediction && prediction.output) {
-      try {
-        const finalOutput = JSON.parse(prediction.output);
-
-        setPrediction(finalOutput);
-        console.log("Parsed prediction:", prediction);
-      } catch (err) {
-        console.error("Error parsing prediction output:", err);
-        setError("Failed to parse prediction output");
+    useEffect(() => {
+      const storedPrediction = JSON.parse(sessionStorage.getItem("prediction"));
+      const storedMemberDetails = JSON.parse(sessionStorage.getItem("memberPersonalDetails"));
+  
+      if (storedPrediction !== null) {
+        setPrediction(storedPrediction);
       }
-    }
-  }, [prediction]);
 
+      if (storedMemberDetails !== null) {
+        setMemberPersonalDetails(storedMemberDetails);
+      }
+
+
+    }, []);
+
+    let loanRef = query(
+      collection(db, "loans"),
+      orderBy("issued_date"),
+      where("loan_applicant_id", "==",JSON.parse(sessionStorage.getItem("memberPersonalDetails"))[0].id)
+    );
+  
+    //Fetch loans from database
+    useEffect(() => {
+      onSnapshot(loanRef, (snapshot) => {
+        const loanData = snapshot.docs.map((val) => ({
+          ...val.data(),
+          id: val.id,
+        }));
+        setLoans(loanData);
+         // Calculate the total loan amount
+         const totalLoanAmount = loanData.reduce((total, loan) => total + (loan.loanAmount || 0), 0);
+         setLoanTotalBalance(totalLoanAmount); 
+      });
+    }, []);
 
   return (
     <div className="App">
@@ -67,7 +95,15 @@ function App() {
           <Route path="/renew-password" element={<RenewPassword />} />
           <Route
             path="/*"
-            element={<Homepage memberPersonalDetails={memberPersonalDetails} />}
+            element={
+              <Homepage
+                memberPersonalDetails={memberPersonalDetails}
+                prediction={prediction}
+                setPrediction={setPrediction}
+                loans={loans}
+                loanTotalBalance={loanTotalBalance}
+              />
+            }
           />
           <Route
             path="/admin/"

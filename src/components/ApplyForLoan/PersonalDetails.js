@@ -68,12 +68,14 @@ const PersonalDetails = ({
               Name
             </label>
             <input
+            className="opacity-75"
               type="text"
               id="name"
               name="name"
               placeholder="Type your name"
               value={name}
               required
+              readOnly
               onChange={(e) => setName(e.target.value)}
             />
 
@@ -120,16 +122,15 @@ const PersonalDetails = ({
           </section>
           <section className="px-4 flex flex-col">
             <label className="mb-1 mt-6">Membership Status</label>
-            <section className="flex flex-row gap-1">
+            <section className="flex flex-row gap-1 opacity-75">
               {membershipStatus.map((status, index) => (
                 <span
                   key={index}
-                  className={`text-nowrap text-base py-2 px-6 text-center ${
+                  className={`text-nowrap text-base py-2 px-6 text-center cursor-not-allowed  ${
                     selectedMembershipStatus === status
                       ? "button-1"
                       : "button-2"
                   }`}
-                  onClick={() => setSelectedMembershipStatus(status)}
                 >
                   {status}
                 </span>
@@ -138,16 +139,15 @@ const PersonalDetails = ({
           </section>
           <section className="flex flex-col">
             <label className="pl-4 mb-1 mt-6">Employment Status</label>
-            <section className="flex flex-row gap-1 overflow-y-scroll pb-1.5 px-4">
+            <section className="flex flex-row gap-1 overflow-y-scroll pb-1.5 px-4 opacity-75">
               {employmentStatus.map((status, index) => (
                 <span
                   key={index}
-                  className={`text-nowrap text-base py-2 px-6 flex-1 text-center ${
+                  className={`text-nowrap text-base py-2 px-6 flex-1 text-center cursor-not-allowed ${
                     selectedEmploymentStatus === status
                       ? "button-1"
                       : "button-2"
                   }`}
-                  onClick={() => setSelectedEmploymentStatus(status)}
                 >
                   {status}
                 </span>

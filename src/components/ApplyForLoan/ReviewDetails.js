@@ -17,25 +17,17 @@ const ReviewDetails = ({
   selectedMembershipStatus,
   selectedEmploymentStatus,
   selectedKindOfLoan,
-  memberPersonalDetails
+  memberPersonalDetails,
+  setLoanAmount,
+        setLoanTerm,
+        setSelectedLoanType,
+        setSelectedPaymentMethod,
+        setSelectedKindOfLoan
 }) => {
   const navigate = useNavigate();
-  const moment = require("moment");
 
   const [isChecked, setIsChecked] = useState(false);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked); // Toggle the checkbox state
-  };
-
-  useEffect(() => {
-    if (isSubmitClicked) {
-      document.querySelector("meta[name='theme-color']").content = "#0051FF";
-    } else {
-      document.querySelector("meta[name='theme-color']").content = "#ffffff";
-    }
-  }, [isSubmitClicked]);
 
   const addLoan = async (e) => {
 
@@ -43,14 +35,14 @@ const ReviewDetails = ({
 
     try {
       const formData = {
-        loanAmount: loanAmount,
-        loan_term: loanTerm,
+        loanAmount: parseFloat(loanAmount),
+        loan_term: parseInt(loanTerm),
         loan_type: selectedLoanType,
         payment_method: selectedPaymentMethod,
         kind_of_loan: selectedKindOfLoan,
         issued_date: currentDate,
+        loan_applicant_id: memberPersonalDetails[0].id,
        loan_applicant: {
-        id: memberPersonalDetails[0].id,
         name: name,
         address: address,
         contactNumber: contactNumber,
@@ -59,13 +51,23 @@ const ReviewDetails = ({
         selectedEmploymentStatus: selectedEmploymentStatus,
        },
       };
-
+      // Add the form data to Firestore
       await addDoc(collection(db, "loans"), formData);
-console.log("Loan Added!")
-      setIsSubmitClicked(true); 
+
+      setIsSubmitClicked(true); // Set submit clicked to true to show confirmation
+
     } catch (error) {
       console.error("Error adding loan:", error);
     }
+  };
+
+  const resetForm = () => {
+    setLoanAmount("");
+    setLoanTerm("5 months"); 
+    setSelectedLoanType("Prepaid Cash");
+    setSelectedPaymentMethod("Salary Deduction"); 
+    setSelectedKindOfLoan("Salary Loan");
+    setIsChecked(false); // Reset checkbox
   };
 
   return (
@@ -75,6 +77,7 @@ console.log("Loan Added!")
           loanAmount={loanAmount}
           name={name}
           navigate={navigate}
+          resetForm={resetForm}
         />
       )}
       <div className="support-bottom-nav fixed bottom-0 left-0 right-0 py-4 px-0 pt-0 z-10">
@@ -105,7 +108,7 @@ console.log("Loan Added!")
         />
         <h2 className="flex-1 text-center text-xl">Review Details</h2>
       </section>
-      <main className=" flex-1 flex flex-col mt-20 p-4 pt-0 pb-40">
+      <main className="flex-1 flex flex-col mt-20 p-4 pt-0 pb-40">
         <h2 className="flex-1 text-bold">Loan Details</h2>
         <section className="mt-1 bg-hoverBg rounded-lg p-2">
           <label className="text-sm opacity-75">Loan Amount</label>
@@ -142,11 +145,10 @@ console.log("Loan Added!")
             id="confirmation"
             name="confirmation"
             checked={isChecked}
-            onChange={handleCheckboxChange}
+            onChange={() => setIsChecked(!isChecked)}
           />
           <label htmlFor="confirmation">
-            I confirm that all the information provided is accurate and
-            complete.
+            I confirm that all the information provided is accurate and complete.
           </label>
         </span>
       </main>
@@ -154,13 +156,13 @@ console.log("Loan Added!")
   );
 };
 
-const WithdrawConfirmation = ({ loanAmount, name, navigate }) => {
+const WithdrawConfirmation = ({ loanAmount, name, navigate, resetForm }) => {
   return (
     <div className="gradient-bg-2 h-full w-[100vw] absolute top-0 right-0 left-0 z-30 text-white flex">
       <section className="flex-1 flex justify-center items-center flex-col px-4">
         <section className="">
           <h1 className="text-2xl text-center">
-            Your loan application is submitted.
+            Your loan application was submitted.
           </h1>
         </section>
         <section className="bg-hoverBg bg-opacity-10 p-4 rounded-lg mt-12 w-full">
@@ -178,10 +180,11 @@ const WithdrawConfirmation = ({ loanAmount, name, navigate }) => {
         </section>
         <section className="fixed bottom-4 right-4 left-4">
           <span
-            onClick={() => navigate("/home")}
-            className={`
-            cursor-pointer
-                flex gap-4 items-center justify-center rounded-full mt-12 text-center w-full  text-white text-bold`}
+            onClick={() => {
+              navigate("/home")
+              resetForm()
+            }}
+            className={`cursor-pointer flex gap-4 items-center justify-center rounded-full mt-12 text-center w-full text-white text-bold`}
           >
             <img
               src={homeIcon}

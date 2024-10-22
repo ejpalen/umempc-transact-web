@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 import calculatorIcon from "../assets/images/calculator-icon.png";
 import ledgerIcon from "../assets/images/ledger-icon.png";
@@ -15,7 +16,15 @@ import rightArrow2Icon from "../assets/images/right-arrow-2-icon.png";
 import eyeActiveIcon from "../assets/images/eye-active-icon.png";
 import loanAgainIcon from "../assets/images/loan-again-icon.png";
 
-const Home = ({ setActiveLink, transactionItemData }) => {
+const Home = ({ setActiveLink, prediction,
+  setLoanAmount,
+  setLoanTerm,
+  setSelectedLoanType,
+  setSelectedKindOfLoan,
+  setSelectedPaymentMethod,
+  loans, loanTotalBalance
+
+ }) => {
   const navigate = useNavigate();
 
   const [openAllFeature, setOpenAllFeature] = useState(false);
@@ -62,8 +71,6 @@ const Home = ({ setActiveLink, transactionItemData }) => {
     },
   ];
 
-  
-
   return (
     <div className="wrapper">
       <section>
@@ -92,7 +99,7 @@ const Home = ({ setActiveLink, transactionItemData }) => {
 
           <span>
             <p className=" opacity-50">Balance</p>
-            <h1 className="text-3xl text-bold">₱97,463.25</h1>
+            <h1 className="text-3xl text-bold">₱{Intl.NumberFormat().format(loanTotalBalance)}</h1>
           </span>
           <img src={eyeActiveIcon} alt="" className="h-7" />
           </div>
@@ -137,16 +144,22 @@ const Home = ({ setActiveLink, transactionItemData }) => {
             </span>
           </div>
           <div className="transaction-list">
-            {transactionItemData.slice(0, 5).map((item) => (
-              <TransactionItem item={item} navigate={navigate} />
+            {loans.slice(0, 5).map((item) => (
+              <TransactionItem item={item} navigate={navigate} prediction={prediction} />
             ))}
           </div>
         </section>
         <section className="mt-8">
           <h2 className="text-xl mb-2">Loan Again</h2>
           <section className="flex gap-2 overflow-x-scroll w-full pb-2">
-            {transactionItemData.slice(0, 5).map((item) => (
-              <LoanAgainItem item={item} navigate={navigate} />
+            {loans.slice(0, 5).map((item) => (
+              <LoanAgainItem item={item} navigate={navigate} prediction={prediction}
+              setLoanAmount={setLoanAmount}
+              setLoanTerm={setLoanTerm}
+              setSelectedLoanType={setSelectedLoanType}
+              setSelectedKindOfLoan={setSelectedKindOfLoan}
+              setSelectedPaymentMethod={setSelectedPaymentMethod}
+               />
             ))}
           </section>
         </section>
@@ -164,27 +177,47 @@ const TransactionItem = ({ item, navigate }) => {
       <div className="transaction-list-item-left">
         <img src={loanTransactIcon} alt="" />
         <span>
-          <h3>{item.type}</h3>
-          <p>{item.date}</p>
+          <h3>{item.loan_type}</h3>
+          <p>{moment(item.date).format("DD MMMM YYYY")}</p>
         </span>
       </div>
       <div className="transaction-list-item-right flex items-center gap-3">
-        <p>{item.amount}</p>
+        <p>₱{Intl.NumberFormat().format(item.loanAmount)}</p>
         <img src={rightArrow2Icon} alt="" />
       </div>
     </div>
   );
 };
 
-const LoanAgainItem = ({ item, navigate }) => {
+const LoanAgainItem = ({ item, navigate, prediction,setLoanAmount, setLoanTerm, setSelectedLoanType, setSelectedKindOfLoan, setSelectedPaymentMethod }) => {
+
+  const [loanNavigation, setLoanNavigation] = useState('/apply-for-loan/check-eligibility');
+  
+  useEffect(() => {
+    if( prediction !== null){
+      setLoanNavigation('/apply-for-loan/loan-details');
+    }else{
+      setLoanNavigation('/apply-for-loan/check-eligibility');
+    }
+  }, [prediction]);
+
   return (
-    <div className="loan-again-item rounded-2xl flex justify-between items-end w-max flex-none cursor-pointer">
+    <div className="loan-again-item rounded-2xl flex justify-between items-end w-max flex-none cursor-pointer"
+    onClick={() => {
+              navigate(`${loanNavigation}`);
+              setLoanAmount(item.loanAmount)
+  setLoanTerm(item.loan_term)
+  setSelectedLoanType(item.loan_type)
+  setSelectedKindOfLoan(item.kind_of_loan)
+  setSelectedPaymentMethod(item.payment_method)
+            }}
+    >
       <div className=" p-4 pr-8 pb-8  flex flex-col w-max">
-        <h1 className=" text-bold">{item.amount}</h1>
+        <h1 className=" text-bold">₱{Intl.NumberFormat().format(item.loanAmount)}</h1>
         <span className="flex gap-2 flex-1 w-max opacity-75">
-          <p className="text-sm">{item.type}</p>
+          <p className="text-sm">{item.loan_type}</p>
           <p className="text-sm">•</p>
-          <p className="text-sm">6 months</p>
+          <p className="text-sm">{item.loan_term} months</p>
         </span>
       </div>
       <img src={loanAgainIcon} alt="" className="w-12 h-12" />
@@ -200,7 +233,9 @@ const AllContent = ({ allFeatures, navigate }) => {
         {allFeatures.slice(0, 4).map((feature) => (
           <div
             className="feature-link"
-            onClick={() => navigate(`${feature.link}`)}
+            onClick={() => {
+              navigate(`${'/apply-for-loan/loan-details'}`)
+            }}
           >
             <img src={feature.image} alt="" />
             <p>{feature.name}</p>
@@ -212,7 +247,10 @@ const AllContent = ({ allFeatures, navigate }) => {
         {allFeatures.slice(4, 8).map((feature) => (
           <div
             className="feature-link"
-            onClick={() => navigate(`${feature.link}`)}
+            onClick={() => {
+              navigate(`${feature.link}`)
+
+            }}
           >
             <img src={feature.image} alt="" />
             <p>{feature.name}</p>

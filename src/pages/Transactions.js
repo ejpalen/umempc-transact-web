@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 import loanTransactIcon from "../assets/images/loan-transact-icon.png";
 import rightArrow2Icon from "../assets/images/right-arrow-2-icon.png";
 
-const Transactions = ({ transactionItemData }) => {
+const Transactions = ({ loans }) => {
   const navigate = useNavigate();
 
   const dateFilters = ["This Week", "This Month", "This Year"];
@@ -33,7 +34,7 @@ const Transactions = ({ transactionItemData }) => {
           <div className="transaction-list-container my-4">
             <h2 className="text-lg ">August</h2>
             <div className="transaction-list">
-              {transactionItemData.map((item) => (
+              {loans.map((item) => (
                 <TransactionItem item={item} navigate={navigate} />
               ))}
             </div>
@@ -41,7 +42,7 @@ const Transactions = ({ transactionItemData }) => {
           <div className="transaction-list-container">
             <h2 className="text-lg ">July</h2>
             <div className="transaction-list">
-              {transactionItemData.map((item) => (
+              {loans.map((item) => (
                 <TransactionItem item={item} navigate={navigate} />
               ))}
             </div>
@@ -61,12 +62,12 @@ const TransactionItem = ({ item, navigate }) => {
       <div className="transaction-list-item-left">
         <img src={loanTransactIcon} alt="" />
         <span>
-          <h3>{item.type}</h3>
-          <p>{item.date}</p>
+          <h3>{item.loan_type}</h3>
+          <p>{moment(item.date).format("DD MMMM YYYY")}</p>
         </span>
       </div>
       <div className="transaction-list-item-right flex items-center gap-3">
-        <p>{item.amount}</p>
+      <p>₱{Intl.NumberFormat().format(item.loanAmount)}</p>
         <img src={rightArrow2Icon} alt="" />
       </div>
     </div>

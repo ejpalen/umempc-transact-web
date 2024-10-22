@@ -32,7 +32,7 @@ import {
   where,
 } from "firebase/firestore";
 
-const Homepage = ({ memberPersonalDetails }) => {
+const Homepage = ({ memberPersonalDetails,  prediction, setPrediction, loans, loanTotalBalance }) => {
   const [activeLink, setActiveLink] = useState(0);
 
   // Loan Details
@@ -418,10 +418,10 @@ const Homepage = ({ memberPersonalDetails }) => {
 
   const [memberLoans, setMemberLoans] = useState([]);
 
-  const loans_ref = collection(db, "applied_loans");
+  const loans_ref = collection(db, "loans");
   const loans_query = firestoreQuery(
     loans_ref,
-    where("loan_applicant_id", "==", memberPersonalDetails[0].member_id)
+    where("loan_applicant_id", "==",JSON.parse(sessionStorage.getItem("memberPersonalDetails"))[0].id)
   );
 
   //Fetch cashiers from database
@@ -451,12 +451,29 @@ const Homepage = ({ memberPersonalDetails }) => {
               activeLink={activeLink}
               setActiveLink={setActiveLink}
               transactionItemData={transactionItemData}
+              prediction={prediction}
+              setLoanAmount={setLoanAmount}
+              setLoanTerm={setLoanTerm}
+              setSelectedLoanType={setSelectedLoanType}
+              setSelectedKindOfLoan={setSelectedKindOfLoan}
+              setSelectedPaymentMethod={setSelectedPaymentMethod}
+              loans={loans}
+                loanTotalBalance={loanTotalBalance}
             />
           }
         />
         <Route path="/support" element={<Support />} />
-        <Route path="/apply-for-loan" element={<ApplyForLoan />} />
+        <Route path="/apply-for-loan" element={<ApplyForLoan 
+prediction={prediction}
+setLoanAmount={setLoanAmount}
+              setLoanTerm={setLoanTerm}
+              setSelectedLoanType={setSelectedLoanType}
+              setSelectedKindOfLoan={setSelectedKindOfLoan}
+              setSelectedPaymentMethod={setSelectedPaymentMethod}
+        />} />
         <Route path="/apply-for-loan/check-eligibility" element={<CheckEligibility
+        prediction={prediction}
+        setPrediction={setPrediction}
          />} />
         <Route
           path="/apply-for-loan/loan-details"
@@ -508,7 +525,6 @@ const Homepage = ({ memberPersonalDetails }) => {
           element={
             <ReviewDetails
               loanAmount={loanAmount}
-              setLoanAmount={setLoanAmount}
               selectedLoanTerm={selectedLoanTerm}
               loanTerm={loanTerm}
               selectedKindOfLoan={selectedKindOfLoan}
@@ -521,16 +537,21 @@ const Homepage = ({ memberPersonalDetails }) => {
               selectedMembershipStatus={selectedMembershipStatus}
               selectedEmploymentStatus={selectedEmploymentStatus}
               memberPersonalDetails={memberPersonalDetails}
+              setLoanAmount={setLoanAmount}
+        setLoanTerm={setLoanTerm}
+        setSelectedLoanType={setSelectedLoanType}
+        setSelectedPaymentMethod={setSelectedPaymentMethod}
+        setSelectedKindOfLoan={setSelectedKindOfLoan}
             />
           }
         />
         <Route
           path="/transactions"
-          element={<Transactions transactionItemData={transactionItemData} />}
+          element={<Transactions loans={loans} />}
         />
         <Route
           path="/transactions/:id"
-          element={<Transaction transactionItemData={transactionItemData} />}
+          element={<Transaction loans={loans} />}
         />
 
         <Route
