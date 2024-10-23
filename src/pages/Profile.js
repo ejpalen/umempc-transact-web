@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import defaultProfile from "../assets/images/profile-icon-active.png";
 import editIcon from "../assets/images/edit-icon.png";
@@ -8,7 +8,7 @@ import settingsIcon from "../assets/images/settings-icon.png";
 import aboutIcon from "../assets/images/about-icon.png";
 import logoutIcon from "../assets/images/logout-icon.png";
 
-const Profile = ({ memberPersonalDetails }) => {
+const Profile = ({ memberPersonalDetails, loanTotal }) => {
   const navigate = useNavigate();
 
   const settings = [
@@ -33,6 +33,8 @@ const Profile = ({ memberPersonalDetails }) => {
     document.querySelector("meta[name='theme-color']").content = "#6ED097";
   }, []);
 
+  const [profileImage, setProfileImage] = useState(memberPersonalDetails && memberPersonalDetails[0].member_profile_image || defaultProfile);
+
   return (
     <div className="wrapper text-default">
       <div className=" flex gap-2 items-center justify-between p-4 pb-12 gradient-bg-4">
@@ -54,14 +56,14 @@ const Profile = ({ memberPersonalDetails }) => {
           <h1 className="text-xl text-bold m-auto flex justify-center">E</h1>
         </span> */}
         <span>
-          <img src={defaultProfile} alt="" className="h-12" />
+          <img src={profileImage} alt="" className="h-12 w-12 object-cover rounded-full" />
         </span>
       </div>
       <main className="px-4 mt-4  relative top-[-3rem]">
         <section className="shadow-lg p-6 rounded-lg bg-white flex justify-between items-center mb-6">
           <span className="flex gap-2 justify-between flex-1">
             <p className=" opacity-50">Total Loans</p>
-            <p className="text-bold">23</p>
+            <p className="text-bold">{loanTotal}</p>
           </span>
         </section>
         {settings.map((setting, index) => (

@@ -7,7 +7,7 @@ import UmempcLogo from "../assets/images/umempc-transact-logo.png";
 
 import { toast } from "react-toastify";
 
-const Login = ({ setMemberPersonalDetails, memberPersonalDetails }) => {
+const Login = ({ setMemberPersonalDetails, setIsLoggedIn }) => {
   const navigate = useNavigate();
 
   document.querySelector("meta[name='theme-color']").content = "#0051FF";
@@ -19,6 +19,7 @@ const Login = ({ setMemberPersonalDetails, memberPersonalDetails }) => {
 
   const login = async (e) => {
       
+    setLoginText("Logging in...");
 
     const dbref = collection(db, "members");
     const getDetails = query(
@@ -34,6 +35,7 @@ const Login = ({ setMemberPersonalDetails, memberPersonalDetails }) => {
       }));
       
       if (allData.length >= 1) {
+        setIsLoggedIn(true);
         sessionStorage.setItem("memberPersonalDetails", JSON.stringify(allData));
 
         setMemberPersonalDetails(allData);
@@ -48,8 +50,6 @@ const Login = ({ setMemberPersonalDetails, memberPersonalDetails }) => {
           progress: undefined,
           theme: "light",
         });
-
-        setLoginText("Logging in...");
         navigate("/home");
         setLoginText("Log in");
 

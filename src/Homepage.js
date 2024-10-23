@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route,useNavigate } from "react-router-dom";
 import Nav from "./components/Nav";
 import Support from "./pages/Support";
 import SupportChat from "./components/SupportChat";
@@ -32,7 +32,17 @@ import {
   where,
 } from "firebase/firestore";
 
-const Homepage = ({ memberPersonalDetails,  prediction, setPrediction, loans, loanTotalBalance }) => {
+const Homepage = ({ memberPersonalDetails, setMemberPersonalDetails, prediction, setPrediction, loans, loanTotalBalance, setLoanTotalBalance, setLoans,
+  loanTotal, setLoanTotal, isLoggedIn
+ }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!memberPersonalDetails || (memberPersonalDetails.length === 0 || !memberPersonalDetails[0].member_id)) {
+      navigate("/");
+    }
+  }, [memberPersonalDetails]); 
+
   const [activeLink, setActiveLink] = useState(0);
 
   // Loan Details
@@ -61,22 +71,22 @@ const Homepage = ({ memberPersonalDetails,  prediction, setPrediction, loans, lo
   ];
 
   // Personal Details
-  const [name, setName] = useState(memberPersonalDetails[0].member_name);
+  const [name, setName] = useState(memberPersonalDetails && memberPersonalDetails[0].member_name);
   const [address, setAddress] = useState(
-    memberPersonalDetails[0].member_address
+    memberPersonalDetails && memberPersonalDetails[0].member_address
   );
   const [contactNumber, setContactNumber] = useState(
-    memberPersonalDetails[0].member_contact_number
+    memberPersonalDetails && memberPersonalDetails[0].member_contact_number
   );
-  const [email, setEmail] = useState(memberPersonalDetails[0].member_email);
+  const [email, setEmail] = useState(memberPersonalDetails && memberPersonalDetails[0].member_email);
   const [selectedCollege, setSelectedCollege] = useState(
-    memberPersonalDetails[0].member_college
+    memberPersonalDetails && memberPersonalDetails[0].member_college
   );
   const [selectedMembershipStatus, setSelectedMembershipStatus] = useState(
-    memberPersonalDetails[0].member_membership_status
+    memberPersonalDetails &&  memberPersonalDetails[0].member_membership_status
   );
   const [selectedEmploymentStatus, setSelectedEmploymentStatus] = useState(
-    memberPersonalDetails[0].member_employment_status
+    memberPersonalDetails &&  memberPersonalDetails[0].member_employment_status
   );
 
   const membershipStatus = ["Regular", "Associate"];
@@ -416,29 +426,96 @@ const Homepage = ({ memberPersonalDetails,  prediction, setPrediction, loans, lo
     },
   ];
 
-  const [memberLoans, setMemberLoans] = useState([]);
+  // let loanRef = query(
+  //   collection(db, "loans"),
+  //   orderBy("issued_date"),
+  //   where("loan_applicant_id", "==", memberPersonalDetails && memberPersonalDetails[0].id)
+  // );
 
-  const loans_ref = collection(db, "loans");
-  const loans_query = firestoreQuery(
-    loans_ref,
-    where("loan_applicant_id", "==",JSON.parse(sessionStorage.getItem("memberPersonalDetails"))[0].id)
-  );
+  // //Fetch loans from database
+  // useEffect(() => {
 
-  //Fetch cashiers from database
+  //   onSnapshot(loanRef, (snapshot) => {
+  //     const loanData = snapshot.docs.map((val) => ({
+  //       ...val.data(),
+  //       id: val.id,
+  //     }));
+  //     setLoans(loanData);
+  //      // Calculate the total loan amount
+  //      const totalLoanAmount = loanData.reduce((total, loan) => total + (loan.loanAmount || 0), 0);
+  //      setLoanTotalBalance(totalLoanAmount); 
+  //   });
+  // }, [memberPersonalDetails]);
+
+  // //Fetch member data from database
+  // let memberRef = query(
+  //   collection(db, "members"),
+  //   where("member_id", "==", memberPersonalDetails && memberPersonalDetails[0].member_id)
+  // );
+
+  // //Fetch loans from database
+  // useEffect(() => {
+  //   onSnapshot(memberRef, (snapshot) => {
+  //     const memberData = snapshot.docs.map((val) => ({
+  //       ...val.data(),
+  //       id: val.id,
+  //     }));
+  //     setMemberPersonalDetails(memberData);
+  //     sessionStorage.setItem("memberPersonalDetails", JSON.stringify(memberData));
+  //   });
+  // }, []);
+
   useEffect(() => {
-    const unsubscribe = onSnapshot(loans_query, (snapshot) => {
-      const allData = snapshot.docs.map((val) => ({
-        ...val.data(),
-        id: val.id,
-      }));
-      setMemberLoans(allData);
-    });
+    if (memberPersonalDetails && memberPersonalDetails.length > 0) {
+      const memberId = memberPersonalDetails[0].member_id;
 
-    // Cleanup the listener when the component unmounts
-    return () => {
-      unsubscribe();
-    };
+      if (memberId) {
+        const memberRef = query(
+          collection(db, "members"),
+          where("member_id", "==", memberId)
+        );
+
+        const loanRef = query(
+        collection(db, "loans"),
+        orderBy("issued_date"),
+        where("loan_applicant_id", "==", memberPersonalDetails && memberPersonalDetails[0].id))
+
+        // Fetch member data from Firestore
+        onSnapshot(memberRef, (snapshot) => {
+          const memberData = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          setMemberPersonalDetails(memberData);
+        });
+
+        // Fetch loan data from Firestore
+         onSnapshot(loanRef, (snapshot) => {
+        const loanData = snapshot.docs.map((val) => ({
+          ...val.data(),
+          id: val.id,
+        }));
+        setLoans(loanData);
+        
+        const totalLoanAmount = loanData.reduce((total, loan) => total + (loan.loanAmount || 0), 0);
+        setLoanTotal(loanData.length)
+        setLoanTotalBalance(totalLoanAmount); 
+      });
+      } else {
+        console.error("Member ID is undefined.");
+      }
+    } else {
+      console.error("Member personal details are empty or undefined.");
+    }
   }, []);
+
+  
+    // useEffect(() => {
+    //   const isLoggedIn = JSON.parse(sessionStorage.getItem("isLoggedIn"));
+    //   if (isLoggedIn && isLoggedIn === null) {
+    //     navigate("/");
+    //   }
+    // }, []);
 
   return (
     <div className="home">
@@ -458,7 +535,11 @@ const Homepage = ({ memberPersonalDetails,  prediction, setPrediction, loans, lo
               setSelectedKindOfLoan={setSelectedKindOfLoan}
               setSelectedPaymentMethod={setSelectedPaymentMethod}
               loans={loans}
+              setLoans={setLoans}
                 loanTotalBalance={loanTotalBalance}
+                setLoanTotalBalance={setLoanTotalBalance}
+                memberPersonalDetails={memberPersonalDetails}
+                isLoggedIn={isLoggedIn}
             />
           }
         />
@@ -556,7 +637,9 @@ setLoanAmount={setLoanAmount}
 
         <Route
           path="/profile"
-          element={<Profile memberPersonalDetails={memberPersonalDetails} />}
+          element={<Profile memberPersonalDetails={memberPersonalDetails}
+          loanTotal={loanTotal}
+           />}
         />
         <Route
           path="/profile/edit-profile"

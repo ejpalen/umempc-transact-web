@@ -233,6 +233,7 @@ html {
   /* Profile */
   .profile-icon{
     border: 3px solid #fff;
+    opacity: 1 !important;
   }
 
   .profile-icon img{

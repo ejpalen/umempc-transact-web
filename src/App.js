@@ -31,18 +31,23 @@ function App() {
     return storedMemberDetails || null;
   });
   const [adminPersonalDetails, setAdminPersonalDetails] = useState([]);
-  const [array, setArray] = useState([]);
   const [prediction, setPrediction] = useState(() => {
     const storedPrediction = sessionStorage.getItem("prediction");
     return storedPrediction || null;
   });
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    const storedIsLoggedIn = sessionStorage.getItem("isLoggedIn");
+    return storedIsLoggedIn || false;
+  });
 
   const [loans, setLoans] = useState([]);
-  const [loanTotalBalance, setLoanTotalBalance] = useState([]);
+  const [loanTotalBalance, setLoanTotalBalance] = useState(0);
+  const [loanTotal, setLoanTotal] = useState(0);
 
     useEffect(() => {
       const storedPrediction = JSON.parse(sessionStorage.getItem("prediction"));
       const storedMemberDetails = JSON.parse(sessionStorage.getItem("memberPersonalDetails"));
+      const storedIsLoggedIn = JSON.parse(sessionStorage.getItem("isLoggedIn"));
   
       if (storedPrediction !== null) {
         setPrediction(storedPrediction);
@@ -52,27 +57,11 @@ function App() {
         setMemberPersonalDetails(storedMemberDetails);
       }
 
+      if (storedIsLoggedIn !== null) {
+        setIsLoggedIn(storedIsLoggedIn);
+      }
 
-    }, []);
 
-    let loanRef = query(
-      collection(db, "loans"),
-      orderBy("issued_date"),
-      where("loan_applicant_id", "==",JSON.parse(sessionStorage.getItem("memberPersonalDetails"))[0].id)
-    );
-  
-    //Fetch loans from database
-    useEffect(() => {
-      onSnapshot(loanRef, (snapshot) => {
-        const loanData = snapshot.docs.map((val) => ({
-          ...val.data(),
-          id: val.id,
-        }));
-        setLoans(loanData);
-         // Calculate the total loan amount
-         const totalLoanAmount = loanData.reduce((total, loan) => total + (loan.loanAmount || 0), 0);
-         setLoanTotalBalance(totalLoanAmount); 
-      });
     }, []);
 
   return (
@@ -88,6 +77,7 @@ function App() {
                 memberPersonalDetails={memberPersonalDetails}
                 prediction={prediction}
                 setPrediction={setPrediction}
+                setIsLoggedIn={setIsLoggedIn}
               />
             }
           />
@@ -98,10 +88,16 @@ function App() {
             element={
               <Homepage
                 memberPersonalDetails={memberPersonalDetails}
+                setMemberPersonalDetails={setMemberPersonalDetails}
                 prediction={prediction}
                 setPrediction={setPrediction}
                 loans={loans}
+                setLoans={setLoans}
                 loanTotalBalance={loanTotalBalance}
+                setLoanTotalBalance={setLoanTotalBalance}
+                loanTotal={loanTotal}
+                setLoanTotal={setLoanTotal}
+                isLoggedIn={isLoggedIn}
               />
             }
           />

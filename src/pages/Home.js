@@ -22,7 +22,10 @@ const Home = ({ setActiveLink, prediction,
   setSelectedLoanType,
   setSelectedKindOfLoan,
   setSelectedPaymentMethod,
-  loans, loanTotalBalance
+  loans,
+  loanTotalBalance,
+  memberPersonalDetails,
+  isLoggedIn
 
  }) => {
   const navigate = useNavigate();
@@ -71,6 +74,29 @@ const Home = ({ setActiveLink, prediction,
     },
   ];
 
+  const [firstName, setFirstName] = useState('');
+
+  useEffect(() => {
+    if (memberPersonalDetails && memberPersonalDetails.length > 0) {
+      const fullName = memberPersonalDetails[0].member_name;
+      const firstWord = fullName.split(' ')[0];
+      setFirstName(firstWord);
+    }
+  }, [memberPersonalDetails]); 
+
+  const currentHour = moment().hour();
+  
+  // Determine the greeting based on the current hour
+  let greeting;
+  if (currentHour < 12) {
+    greeting = "Good morning";
+  } else if (currentHour < 18) {
+    greeting = "Good afternoon";
+  } else {
+    greeting = "Good evening";
+  }
+
+
   return (
     <div className="wrapper">
       <section>
@@ -89,8 +115,8 @@ const Home = ({ setActiveLink, prediction,
         )}
       </section>
       <section className="text-white p-4 pb-14 gradient-bg">
-        <h2 className="text-2xl text-bold">Hi Edgar,</h2>
-        <p className=" opacity-75">Good evening</p>
+        <h2 className="text-2xl text-bold">Hi {firstName},</h2>
+        <p className=" opacity-75">{greeting}</p>
       </section>
       <main className=" relative top-[-3.5rem] p-4 pb-20 text-default">
         <section className="shadow-lg p-4 rounded-lg bg-white flex justify-between items-center">
@@ -106,7 +132,7 @@ const Home = ({ setActiveLink, prediction,
           <div  className="flex justify-between items-center pt-4 share-capital-text">
           <span>
             <p className=" opacity-50">Share Capital</p>
-            <h1 className="text-3xl text-bold">₱132,680.25</h1>
+            <h1 className="text-3xl text-bold">₱{Intl.NumberFormat().format(memberPersonalDetails[0].shared_capital)}</h1>
           </span>
           <img src={eyeActiveIcon} alt="" className="h-7" />
           </div>
