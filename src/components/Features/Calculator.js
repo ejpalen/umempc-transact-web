@@ -20,47 +20,72 @@ const Calculator = ({ loanTerms }) => {
   const [monthlyIncomeError, setMonthlyIncomeError] = useState(false);
   const [interestRateError, setInterestRateError] = useState(false);
 
-  useEffect(() => {
-    document.querySelector("meta[name='theme-color']").content = "#198df9";
-  }, []);
+  // New states for loan logic
+  const [paidUpShareCapital, setPaidUpShareCapital] = useState(100000); // Assume initial value
+  const [salaryDeductions, setSalaryDeductions] = useState(6000); // Deductions for both 15th and 30th
+  const [netPay15th, setNetPay15th] = useState(500); // Example net pay for 15th
+  const [netPay30th, setNetPay30th] = useState(6000); // Example net pay for 30th
+  const [threshold, setThreshold] = useState(5000); // Threshold salary
+  const [availableSalary, setAvailableSalary] = useState(1500); // Available salary for loan calculation
+  const [existingLoan, setExistingLoan] = useState(380000); // Existing loan amount
+  const [allowedAdditionalLoan, setAllowedAdditionalLoan] = useState(0);
 
   const [numberLoanTerm, setNumberLoanTerm] = useState(5);
   const [isLoanTermOthers, setIsLoanTermOthers] = useState(false);
 
   useEffect(() => {
-    if (calculatorSelectedLoanTerm === "Others") {
-      setIsLoanTermOthers(true);
-    } else {
-      setIsLoanTermOthers(false);
-    }
-  }, [calculatorSelectedLoanTerm]);
+    document.querySelector("meta[name='theme-color']").content = "#198df9";
+  }, []);
 
-  useEffect(() => {
-    setCalculatorLoanTerm(
-      `${numberLoanTerm} ${numberLoanTerm > 1 ? "months" : "month"}`
-    );
-  }, [numberLoanTerm]);
 
-  useEffect(() => {
-    const isLoanAmountValid =
-      calculatorLoanAmount !== "" && calculatorLoanAmount >= 1000;
-    const isMonthlyIncomeValid =
-      calculatorMonthlyIncome !== "" && calculatorMonthlyIncome >= 1000;
-    const isInterestValid =
-      calculatorInterestRate !== "" && calculatorInterestRate > 0;
+// Calculate maximum loanable amounts and allowed additional loan
+useEffect(() => {
+  const maxLoanableByShare = paidUpShareCapital * 4; // 400% of paid-up share
+  const maxLoanableBySalary = availableSalary * 12; // Loanable amount based on salary
+  const additionalLoan = Math.min(maxLoanableByShare, maxLoanableBySalary);
+  setAllowedAdditionalLoan(additionalLoan);
+}, [paidUpShareCapital, availableSalary]);
 
-    setLoanAmountError(!isLoanAmountValid && calculatorLoanAmount !== "");
-    setMonthlyIncomeError(
-      !isMonthlyIncomeValid && calculatorMonthlyIncome !== ""
-    );
-    setInterestRateError(!isInterestValid && calculatorInterestRate !== "");
+useEffect(() => {
+  if (calculatorSelectedLoanTerm === "Others") {
+    setIsLoanTermOthers(true);
+  } else {
+    setIsLoanTermOthers(false);
+  }
+}, [calculatorSelectedLoanTerm]);
 
-    if (isLoanAmountValid && isMonthlyIncomeValid && isInterestValid) {
-      setIsReadyToCalculate(true);
-    } else {
-      setIsReadyToCalculate(false);
-    }
-  }, [calculatorLoanAmount, calculatorMonthlyIncome, calculatorInterestRate]);
+useEffect(() => {
+  setCalculatorLoanTerm(
+    `${numberLoanTerm} ${numberLoanTerm > 1 ? "months" : "month"}`
+  );
+}, [numberLoanTerm]);
+
+useEffect(() => {
+  const isLoanAmountValid =
+    calculatorLoanAmount !== "" && calculatorLoanAmount >= 1000;
+  const isMonthlyIncomeValid =
+    calculatorMonthlyIncome !== "" && calculatorMonthlyIncome >= 1000;
+  const isInterestValid =
+    calculatorInterestRate !== "" && calculatorInterestRate > 0;
+
+  setLoanAmountError(!isLoanAmountValid && calculatorLoanAmount !== "");
+  setMonthlyIncomeError(
+    !isMonthlyIncomeValid && calculatorMonthlyIncome !== ""
+  );
+  setInterestRateError(!isInterestValid && calculatorInterestRate !== "");
+
+  if (isLoanAmountValid && isMonthlyIncomeValid && isInterestValid) {
+    setIsReadyToCalculate(true);
+  } else {
+    setIsReadyToCalculate(false);
+  }
+}, [calculatorLoanAmount, calculatorMonthlyIncome, calculatorInterestRate]);
+
+// Calculate available salary based on net pay and deductions
+useEffect(() => {
+  const totalNetPay = netPay15th + netPay30th - salaryDeductions;
+  setAvailableSalary(totalNetPay - threshold);
+}, [netPay15th, netPay30th, salaryDeductions, threshold]);
 
   return (
     <div className="wrapper text-default  overflow-y-scroll h-full">
@@ -161,21 +186,50 @@ const Calculator = ({ loanTerms }) => {
                 Monthly income should not be less than ₱1000.00
               </p>
             )}
-            <label className="mb-1 mt-6" htmlFor="monthlyIncome">
-              Interest Rate
+            <label className="mb-1 mt-6" htmlFor="salaryDeductions">
+              Current Loan Deductions
             </label>
             <input
               type="number"
-              min={1000}
-              id="monthlyIncome"
-              name="monthlyIncome"
-              placeholder="Type interest rate here"
-              value={calculatorInterestRate}
-              onChange={(e) => setCalculatorInterestRate(e.target.value)}
+              id="salaryDeductions"
+              name="salaryDeductions"
+              placeholder="Type deductions here"
+              value={salaryDeductions}
+              onChange={(e) => setSalaryDeductions(e.target.value)}
             />
-            {interestRateError && (
-              <p className="mt-1 text-red-600">Interest rate should not be 0</p>
-            )}
+            <label className="mb-1 mt-6" htmlFor="netPay15th">
+              Net Pay (15th)
+            </label>
+            <input
+              type="number"
+              id="netPay15th"
+              name="netPay15th"
+              placeholder="Type net pay for 15th here"
+              value={netPay15th}
+              onChange={(e) => setNetPay15th(e.target.value)}
+            />
+            <label className="mb-1 mt-6" htmlFor="netPay30th">
+              Net Pay (30th)
+            </label>
+            <input
+              type="number"
+              id="netPay30th"
+              name="netPay30th"
+              placeholder="Type net pay for 30th here"
+              value={netPay30th}
+              onChange={(e) => setNetPay30th(e.target.value)}
+            />
+            <label className="mb-1 mt-6" htmlFor="threshold">
+              Threshold Salary
+            </label>
+            <input
+              type="number"
+              id="threshold"
+              name="threshold"
+              placeholder="Type threshold salary here"
+              value={threshold}
+              onChange={(e) => setThreshold(e.target.value)}
+            />
           </section>
         </section>
         {revealResult && (
